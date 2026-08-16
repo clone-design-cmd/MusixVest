@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SongTrade - Invest in Hit Songs</title>
+    <link rel="shortcut icon" href="logo.png" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="image.png" type="image/x-icon">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(2deg); }
+        }
+
+        .animate-float { animation: float 5s ease-in-out infinite; }
+    </style>
+</head>
+<body class="bg-white text-slate-800 antialiased selection:bg-blue-500 selection:text-white">
+
+    <!-- 1. HEADER / NAVBAR (Exact proportional spacing & logo alignment) -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-100">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="index.html" class="flex items-center gap-2">
+                <img src="logo.png" alt="SONG TRADE" class="h-10 w-auto object-contain" onerror="this.src='https://via.placeholder.com/160x40?text=SONG+TRADE'">
+            </a>
+
+            <!-- Nav Links -->
+            <nav class="hidden lg:flex items-center space-x-7">
+                <a href="offerings.html" class="text-slate-500 hover:text-slate-900 font-normal text-[15px] transition-colors">Explore Offerings</a>
+                <a href="how-it-works.html" class="text-slate-500 hover:text-slate-900 font-normal text-[15px] transition-colors">How It Works</a>
+                <a href="index.html#selling" class="text-slate-500 hover:text-slate-900 font-normal text-[15px] transition-colors">Selling Royalties</a>
+                <a href="about.html" class="text-slate-500 hover:text-slate-900 font-normal text-[15px] transition-colors">About</a>
+                <a href="how-it-works.html#faq" class="text-slate-500 hover:text-slate-900 font-normal text-[15px] transition-colors">FAQ</a>
+                <a href="login.html" class="text-slate-500 hover:text-slate-900 font-normal text-[15px] transition-colors">Login</a>
+            </nav>
+
+            <!-- CTA Button -->
+            <a href="register.html" class="bg-[#3B71CA] hover:bg-[#2A5298] text-white font-medium text-sm px-6 py-2.5 rounded-lg shadow-sm transition-all duration-200">
+                Get Started
+            </a>
+        </div>
+    </header>
+
+    <!-- 2. HERO SECTION -->
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 pt-12 pb-20 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <!-- Hero Text -->
+        <div class="lg:col-span-6 space-y-6">
+            <h1 class="text-4xl sm:text-5xl xl:text-6xl font-extrabold text-[#111827] leading-[1.1] tracking-tight">
+                Make Music Your Next Investment
+            </h1>
+            <p class="text-base sm:text-lg text-slate-500 leading-relaxed max-w-lg">
+                Buy fractional shares of music royalties from your favorite artists and earn recurring income every time their music is played.
+            </p>
+            <div>
+                <a href="offerings.html" class="inline-block bg-[#3B71CA] hover:bg-[#2A5298] text-white font-medium text-base px-7 py-3.5 rounded-lg shadow-sm transition-all">
+                    Explore Offerings
+                </a>
+            </div>
+        </div>
+
+        <!-- Hero Artwork / Phone Display Layout -->
+        <div class="lg:col-span-6 relative min-h-[460px] flex items-center justify-center">
+            
+            <!-- Floating Music Note Icon -->
+            <div class="absolute top-2 right-6 z-30 bg-[#FF2D55] text-white p-3.5 rounded-2xl shadow-lg animate-float">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+            </div>
+
+            <!-- Overlapping Top Cover Art (Pink/Yellow Rihanna style) -->
+            <div class="absolute -top-2 left-12 z-20 w-40 sm:w-48 aspect-square rounded-xl overflow-hidden shadow-2xl border-2 border-white -rotate-3 hover:rotate-0 transition-transform duration-300">
+                <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=500&auto=format&fit=crop" class="w-full h-full object-cover" alt="Featured Album">
+            </div>
+
+            <!-- Overlapping Bottom Cover Art (TLC style) -->
+            <div class="absolute bottom-6 right-2 z-20 w-44 sm:w-52 aspect-square rounded-xl overflow-hidden shadow-2xl border-2 border-white rotate-3 hover:rotate-0 transition-transform duration-300">
+                <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=500&auto=format&fit=crop" class="w-full h-full object-cover" alt="Featured Track">
+            </div>
+
+            <!-- Overlapping Bottom Left Cover Art (Beyonce style) -->
+            <div class="absolute bottom-2 left-6 z-20 w-36 sm:w-44 aspect-square rounded-xl overflow-hidden shadow-2xl border-2 border-white -rotate-6">
+                <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=500&auto=format&fit=crop" class="w-full h-full object-cover" alt="Artist Album">
+            </div>
+
+            <!-- Central Phone Screen Frame -->
+            <div class="relative z-10 w-64 sm:w-72 bg-white rounded-[2.5rem] p-4 shadow-2xl border-4 border-slate-100">
+                <div class="bg-slate-50 rounded-[2rem] p-4 space-y-4">
+                    <div class="flex justify-between items-center text-xs text-slate-400 font-semibold uppercase tracking-wider border-b border-slate-200 pb-2">
+                        <span>Music Portfolio</span>
+                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    </div>
+                    <div>
+                        <p class="text-[11px] text-slate-400">Portfolio value</p>
+                        <p class="text-2xl font-extrabold text-slate-900">$28,580.32</p>
+                    </div>
+                    <div class="h-16 w-full bg-white rounded-lg p-2 flex items-end justify-between gap-1 shadow-inner">
+                        <div class="bg-blue-200 w-full h-[30%] rounded-xs"></div>
+                        <div class="bg-blue-300 w-full h-[45%] rounded-xs"></div>
+                        <div class="bg-blue-400 w-full h-[60%] rounded-xs"></div>
+                        <div class="bg-blue-500 w-full h-[85%] rounded-xs"></div>
+                        <div class="bg-[#3B71CA] w-full h-[100%] rounded-xs"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 3. PRESS / MEDIA LOGOS BAR -->
+    <div class="border-y border-slate-100 py-6 bg-slate-50/50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <p class="text-[11px] text-center font-medium text-slate-400 uppercase tracking-widest mb-4">
+                Featured in major publications
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-8 md:gap-14 text-slate-400 font-bold text-sm sm:text-base opacity-75">
+                <span>TechCrunch</span>
+                <span>MarketWatch</span>
+                <span>Forbes</span>
+                <span>VARIETY</span>
+                <span>Music Business Worldwide</span>
+                <span>Billboard</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. FEATURED OFFERINGS SECTION (3-Column Grid) -->
+    <section id="offerings" class="bg-[#F8FAFC] py-20 border-b border-slate-100">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6">
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 text-center mb-12">
+                Featured Offerings
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!-- Card 1 -->
+                <div class="bg-white rounded-xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="relative aspect-square overflow-hidden bg-slate-900">
+                        <span class="absolute top-3 left-3 z-10 bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Live</span>
+                        <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=500&auto=format&fit=crop" class="w-full h-full object-cover" alt="Stand Strong">
+                    </div>
+                    <div class="p-4 space-y-1">
+                        <p class="text-[11px] font-semibold text-slate-400 uppercase">Single Catalog</p>
+                        <h3 class="font-bold text-slate-900 text-base leading-snug">Stand Strong</h3>
+                        <p class="text-xs text-slate-500">Davido ft. Sunday Service Choir</p>
+                        <div class="pt-3 flex justify-between items-center text-xs font-medium border-t border-slate-100 mt-2">
+                            <span class="text-slate-500">Price: <strong class="text-slate-900">$100/share</strong></span>
+                            <span class="text-emerald-600 font-bold">12.4% Yield</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white rounded-xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="relative aspect-square overflow-hidden bg-slate-900">
+                        <span class="absolute top-3 left-3 z-10 bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Live</span>
+                        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=500&auto=format&fit=crop" class="w-full h-full object-cover" alt="Multi-Track">
+                    </div>
+                    <div class="p-4 space-y-1">
+                        <p class="text-[11px] font-semibold text-slate-400 uppercase">Multi-Track Catalog</p>
+                        <h3 class="font-bold text-slate-900 text-base leading-snug">Octobers Very Own</h3>
+                        <p class="text-xs text-slate-500">Various Artists</p>
+                        <div class="pt-3 flex justify-between items-center text-xs font-medium border-t border-slate-100 mt-2">
+                            <span class="text-slate-500">Shares: <strong class="text-slate-900">2,500</strong></span>
+                            <span class="text-blue-600 font-bold">VIP Auction</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white rounded-xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="relative aspect-square overflow-hidden bg-slate-900">
+                        <span class="absolute top-3 left-3 z-10 bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Live</span>
+                        <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=500&auto=format&fit=crop" class="w-full h-full object-cover" alt="Touch My Body">
+                    </div>
+                    <div class="p-4 space-y-1">
+                        <p class="text-[11px] font-semibold text-slate-400 uppercase">Songwriter Royalty</p>
+                        <h3 class="font-bold text-slate-900 text-base leading-snug">Touch My Body</h3>
+                        <p class="text-xs text-slate-500">Mariah Carey</p>
+                        <div class="pt-3 flex justify-between items-center text-xs font-medium border-t border-slate-100 mt-2">
+                            <span class="text-slate-500">Price: <strong class="text-slate-900">$125/share</strong></span>
+                            <span class="text-emerald-600 font-bold">10.1% Yield</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. WHY SongTrade (Text left + Rounded Image Right) -->
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
+            
+            <div class="md:col-span-7 space-y-6">
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">
+                    Why SongTrade?
+                </h2>
+
+                <div class="space-y-4 text-sm text-slate-600">
+                    <div>
+                        <h3 class="font-bold text-slate-900">Uncorrelated Asset</h3>
+                        <p class="mt-0.5">Music royalties generate income regardless of stock market fluctuations or economic downturns.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-900">On the Pulse of Global Streaming</h3>
+                        <p class="mt-0.5">Benefit directly from the worldwide expansion of platforms like Spotify, Apple Music, and YouTube.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-900">Top-Tier Catalog Access</h3>
+                        <p class="mt-0.5">Access fractional shares in catalogs previously reserved for institutional investors.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-900">Quarterly Distributions</h3>
+                        <p class="mt-0.5">Earn consistent passive cash flow distributed directly into your account quarterly.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="md:col-span-5 flex justify-center">
+                <div class="w-full max-w-sm aspect-[4/5] rounded-3xl overflow-hidden shadow-lg border-2 border-slate-100">
+                    <img src="https://images.unsplash.com/photo-1526478806334-5fd488fcaabc?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover" alt="Vinyl Music Collector">
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 6. GETTING STARTED IS EASY (Left image + 3 Steps right) -->
+    <section id="how-it-works" class="py-20 bg-slate-50 border-t border-slate-100">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6">
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 text-center mb-14">
+                Getting Started with SongTrade is Easy
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
+                
+                <div class="md:col-span-5">
+                    <div class="aspect-[4/3] rounded-2xl overflow-hidden shadow-md">
+                        <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover" alt="Concert Crowd">
+                    </div>
+                </div>
+
+                <div class="md:col-span-7 space-y-6">
+                    <div class="flex gap-4 items-start">
+                        <div class="w-10 h-10 rounded-full bg-[#3B71CA] text-white flex items-center justify-center font-bold text-sm shrink-0">
+                            1
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-900 text-base">Browse Offerings</h3>
+                            <p class="text-xs sm:text-sm text-slate-500 mt-1">Review available song catalogs, historical performance metrics, and financial records.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 items-start">
+                        <div class="w-10 h-10 rounded-full bg-[#3B71CA] text-white flex items-center justify-center font-bold text-sm shrink-0">
+                            2
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-900 text-base">Buy SongShares</h3>
+                            <p class="text-xs sm:text-sm text-slate-500 mt-1">Reserve or purchase fractional shares directly through our secure marketplace.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 items-start">
+                        <div class="w-10 h-10 rounded-full bg-[#3B71CA] text-white flex items-center justify-center font-bold text-sm shrink-0">
+                            3
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-900 text-base">Start Earning and Connect</h3>
+                            <p class="text-xs sm:text-sm text-slate-500 mt-1">Collect cash distributions directly into your wallet whenever your songs generate revenue.</p>
+                        </div>
+                    </div>
+
+                    <div class="pt-2">
+                        <a href="#get-started" class="bg-[#3B71CA] hover:bg-[#2A5298] text-white font-medium text-sm px-6 py-2.5 rounded-lg transition-all inline-block">
+                            Get Started
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. RIGHTSHOLDER CARD BANNER -->
+    <section id="selling" class="max-w-5xl mx-auto px-4 sm:px-6 my-16">
+        <div class="bg-slate-100 rounded-2xl p-8 sm:p-12 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8 border border-slate-200/60">
+            <div class="space-y-4 max-w-lg z-10">
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-tight">
+                    Are you an artist, songwriter, or other rightsholder?
+                </h2>
+                <div>
+                    <a href="#contact" class="inline-block bg-[#839F8A] hover:bg-[#6F8A76] text-white font-semibold text-sm px-6 py-3 rounded-lg transition-all">
+                        Contact Us
+                    </a>
+                </div>
+            </div>
+
+            <div class="z-10 shrink-0">
+                <div class="w-40 sm:w-48 aspect-square rounded-xl overflow-hidden shadow-md">
+                    <img src="https://images.unsplash.com/photo-1598387993441-a364f854c3e1?q=80&w=500&auto=format&fit=crop" class="w-full h-full object-cover" alt="Studio Artist">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. FOOTER (Blue Card Form + Navigation Links) -->
+    <footer class="bg-white pt-12 pb-8 border-t border-slate-100 text-xs text-slate-500">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-slate-100">
+            
+            <!-- Footer Links Left -->
+            <div class="md:col-span-3 space-y-2">
+                <p class="font-bold text-slate-900 mb-3">Menu</p>
+                <p><a href="offerings.html" class="hover:text-slate-900">Explore Offerings</a></p>
+                <p><a href="how-it-works.html" class="hover:text-slate-900">How It Works</a></p>
+                <p><a href="index.html#selling" class="hover:text-slate-900">Selling Royalties</a></p>
+                <p><a href="about.html" class="hover:text-slate-900">About</a></p>
+                <p><a href="how-it-works.html#faq" class="hover:text-slate-900">FAQ</a></p>
+            </div>
+
+            <!-- Blue Newsletter Form Box Right -->
+            <div class="md:col-span-6 bg-[#3B71CA] text-white p-6 rounded-2xl space-y-3">
+                <h3 class="text-base font-bold text-center">Stay Updated</h3>
+                <p class="text-[11px] text-blue-100 text-center leading-normal">
+                    If you would like to receive information about upcoming auctions or open offers, please fill out the form below.
+                </p>
+                <form class="space-y-2 max-w-sm mx-auto pt-1" onsubmit="event.preventDefault();">
+                    <input type="text" placeholder="Full Name" class="w-full bg-white text-slate-900 text-xs px-3 py-2 rounded focus:outline-none">
+                    <input type="email" placeholder="Email" class="w-full bg-white text-slate-900 text-xs px-3 py-2 rounded focus:outline-none">
+                    <div class="text-center pt-1">
+                        <button type="submit" class="bg-white text-[#3B71CA] font-bold text-xs px-6 py-2 rounded hover:bg-blue-50 transition-colors">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+        <!-- Legal Disclaimer -->
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 pt-6 space-y-2 text-[10px] text-slate-400 leading-normal">
+            <p>
+                SongTrade / SongTrade is not a registered broker-dealer or funding portal. Investments in music royalty assets involve significant risk and are speculative. Past performance is no guarantee of future streaming yield or value performance.
+            </p>
+            <p class="text-center pt-2">
+                © 2026 SongTrade, Inc. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>

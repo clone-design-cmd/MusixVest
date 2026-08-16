@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SongTrade - Explore Offerings</title>
+    <link rel="shortcut icon" href="image.png" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; }
+        .sidebar-width { width: 150px; }
+        .content-offset { margin-left: 150px; }
+
+        @media (max-width: 1023px) {
+            .sidebar-width { width: 150px; }
+            .content-offset { margin-left: 0; }
+        }
+
+        .offering-card {
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 1px 4px rgba(0,0,0,.04);
+        }
+
+        .offering-card:hover {
+            box-shadow: 0 5px 16px rgba(0,0,0,.08);
+            transform: translateY(-2px);
+        }
+
+        .footer-link {
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+    </style>
+</head>
+
+<body class="bg-white text-slate-700 antialiased"
+      x-data="{ sidebarOpen: false, profileOpen: false, tab: 'live' }">
+
+    <!-- MOBILE OVERLAY -->
+    <div
+        x-show="sidebarOpen"
+        x-transition.opacity
+        @click="sidebarOpen = false"
+        class="fixed inset-0 bg-black/40 z-40 lg:hidden"
+        style="display:none"
+    ></div>
+
+    <!-- LEFT SIDEBAR -->
+    <aside
+        class="sidebar-width fixed left-0 top-0 bottom-0 bg-white border-r border-slate-200 z-50 flex flex-col"
+        :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
+        style="transition: transform .2s ease;"
+    >
+        <!-- REAL SONGTRADE LOGO -->
+        <div class="h-[104px] flex items-center justify-center border-b border-slate-100 px-3">
+            <a href="index.html">
+                <img src="logo.png" alt="SongTrade" class="w-[112px] h-auto object-contain">
+            </a>
+        </div>
+
+        <nav class="flex-1 pt-5">
+            <a href="dashboard.html"
+               class="flex items-center gap-2.5 px-5 py-3 text-[11px] font-medium text-slate-700 hover:bg-slate-50">
+                <svg class="w-[19px] h-[19px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-width="1.5" d="M4 5h16v14H4zM8 9h8M8 13h5"/>
+                </svg>
+                Dashboard
+            </a>
+
+            <a href="dashboard.html#investments"
+               class="flex items-center gap-2.5 px-5 py-3 text-[11px] font-medium text-slate-700 hover:bg-slate-50">
+                <svg class="w-[19px] h-[19px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-width="1.5" d="M12 3v18M7 7h10M6 12h12M7 17h10"/>
+                </svg>
+                My Investments
+            </a>
+
+            <!-- ACTIVE -->
+            <a href="offerings.html"
+               class="relative flex items-center gap-2.5 px-5 py-3 text-[11px] font-semibold text-[#3974bd] bg-blue-50/20">
+                <span class="absolute left-0 top-0 bottom-0 w-[3px] bg-[#3974bd]"></span>
+                <svg class="w-[19px] h-[19px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-width="1.5" d="M4 7h16v13H4zM7 7V5a5 5 0 0110 0v2"/>
+                </svg>
+                Open Bids/Offers
+            </a>
+
+            <a href="offerings.html#favorites" class="flex items-center gap-2.5 px-5 py-3 text-[11px] font-medium text-slate-700 hover:bg-slate-50">
+                <svg class="w-[19px] h-[19px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-width="1.5" d="M12 20s-7-4.4-7-10a4 4 0 017-2.4A4 4 0 0119 10c0 5.6-7 10-7 10z"/>
+                </svg>
+                Favorites
+            </a>
+
+            <a href="dashboard.html#transactions" class="flex items-center gap-2.5 px-5 py-3 text-[11px] font-medium text-slate-700 hover:bg-slate-50">
+                <svg class="w-[19px] h-[19px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-width="1.5" d="M6 4h9l3 3v13H6zM9 10h6M9 14h6M9 18h4"/>
+                </svg>
+                Invoices
+            </a>
+
+            <a href="settings.html#payments" class="flex items-center gap-2.5 px-5 py-3 text-[11px] font-medium text-slate-700 hover:bg-slate-50">
+                <svg class="w-[19px] h-[19px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <rect x="3" y="6" width="18" height="13" rx="2" stroke-width="1.5"/>
+                    <path stroke-width="1.5" d="M3 10h18M7 15h3"/>
+                </svg>
+                Payment Details
+            </a>
+
+            <a href="settings.html" class="flex items-center gap-2.5 px-5 py-3 text-[11px] font-medium text-slate-700 hover:bg-slate-50">
+                <svg class="w-[19px] h-[19px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-width="1.5" d="M12 3l1.5 2.4 2.8.4.7 2.7 2.4 1.5-1.2 2.5 1.2 2.5-2.4 1.5-.7 2.7-2.8.4L12 21l-1.5-2.4-2.8-.4-.7-2.7-2.4-1.5 1.2-2.5-1.2-2.5 2.4-1.5.7-2.7 2.8-.4z"/>
+                    <circle cx="12" cy="12" r="3" stroke-width="1.5"/>
+                </svg>
+                Settings
+            </a>
+        </nav>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="content-offset min-h-screen flex flex-col">
+
+        <!-- HEADER -->
+        <header class="sticky top-0 z-30 bg-gradient-to-r from-[#071342] via-[#06275c] to-[#07569a] text-white">
+
+            <div class="h-[68px] px-5 lg:px-6 flex items-center justify-between">
+
+                <div class="flex items-center gap-5">
+                    <button @click="sidebarOpen = true" class="lg:hidden">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+
+                    <nav class="hidden lg:flex items-center gap-7 text-[11px] font-medium">
+                        <a href="offerings.html" class="text-white font-semibold">Explore Offerings</a>
+                        <a href="how-it-works.html" class="hover:text-white/80">How It Works</a>
+                        <a href="index.html#selling" class="hover:text-white/80">Selling Royalties</a>
+                        <a href="about.html" class="hover:text-white/80">About</a>
+                    </nav>
+                </div>
+
+                <div class="flex items-center gap-5">
+
+                    <div class="hidden sm:block relative">
+                        <svg class="absolute left-3 top-2.5 w-3.5 h-3.5 text-blue-100/80"
+                             fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <circle cx="11" cy="11" r="7" stroke-width="2"/>
+                            <path stroke-width="2" d="m20 20-4-4"/>
+                        </svg>
+                        <input
+                            type="search"
+                            placeholder="Search"
+                            class="w-[150px] h-[30px] rounded-lg bg-white/15 border border-white/10 pl-8 pr-3 text-[10px] text-white placeholder:text-white/80 outline-none focus:bg-white/20"
+                        >
+                    </div>
+
+                    <button class="hover:text-blue-100" title="Cart">
+                        <svg class="w-[17px] h-[17px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-width="1.5" d="M3 4h2l2 12h11l3-8H6M9 20a1 1 0 100-2 1 1 0 000 2zm8 0a1 1 0 100-2 1 1 0 000 2z"/>
+                        </svg>
+                    </button>
+
+                    <div class="relative">
+                        <button @click="profileOpen = !profileOpen" class="flex items-center gap-2 text-[11px] font-semibold">
+                            <span class="w-7 h-7 rounded-full border border-white/20 bg-white/10 flex items-center justify-center">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="8" r="3" stroke-width="1.5"/>
+                                    <path stroke-width="1.5" d="M5 20a7 7 0 0114 0"/>
+                                </svg>
+                            </span>
+                            <span class="hidden sm:inline">Hi James</span>
+                            <svg class="w-3 h-3 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-width="2" d="m7 10 5 5 5-5"/>
+                            </svg>
+                        </button>
+
+                        <div
+                            x-show="profileOpen"
+                            @click.outside="profileOpen = false"
+                            x-transition
+                            class="absolute right-0 mt-2 w-36 rounded-lg bg-white text-slate-700 shadow-xl border border-slate-100 py-1"
+                            style="display:none"
+                        >
+                            <a href="dashboard.html" class="block px-4 py-2 text-[11px] hover:bg-slate-50">Profile</a>
+                            <a href="settings.html" class="block px-4 py-2 text-[11px] hover:bg-slate-50">Settings</a>
+                            <a href="login.html" class="block px-4 py-2 text-[11px] text-red-600 hover:bg-red-50">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE TITLE -->
+            <div class="h-[58px] border-t border-white/10 bg-[#061a4b]/65 flex items-center px-5 lg:px-6">
+                <div class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-blue-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-width="1.5" d="M4 5h16v14H4zM8 9h8M8 13h5"/>
+                    </svg>
+                    <h1 class="text-[13px] font-bold">Explore Offerings</h1>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENT -->
+        <main id="favorites" class="flex-1 bg-white px-5 sm:px-7 lg:px-6 xl:px-7 py-8">
+
+            <div class="max-w-[1050px] mx-auto">
+
+                <!-- TABS -->
+                <div class="border-b border-slate-200 mb-7">
+                    <div class="flex items-center gap-7 overflow-x-auto">
+                        <button
+                            @click="tab = 'artists'"
+                            :class="tab === 'artists' ? 'text-[#3974bd] border-[#3974bd] font-bold' : 'text-slate-500 border-transparent'"
+                            class="pb-3 text-[12px] border-b-2 whitespace-nowrap">
+                            Artists
+                        </button>
+
+                        <button
+                            @click="tab = 'live'"
+                            :class="tab === 'live' ? 'text-[#3974bd] border-[#3974bd] font-bold' : 'text-slate-500 border-transparent'"
+                            class="pb-3 text-[12px] border-b-2 whitespace-nowrap">
+                            Live Now
+                        </button>
+
+                        <button
+                            @click="tab = 'upcoming'"
+                            :class="tab === 'upcoming' ? 'text-[#3974bd] border-[#3974bd] font-bold' : 'text-slate-500 border-transparent'"
+                            class="pb-3 text-[12px] border-b-2 whitespace-nowrap">
+                            Upcoming Sales
+                        </button>
+                    </div>
+                </div>
+
+                <!-- CONTROLS -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-7">
+
+                    <div class="flex items-center gap-2 text-[11px] text-slate-500">
+                        <span>Results</span>
+                        <select class="h-8 border border-slate-200 rounded-md bg-white px-2 text-[11px] text-slate-600 outline-none">
+                            <option>12 per page</option>
+                            <option>24 per page</option>
+                            <option>36 per page</option>
+                        </select>
+                    </div>
+
+                    <div class="flex items-center gap-2 text-[11px] text-slate-500">
+                        <span>Sort by</span>
+                        <select class="h-8 border border-slate-200 rounded-md bg-white px-3 text-[11px] text-slate-600 outline-none">
+                            <option>Featured</option>
+                            <option>Newest</option>
+                            <option>Ending Soon</option>
+                            <option>Artist A-Z</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- OFFERING GRID -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+
+                    <!-- CARD 1 -->
+                    <article class="offering-card rounded-xl bg-white p-3 transition-all">
+                        <div class="relative aspect-square rounded-lg overflow-hidden bg-slate-100">
+                            <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&auto=format&fit=crop"
+                                 class="w-full h-full object-cover" alt="Stand Strong Cover">
+                            <span class="absolute top-3 left-3 bg-red-600 text-white text-[9px] font-bold px-2 py-1 rounded-full uppercase">On Sale!</span>
+                            <button class="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/90 text-slate-600 hover:text-red-500">♡</button>
+                            <div class="absolute bottom-3 left-3 bg-black/60 text-white px-2 py-1 rounded-full text-[9px]">
+                                Taboo
+                            </div>
+                        </div>
+                        <div class="pt-3 space-y-2">
+                            <div class="flex justify-between text-[9px] text-slate-500">
+                                <span>Ends in: 58D:15H:20M</span>
+                                <span class="bg-slate-100 px-2 py-0.5 rounded">Songshares</span>
+                            </div>
+                            <h3 class="font-bold text-[11px] leading-snug text-slate-900">
+                                Taboo (feat. Angelica Nicole) - "Stand Strong"
+                            </h3>
+                            <button class="w-full mt-1 py-2 rounded-md bg-[#3974bd] text-white text-[10px] font-semibold hover:bg-[#2d64a7]">
+                                View Offering
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- CARD 2 -->
+                    <article class="offering-card rounded-xl bg-white p-3 transition-all">
+                        <div class="relative aspect-square rounded-lg overflow-hidden bg-slate-100">
+                            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop"
+                                 class="w-full h-full object-cover" alt="Queen Under Pressure">
+                            <span class="absolute top-3 left-3 bg-red-600 text-white text-[9px] font-bold px-2 py-1 rounded-full uppercase">On Sale!</span>
+                            <button class="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/90 text-slate-600 hover:text-red-500">♡</button>
+                            <div class="absolute bottom-3 left-3 bg-black/60 text-white px-2 py-1 rounded-full text-[9px]">Queen</div>
+                        </div>
+                        <div class="pt-3 space-y-2">
+                            <div class="flex justify-between text-[9px] text-slate-500">
+                                <span>Ends in: 22D:15H:20M</span>
+                                <span class="bg-slate-100 px-2 py-0.5 rounded">Songshares</span>
+                            </div>
+                            <h3 class="font-bold text-[11px] leading-snug text-slate-900">
+                                Queen - "Under Pressure" (Series 2)
+                            </h3>
+                            <button class="w-full mt-1 py-2 rounded-md bg-[#3974bd] text-white text-[10px] font-semibold hover:bg-[#2d64a7]">
+                                View Offering
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- CARD 3 -->
+                    <article class="offering-card rounded-xl bg-white p-3 transition-all">
+                        <div class="relative aspect-square rounded-lg overflow-hidden bg-slate-100">
+                            <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&auto=format&fit=crop"
+                                 class="w-full h-full object-cover" alt="Beyoncé Radio">
+                            <span class="absolute top-3 left-3 bg-red-600 text-white text-[9px] font-bold px-2 py-1 rounded-full uppercase">On Sale!</span>
+                            <button class="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/90 text-slate-600 hover:text-red-500">♡</button>
+                            <div class="absolute bottom-3 left-3 bg-black/60 text-white px-2 py-1 rounded-full text-[9px]">Beyoncé</div>
+                        </div>
+                        <div class="pt-3 space-y-2">
+                            <div class="flex justify-between text-[9px] text-slate-500">
+                                <span>Ends in: 22D:15H:20M</span>
+                                <span class="bg-slate-100 px-2 py-0.5 rounded">Songshares</span>
+                            </div>
+                            <h3 class="font-bold text-[11px] leading-snug text-slate-900">
+                                Beyoncé - "Radio" (Series 2)
+                            </h3>
+                            <button class="w-full mt-1 py-2 rounded-md bg-[#3974bd] text-white text-[10px] font-semibold hover:bg-[#2d64a7]">
+                                View Offering
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- CARD 4 -->
+                    <article class="offering-card rounded-xl bg-white p-3 transition-all">
+                        <div class="relative aspect-square rounded-lg overflow-hidden bg-slate-100">
+                            <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&auto=format&fit=crop"
+                                 class="w-full h-full object-cover" alt="Mariah Carey">
+                            <span class="absolute top-3 left-3 bg-red-600 text-white text-[9px] font-bold px-2 py-1 rounded-full uppercase">On Sale!</span>
+                            <button class="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/90 text-slate-600 hover:text-red-500">♡</button>
+                            <div class="absolute bottom-3 left-3 bg-black/60 text-white px-2 py-1 rounded-full text-[9px]">Mariah Carey</div>
+                        </div>
+                        <div class="pt-3 space-y-2">
+                            <div class="flex justify-between text-[9px] text-slate-500">
+                                <span>Ends in: 207D:06H:09M</span>
+                                <span class="bg-slate-100 px-2 py-0.5 rounded">Songshares</span>
+                            </div>
+                            <h3 class="font-bold text-[11px] leading-snug text-slate-900">
+                                Mariah Carey - Vol. 1
+                            </h3>
+                            <button class="w-full mt-1 py-2 rounded-md bg-[#3974bd] text-white text-[10px] font-semibold hover:bg-[#2d64a7]">
+                                View Offering
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- CARD 5 -->
+                    <article class="offering-card rounded-xl bg-white p-3 transition-all">
+                        <div class="relative aspect-square rounded-lg overflow-hidden bg-slate-100">
+                            <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600&auto=format&fit=crop"
+                                 class="w-full h-full object-cover" alt="Rachel Platten">
+                            <span class="absolute top-3 left-3 bg-red-600 text-white text-[9px] font-bold px-2 py-1 rounded-full uppercase">On Sale!</span>
+                            <button class="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/90 text-slate-600 hover:text-red-500">♡</button>
+                            <div class="absolute bottom-3 left-3 bg-black/60 text-white px-2 py-1 rounded-full text-[9px]">Rachel Platten</div>
+                        </div>
+                        <div class="pt-3 space-y-2">
+                            <div class="flex justify-between text-[9px] text-slate-500">
+                                <span>Ends in: 22D:15H:20M</span>
+                                <span class="bg-slate-100 px-2 py-0.5 rounded">Songshares</span>
+                            </div>
+                            <h3 class="font-bold text-[11px] leading-snug text-slate-900">
+                                Rachel Platten - "Fight Song"
+                            </h3>
+                            <button class="w-full mt-1 py-2 rounded-md bg-[#3974bd] text-white text-[10px] font-semibold hover:bg-[#2d64a7]">
+                                View Offering
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- CARD 6 -->
+                    <article class="offering-card rounded-xl bg-white p-3 transition-all">
+                        <div class="relative aspect-square rounded-lg overflow-hidden bg-slate-100">
+                            <img src="https://images.unsplash.com/photo-1511735111819-9a3f7709049c?w=600&auto=format&fit=crop"
+                                 class="w-full h-full object-cover" alt="Pitbull">
+                            <span class="absolute top-3 left-3 bg-red-600 text-white text-[9px] font-bold px-2 py-1 rounded-full uppercase">On Sale!</span>
+                            <button class="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/90 text-slate-600 hover:text-red-500">♡</button>
+                            <div class="absolute bottom-3 left-3 bg-black/60 text-white px-2 py-1 rounded-full text-[9px]">Pitbull</div>
+                        </div>
+                        <div class="pt-3 space-y-2">
+                            <div class="flex justify-between text-[9px] text-slate-500">
+                                <span>Ends in: 22D:15H:20M</span>
+                                <span class="bg-slate-100 px-2 py-0.5 rounded">Songshares</span>
+                            </div>
+                            <h3 class="font-bold text-[11px] leading-snug text-slate-900">
+                                Chris Brown & Pitbull - Vol.1
+                            </h3>
+                            <button class="w-full mt-1 py-2 rounded-md bg-[#3974bd] text-white text-[10px] font-semibold hover:bg-[#2d64a7]">
+                                View Offering
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- CARD 7 -->
+                    <article class="offering-card rounded-xl bg-white p-3 transition-all">
+                        <div class="relative aspect-square rounded-lg overflow-hidden bg-slate-100">
+                            <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&auto=format&fit=crop"
+                                 class="w-full h-full object-cover" alt="Chris Brown">
+                            <span class="absolute top-3 left-3 bg-red-600 text-white text-[9px] font-bold px-2 py-1 rounded-full uppercase">On Sale!</span>
+                            <button class="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/90 text-slate-600 hover:text-red-500">♡</button>
+                            <div class="absolute bottom-3 left-3 bg-black/60 text-white px-2 py-1 rounded-full text-[9px]">Chris Brown</div>
+                        </div>
+                        <div class="pt-3 space-y-2">
+                            <div class="flex justify-between text-[9px] text-slate-500">
+                                <span>Ends in: 22D:15H:20M</span>
+                                <span class="bg-slate-100 px-2 py-0.5 rounded">Songshares</span>
+                            </div>
+                            <h3 class="font-bold text-[11px] leading-snug text-slate-900">
+                                Chris Brown - "Go Crazy"
+                            </h3>
+                            <button class="w-full mt-1 py-2 rounded-md bg-[#3974bd] text-white text-[10px] font-semibold hover:bg-[#2d64a7]">
+                                View Offering
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- CARD 8 -->
+                    <article class="offering-card rounded-xl bg-white p-3 transition-all opacity-90">
+                        <div class="relative aspect-square rounded-lg overflow-hidden bg-slate-100">
+                            <img src="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=600&auto=format&fit=crop"
+                                 class="w-full h-full object-cover grayscale" alt="Duran Duran">
+                            <span class="absolute top-3 left-3 bg-red-600 text-white text-[9px] font-bold px-2 py-1 rounded-full uppercase">Sold Out</span>
+                            <button class="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/90 text-slate-600 hover:text-red-500">♡</button>
+                            <div class="absolute bottom-3 left-3 bg-black/60 text-white px-2 py-1 rounded-full text-[9px]">Duran Duran</div>
+                        </div>
+                        <div class="pt-3 space-y-2">
+                            <div class="flex justify-between text-[9px] text-slate-500">
+                                <span class="text-red-500 font-semibold">Sold Out</span>
+                                <span class="bg-slate-100 px-2 py-0.5 rounded">Songshares</span>
+                            </div>
+                            <h3 class="font-bold text-[11px] leading-snug text-slate-900">
+                                Duran Duran - "Come Undone" (Series 2)
+                            </h3>
+                            <button disabled class="w-full mt-1 py-2 rounded-md bg-slate-200 text-slate-500 text-[10px] font-semibold cursor-not-allowed">
+                                Sold Out
+                            </button>
+                        </div>
+                    </article>
+
+                </div>
+
+                <!-- PAGINATION -->
+                <div class="mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[10px] text-slate-500">
+                    <span>Showing 1-12 of 35</span>
+
+                    <div class="flex items-center gap-1">
+                        <button class="w-7 h-7 rounded border border-slate-200 hover:bg-slate-50">‹</button>
+                        <button class="w-7 h-7 rounded bg-[#3974bd] text-white font-semibold">1</button>
+                        <button class="w-7 h-7 rounded border border-slate-200 hover:bg-slate-50">2</button>
+                        <button class="w-7 h-7 rounded border border-slate-200 hover:bg-slate-50">3</button>
+                        <button class="w-7 h-7 rounded border border-slate-200 hover:bg-slate-50">›</button>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="bg-[#3478bd] text-white">
+            <div class="max-w-[1050px] mx-auto px-5 lg:px-6 py-9">
+
+                <div class="flex flex-col lg:flex-row items-center justify-between gap-6 pb-6 border-b border-white/15">
+
+                    <a href="index.html" class="shrink-0">
+                        <img src="logo.png" alt="SongTrade" class="w-[125px] h-auto brightness-0 invert">
+                    </a>
+
+                    <div class="flex flex-wrap justify-center gap-x-3 gap-y-2 text-[9px] text-white/90">
+                        <a href="index.html#selling" class="footer-link">Music Creators/Sell Royalties</a>
+                        <span>•</span>
+                        <a href="offerings.html" class="footer-link">Current Auctions</a>
+                        <span>•</span>
+                        <a href="about.html" class="footer-link">About Us</a>
+                        <span>•</span>
+                        <a href="index.html#offerings" class="footer-link">News</a>
+                        <span>•</span>
+                        <a href="how-it-works.html#faq" class="footer-link">FAQs</a>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <a href="index.html" class="w-7 h-7 rounded-full bg-white flex items-center justify-center text-[#3478bd] font-bold text-[10px]">◎</a>
+                        <a href="index.html" class="w-7 h-7 rounded-full bg-white flex items-center justify-center text-[#3478bd] font-bold text-[11px]">f</a>
+                        <a href="index.html" class="w-7 h-7 rounded-full bg-white flex items-center justify-center text-[#3478bd] font-bold text-[10px]">𝕏</a>
+                        <a href="index.html" class="w-7 h-7 rounded-full bg-white flex items-center justify-center text-[#3478bd] font-bold text-[10px]">in</a>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row justify-between gap-3 py-6 text-[9px] text-white/90">
+                    <span>© 2026 SongTrade. All rights reserved.</span>
+                    <div class="flex flex-wrap gap-3">
+                        <a href="about.html" class="footer-link">Terms of Use</a>
+                        <a href="about.html" class="footer-link">Privacy Policy</a>
+                        <a href="about.html" class="footer-link">Offering Circular</a>
+                    </div>
+                </div>
+
+                <div class="space-y-4 text-[8px] leading-relaxed text-white/90">
+                    <p>
+                        This is a demonstration dashboard created for the SongTrade project. The interface is inspired by the
+                        layout and information architecture of a music-rights investment platform.
+                    </p>
+                    <p>
+                        <strong>IMPORTANT:</strong> SongTrade is a project name used for this replica. Information displayed here is
+                        illustrative only and should not be interpreted as financial, investment, legal, or tax advice.
+                    </p>
+                    <p>
+                        Music royalty investments can involve substantial risk, including the possible loss of invested capital.
+                        Review all applicable documentation and obtain independent professional advice before making any real
+                        investment decision.
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+</body>
+</html>

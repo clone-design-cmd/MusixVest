@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SongTrade - Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; }
+        .sidebar-width { width: 150px; }
+        .content-offset { margin-left: 150px; }
+        .brand-mark {
+            width: 28px;
+            height: 34px;
+            position: relative;
+            display: inline-block;
+        }
+        .brand-mark::before {
+            content: "";
+            position: absolute;
+            width: 8px;
+            height: 28px;
+            left: 7px;
+            top: 3px;
+            background: #123c73;
+            transform: skew(-17deg) rotate(20deg);
+            border-radius: 2px;
+        }
+        .brand-mark::after {
+            content: "";
+            position: absolute;
+            width: 7px;
+            height: 20px;
+            left: 15px;
+            top: 0;
+            background: #4d82c8;
+            transform: skew(-18deg) rotate(25deg);
+            border-radius: 2px;
+        }
+        .stat-card { min-height: 82px; }
+        .dashboard-card {
+            border: 1px solid #e6e6e6;
+            box-shadow: 0 2px 7px rgba(0,0,0,.06);
+        }
+        .table-card {
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 1px 4px rgba(0,0,0,.035);
+        }
+        .footer-link { text-decoration: underline; text-underline-offset: 2px; }
+        @media (max-width: 1023px) {
+            .sidebar-width { width: 0; }
+            .content-offset { margin-left: 0; }
+        }
+    </style>
+</head>
+
+<body class="bg-white text-slate-700 antialiased" x-data="{ sidebarOpen: false, profileOpen: false }">
+
+    <!-- MOBILE OVERLAY -->
+    <div
+        x-show="sidebarOpen"
+        x-transition.opacity
+        @click="sidebarOpen = false"
+        class="fixed inset-0 bg-black/40 z-40 lg:hidden"
+        style="display:none"
+    ></div>
+
+    <!-- LEFT SIDEBAR -->
+    <aside
+        class="sidebar-width fixed left-0 top-0 bottom-0 bg-white border-r border-slate-200 z-50 flex flex-col"
+        :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
+        style="transition: transform .2s ease;"
+    >
+        <!-- BRAND -->
+        <div class="h-[104px] flex items-center justify-center border-b border-slate-100">
+            <a href="index.html" class="flex flex-col items-center">
+                <span class="brand-mark"></span>
+                <span class="text-[14px] font-extrabold tracking-tight text-slate-800 leading-none">SONGTRADE</span>
+            </a>
+        </div>
+
+        <!-- SIDEBAR NAV -->
+        <nav class="flex-1 pt-5">
+            <a href="dashboard.html"
+               class="relative flex items-center gap-2.5 px-5 py-3 text-[11px] font-semibold text-[#3974bd] bg-blue-50/20">
+                <span class="absolute left-0 top-0 bottom-0 w-[3px] bg-[#3974bd]"></span>
+                <svg class="w-[19px] h-[19px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-width="1.5" d="M4 5h16v14H4zM8 9h8M8 13h5"/>
+                </svg>
+                Dashboard
+            </a>
+
+            <a href="dashboard.html#investments" class="flex items-center gap-2.5 px-5 py-3 text-[11px] font-medium text-slate-700 hover:bg-slate-50">
+                <svg class="w-[19px] h-[19px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-width="1.5" d="M12 3v18M7 7h10M6 12h12M7 17h10"/>
+                </svg>
+                My Investments
+            </a>
+
+            <a href="offerings.html" class="flex items-center gap-2.5 px-5 py-3 text-[11px] font-medium text-slate-700 hover:bg-slate-50">
+                <svg class="w-[19px] h-[19px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-width="1.5" d="M4 7h16v13H4zM7 7V5a5 5 0 0110 0v2"/>
+                </svg>
+                Open Bids/Offers
+            </a>
+
+            <a href="offerings.html#favorites" class="flex items-center gap-2.5 px-5 py-3 text-[11px] font-medium text-slate-700 hover:bg-slate-50">
+                <svg class="w-[19px] h-[19px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-width="1.5" d="M12 20s-7-4.4-7-10a4 4 0 017-2.4A4 4 0 0119 10c0 5.6-7 10-7 10z"/>
+                </svg>
+                Favorites
+            </a>
+
+            <a href="dashboard.html#transactions" class="flex items-center gap-2.5 px-5 py-3 text-[11px] font-medium text-slate-700 hover:bg-slate-50">
+                <svg class="w-[19px] h-[19px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-width="1.5" d="M6 4h9l3 3v13H6zM9 10h6M9 14h6M9 18h4"/>
+                </svg>
+                Invoices
+            </a>
+
+            <a href="settings.html#payments" class="flex items-center gap-2.5 px-5 py-3 text-[11px] font-medium text-slate-700 hover:bg-slate-50">
+                <svg class="w-[19px] h-[19px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <rect x="3" y="6" width="18" height="13" rx="2" stroke-width="1.5"/>
+                    <path stroke-width="1.5" d="M3 10h18M7 15h3"/>
+                </svg>
+                Payment Details
+            </a>
+
+            <a href="settings.html" class="flex items-center gap-2.5 px-5 py-3 text-[11px] font-medium text-slate-700 hover:bg-slate-50">
+                <svg class="w-[19px] h-[19px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-width="1.5" d="M12 3l1.5 2.4 2.8.4.7 2.7 2.4 1.5-1.2 2.5 1.2 2.5-2.4 1.5-.7 2.7-2.8.4L12 21l-1.5-2.4-2.8-.4-.7-2.7-2.4-1.5 1.2-2.5-1.2-2.5 2.4-1.5.7-2.7 2.8-.4z"/>
+                    <circle cx="12" cy="12" r="3" stroke-width="1.5"/>
+                </svg>
+                Settings
+            </a>
+        </nav>
+    </aside>
+
+    <!-- MAIN AREA -->
+    <div class="content-offset min-h-screen flex flex-col">
+
+        <!-- TOP HEADER -->
+        <header class="sticky top-0 z-30 bg-gradient-to-r from-[#071342] via-[#06275c] to-[#07569a] text-white">
+            <div class="h-[68px] px-5 lg:px-6 flex items-center justify-between">
+                <div class="flex items-center gap-5">
+                    <button @click="sidebarOpen = true" class="lg:hidden">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+
+                    <nav class="hidden lg:flex items-center gap-7 text-[11px] font-medium text-white/95">
+                        <a href="offerings.html" class="hover:text-white">Explore Offerings</a>
+                        <a href="how-it-works.html" class="hover:text-white">How It Works</a>
+                        <a href="index.html#selling" class="hover:text-white">Selling Royalties</a>
+                        <a href="about.html" class="hover:text-white">About</a>
+                    </nav>
+                </div>
+
+                <div class="flex items-center gap-5">
+                    <!-- SEARCH -->
+                    <div class="hidden sm:block relative">
+                        <svg class="absolute left-3 top-2.5 w-3.5 h-3.5 text-blue-100/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <circle cx="11" cy="11" r="7" stroke-width="2"/>
+                            <path stroke-width="2" d="m20 20-4-4"/>
+                        </svg>
+                        <input
+                            type="search"
+                            placeholder="Search"
+                            class="w-[150px] h-[30px] rounded-lg bg-white/15 border border-white/10 pl-8 pr-3 text-[10px] text-white placeholder:text-white/80 outline-none focus:bg-white/20"
+                        >
+                    </div>
+
+                    <!-- CART -->
+                    <button class="hover:text-blue-100" title="Cart">
+                        <svg class="w-[17px] h-[17px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-width="1.5" d="M3 4h2l2 12h11l3-8H6M9 20a1 1 0 100-2 1 1 0 000 2zm8 0a1 1 0 100-2 1 1 0 000 2z"/>
+                        </svg>
+                    </button>
+
+                    <!-- PROFILE -->
+                    <div class="relative">
+                        <button @click="profileOpen = !profileOpen" class="flex items-center gap-2 text-[11px] font-semibold">
+                            <span class="w-7 h-7 rounded-full border border-white/20 bg-white/10 flex items-center justify-center">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="8" r="3" stroke-width="1.5"/>
+                                    <path stroke-width="1.5" d="M5 20a7 7 0 0114 0"/>
+                                </svg>
+                            </span>
+                            <span class="hidden sm:inline">Hi James</span>
+                            <svg class="w-3 h-3 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-width="2" d="m7 10 5 5 5-5"/>
+                            </svg>
+                        </button>
+
+                        <div
+                            x-show="profileOpen"
+                            @click.outside="profileOpen = false"
+                            x-transition
+                            class="absolute right-0 mt-2 w-36 rounded-lg bg-white text-slate-700 shadow-xl border border-slate-100 py-1"
+                            style="display:none"
+                        >
+                            <a href="dashboard.html" class="block px-4 py-2 text-[11px] hover:bg-slate-50">Profile</a>
+                            <a href="settings.html" class="block px-4 py-2 text-[11px] hover:bg-slate-50">Settings</a>
+                            <a href="login.html" class="block px-4 py-2 text-[11px] text-red-600 hover:bg-red-50">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE TITLE BAR -->
+            <div class="h-[58px] border-t border-white/10 bg-[#061a4b]/65 flex items-center px-5 lg:px-6">
+                <div class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-blue-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-width="1.5" d="M4 5h16v14H4zM8 9h8M8 13h5"/>
+                    </svg>
+                    <h1 class="text-[13px] font-bold">Dashboard</h1>
+                </div>
+            </div>
+        </header>
+
+        <!-- DASHBOARD CONTENT -->
+        <main class="flex-1 bg-white px-5 sm:px-7 lg:px-6 xl:px-7 py-9">
+
+            <div class="max-w-[1050px] mx-auto">
+
+                <!-- SUMMARY CARDS -->
+                <section class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+
+                    <div class="dashboard-card stat-card rounded-lg bg-white p-5 flex items-center gap-3.5">
+                        <div class="w-10 h-10 rounded-full bg-[#d9e7f7] flex items-center justify-center shrink-0">
+                            <svg class="w-5 h-5 text-[#4d82c8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-width="1.6" d="M8 5h8a2 2 0 012 2v10H6V7a2 2 0 012-2zm1 4h6m-6 4h6m-5-11h4"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-[10px] text-slate-500 font-medium">Total Amount Invested</p>
+                            <p class="mt-1 text-[19px] leading-none font-bold text-[#3476bd]">$0.00</p>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card stat-card rounded-lg bg-white p-5 flex items-center gap-3.5">
+                        <div class="w-10 h-10 rounded-full bg-[#e3ddff] flex items-center justify-center shrink-0">
+                            <svg class="w-5 h-5 text-[#8a6cf5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="8" stroke-width="1.6"/>
+                                <path stroke-width="1.6" d="M12 7v10m3-7h-4a2 2 0 100 4h2a2 2 0 110 4H9"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-[10px] text-slate-500 font-medium">Total Royalties Received</p>
+                            <p class="mt-1 text-[19px] leading-none font-bold text-[#8062f3]">$0.00</p>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card stat-card rounded-lg bg-white p-5 flex items-center gap-3.5 md:max-w-[520px]">
+                        <div class="w-10 h-10 rounded-full bg-[#d7f8f4] flex items-center justify-center shrink-0">
+                            <svg class="w-5 h-5 text-[#27c9b4]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="8" stroke-width="1.5"/>
+                                <path stroke-width="1.5" d="M12 8v8m3-5h-4a2 2 0 100 4h2a2 2 0 110 4H9"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-[10px] text-slate-500 font-medium">Previous Quarter Royalties Received</p>
+                            <p class="mt-1 text-[19px] leading-none font-bold text-[#24c7b2]">$0.00</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FILTER -->
+                <section class="mt-14">
+                    <label class="block text-[11px] font-semibold text-slate-600 mb-2">Filter By SongShares</label>
+                    <div class="relative w-[168px]">
+                        <select class="appearance-none w-full h-10 rounded-lg border border-[#7ca7dc] bg-white px-3 text-[12px] text-slate-600 outline-none focus:ring-2 focus:ring-blue-100">
+                            <option>All</option>
+                            <option>Active</option>
+                            <option>Pending</option>
+                        </select>
+                        <svg class="absolute right-3 top-3 w-4 h-4 text-slate-700 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-width="1.8" d="m6 9 6 6 6-6"/>
+                        </svg>
+                    </div>
+                </section>
+
+                <!-- CHART + NEWS -->
+                <section class="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-8">
+
+                    <div class="table-card rounded-lg bg-white overflow-hidden">
+                        <div class="h-10 border-b border-slate-200 px-4 flex items-center justify-between">
+                            <h2 class="text-[11px] font-medium text-slate-500">Royalties Received</h2>
+                            <select class="text-[10px] font-semibold text-slate-500 bg-transparent outline-none">
+                                <option>Lifetime</option>
+                                <option>This Year</option>
+                                <option>Last Quarter</option>
+                            </select>
+                        </div>
+
+                        <div class="h-[165px] relative px-4 py-3">
+                            <div class="absolute left-7 right-4 top-3 bottom-3 flex flex-col justify-between">
+                                <span class="border-t border-slate-200"></span>
+                                <span class="border-t border-slate-200"></span>
+                                <span class="border-t border-slate-200"></span>
+                                <span class="border-t border-slate-200"></span>
+                                <span class="border-t border-slate-200"></span>
+                                <span class="border-t border-slate-200"></span>
+                                <span class="border-t border-slate-200"></span>
+                                <span class="border-t border-slate-200"></span>
+                                <span class="border-t border-slate-200"></span>
+                                <span class="border-t border-slate-200"></span>
+                            </div>
+                            <div class="absolute left-6 top-3 bottom-3 flex flex-col justify-between text-[8px] text-slate-500">
+                                <span>$1</span><span>$0.9</span><span>$0.8</span><span>$0.7</span><span>$0.6</span>
+                                <span>$0.5</span><span>$0.4</span><span>$0.3</span><span>$0.2</span><span>$0.1</span><span>$0</span>
+                            </div>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <span class="text-[11px] font-semibold text-slate-500">No Royalty Payments Received Yet</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-card rounded-lg bg-white overflow-hidden">
+                        <div class="h-10 border-b border-slate-200 px-4 flex items-center">
+                            <h2 class="text-[11px] font-medium text-slate-500">News</h2>
+                        </div>
+                        <div class="h-[165px] p-4 flex items-center justify-center">
+                            <div class="w-full h-10 rounded-lg border border-dashed border-slate-200 flex items-center justify-center gap-2 text-[11px] font-semibold text-slate-400">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <circle cx="11" cy="11" r="6" stroke-width="2"/>
+                                    <path stroke-width="2" d="m16 16 4 4"/>
+                                </svg>
+                                No Records Found
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- REUSABLE TABLE CARD -->
+                <section class="table-card rounded-lg bg-white overflow-hidden mt-5">
+                    <div class="h-11 border-b border-slate-200 px-4 flex items-center justify-between">
+                        <h2 class="text-[11px] font-medium text-slate-500">SongShares Owned</h2>
+                        <button class="text-slate-400 hover:text-slate-700" aria-label="Collapse">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-width="1.5" d="M5 12h14"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full min-w-[700px]">
+                            <thead>
+                                <tr class="text-[10px] text-[#3974bd] font-bold border-b border-slate-100">
+                                    <th class="text-left px-3 py-4">Name</th>
+                                    <th class="text-right px-3 py-4">Qty</th>
+                                    <th class="text-right px-3 py-4">Cost Per<br>Share</th>
+                                    <th class="text-right px-3 py-4">Total<br>Investment</th>
+                                    <th class="text-right px-3 py-4">Total<br>Royalties<br>Paid</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="5" class="text-center py-7 text-[10px] text-slate-600">
+                                        You don't currently own any SongShares.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="table-card rounded-lg bg-white overflow-hidden">
+                    <div class="h-11 border-b border-slate-200 px-4 flex items-center justify-between">
+                        <h2 class="text-[11px] font-medium text-slate-500">Open SongShares</h2>
+                        <button class="text-slate-400 hover:text-slate-700" aria-label="Collapse">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-width="1.5" d="M5 12h14"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full min-w-[900px]">
+                            <thead>
+                                <tr class="text-[10px] text-[#3974bd] font-bold border-b border-slate-100">
+                                    <th class="text-left px-3 py-4">Name <span class="text-slate-500">↕</span></th>
+                                    <th class="text-left px-3 py-4">Type <span class="text-slate-500">↕</span></th>
+                                    <th class="text-left px-3 py-4">Qty <span class="text-slate-500">↕</span></th>
+                                    <th class="text-left px-3 py-4">Cost Per<br>Share <span class="text-slate-500">↕</span></th>
+                                    <th class="text-left px-3 py-4">Total<br>Investment <span class="text-slate-500">↕</span></th>
+                                    <th class="text-left px-3 py-4">Status <span class="text-slate-500">↕</span> <span class="ml-1">?</span></th>
+                                    <th class="text-left px-3 py-4">Docusign<br>Status <span class="ml-1">?</span></th>
+                                    <th class="text-left px-3 py-4">AutoBuy</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="8" class="text-center py-7 text-[10px] text-slate-600">
+                                        You don't currently have any open SongShares.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="table-card rounded-lg bg-white overflow-hidden">
+                    <div class="h-11 border-b border-slate-200 px-4 flex items-center justify-between">
+                        <h2 class="text-[11px] font-medium text-slate-500">Recent Transactions</h2>
+                        <button class="text-slate-400 hover:text-slate-700" aria-label="Collapse">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-width="1.5" d="M5 12h14"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full min-w-[850px]">
+                            <thead>
+                                <tr class="text-[10px] text-[#3974bd] font-bold border-b border-slate-100">
+                                    <th class="text-left px-3 py-4">Transaction Date</th>
+                                    <th class="text-left px-3 py-4">Transaction Type</th>
+                                    <th class="text-left px-3 py-4">Offering Name</th>
+                                    <th class="text-left px-3 py-4">Invoice ID</th>
+                                    <th class="text-left px-3 py-4">Payment Method</th>
+                                    <th class="text-left px-3 py-4">Amount</th>
+                                    <th class="text-left px-3 py-4">Status</th>
+                                    <th class="text-left px-3 py-4">View Invoice</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="8" class="text-center py-7 text-[10px] text-slate-600">
+                                        No Recent Transactions Found.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="bg-[#3478bd] text-white">
+            <div class="max-w-[1050px] mx-auto px-5 lg:px-6 py-9">
+
+                <div class="flex flex-col lg:flex-row items-center justify-between gap-6 pb-6 border-b border-white/15">
+                    <div class="flex flex-col items-center lg:items-start">
+                        <a href="index.html" class="flex flex-col items-center">
+                            <span class="brand-mark" style="filter:brightness(0) invert(1);"></span>
+                            <span class="text-[13px] font-extrabold tracking-tight">SONGTRADE</span>
+                        </a>
+                    </div>
+
+                    <div class="flex flex-wrap justify-center gap-x-3 gap-y-2 text-[9px] text-white/90">
+                        <a href="index.html#selling" class="footer-link">Music Creators/Sell Royalties</a>
+                        <span>•</span>
+                        <a href="offerings.html" class="footer-link">Current Auctions</a>
+                        <span>•</span>
+                        <a href="about.html" class="footer-link">About Us</a>
+                        <span>•</span>
+                        <a href="index.html#offerings" class="footer-link">News</a>
+                        <span>•</span>
+                        <a href="how-it-works.html#faq" class="footer-link">FAQs</a>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <a href="index.html" class="w-7 h-7 rounded-full bg-white flex items-center justify-center text-[#3478bd] font-bold text-[10px]">◎</a>
+                        <a href="index.html" class="w-7 h-7 rounded-full bg-white flex items-center justify-center text-[#3478bd] font-bold text-[11px]">f</a>
+                        <a href="index.html" class="w-7 h-7 rounded-full bg-white flex items-center justify-center text-[#3478bd] font-bold text-[10px]">𝕏</a>
+                        <a href="index.html" class="w-7 h-7 rounded-full bg-white flex items-center justify-center text-[#3478bd] font-bold text-[10px]">in</a>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row justify-between gap-3 py-6 text-[9px] text-white/90">
+                    <span>© 2026 SongTrade. All rights reserved.</span>
+                    <div class="flex flex-wrap gap-3">
+                        <a href="about.html" class="footer-link">Terms of Use</a>
+                        <a href="about.html" class="footer-link">Privacy Policy</a>
+                        <a href="about.html" class="footer-link">Offering Circular</a>
+                    </div>
+                </div>
+
+                <div class="space-y-4 text-[8px] leading-relaxed text-white/90">
+                    <p>
+                        This is a demonstration dashboard created for the SongTrade project. The interface is inspired by the layout
+                        and information architecture of a music-rights investment platform. It does not process real investments,
+                        payments, securities transactions, or royalty distributions.
+                    </p>
+                    <p>
+                        <strong>IMPORTANT:</strong> SongTrade is a project name used for this replica. Information displayed in this
+                        dashboard is illustrative only and should not be interpreted as financial, investment, legal, or tax advice.
+                    </p>
+                    <p>
+                        Music royalty investments can involve substantial risk, including the possible loss of invested capital.
+                        Users should review all applicable documentation and obtain independent professional advice before making
+                        any real investment decision.
+                    </p>
+                    <p>
+                        By using this demonstration interface, you acknowledge that the dashboard is a prototype and that displayed
+                        balances, transactions, royalties, and SongShares are sample data.
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+</body>
+</html>

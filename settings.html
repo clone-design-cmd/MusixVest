@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SongTrade - Settings</title>
+    <link rel="shortcut icon" href="image.png" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; }
+        .sidebar-width { width: 150px; }
+        .content-offset { margin-left: 150px; }
+
+        @media (max-width: 1023px) {
+            .content-offset { margin-left: 0; }
+        }
+
+        .setting-card {
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 1px 4px rgba(0,0,0,.035);
+        }
+
+        .footer-link {
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+    </style>
+</head>
+
+<body class="bg-white text-slate-700 antialiased"
+      x-data="{ sidebarOpen:false, profileOpen:false, active: window.location.hash === '#payments' ? 'payments' : 'account', notifications:true, autobuy:false }">
+
+    <!-- Mobile overlay -->
+    <div x-show="sidebarOpen"
+         x-transition.opacity
+         @click="sidebarOpen=false"
+         class="fixed inset-0 bg-black/40 z-40 lg:hidden"
+         style="display:none"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar-width fixed left-0 top-0 bottom-0 bg-white border-r border-slate-200 z-50 flex flex-col"
+           :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
+           style="transition:transform .2s ease;">
+
+        <div class="h-[104px] flex items-center justify-center border-b border-slate-100 px-3">
+            <a href="index.html">
+                <img src="logo.png" alt="SongTrade" class="w-[112px] h-auto object-contain">
+            </a>
+        </div>
+
+        <nav class="flex-1 pt-5">
+            <a href="dashboard.html" class="flex items-center gap-2.5 px-5 py-3 text-[11px] font-medium text-slate-700 hover:bg-slate-50">
+                <svg class="w-[19px] h-[19px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-width="1.5" d="M4 5h16v14H4zM8 9h8M8 13h5"/>
+                </svg>
+                Dashboard
+            </a>
+
+            <a href="dashboard.html#investments" class="flex items-center gap-2.5 px-5 py-3 text-[11px] font-medium text-slate-700 hover:bg-slate-50">
+                <svg class="w-[19px] h-[19px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-width="1.5" d="M12 3v18M7 7h10M6 12h12M7 17h10"/>
+                </svg>
+                My Investments
+            </a>
+
+            <a href="offerings.html" class="flex items-center gap-2.5 px-5 py-3 text-[11px] font-medium text-slate-700 hover:bg-slate-50">
+                <svg class="w-[19px] h-[19px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-width="1.5" d="M4 7h16v13H4zM7 7V5a5 5 0 0110 0v2"/>
+                </svg>
+                Open Bids/Offers
+            </a>
+
+            <a href="offerings.html#favorites" class="flex items-center gap-2.5 px-5 py-3 text-[11px] font-medium text-slate-700 hover:bg-slate-50">
+                <svg class="w-[19px] h-[19px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-width="1.5" d="M12 20s-7-4.4-7-10a4 4 0 017-2.4A4 4 0 0119 10c0 5.6-7 10-7 10z"/>
+                </svg>
+                Favorites
+            </a>
+
+            <a href="dashboard.html#transactions" class="flex items-center gap-2.5 px-5 py-3 text-[11px] font-medium text-slate-700 hover:bg-slate-50">
+                <svg class="w-[19px] h-[19px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-width="1.5" d="M6 4h9l3 3v13H6zM9 10h6M9 14h6M9 18h4"/>
+                </svg>
+                Invoices
+            </a>
+
+            <a href="settings.html#payments" class="flex items-center gap-2.5 px-5 py-3 text-[11px] font-medium text-slate-700 hover:bg-slate-50">
+                <svg class="w-[19px] h-[19px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <rect x="3" y="6" width="18" height="13" rx="2" stroke-width="1.5"/>
+                    <path stroke-width="1.5" d="M3 10h18M7 15h3"/>
+                </svg>
+                Payment Details
+            </a>
+
+            <!-- Active settings -->
+            <a href="settings.html"
+               class="relative flex items-center gap-2.5 px-5 py-3 text-[11px] font-semibold text-[#3974bd] bg-blue-50/20">
+                <span class="absolute left-0 top-0 bottom-0 w-[3px] bg-[#3974bd]"></span>
+                <svg class="w-[19px] h-[19px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-width="1.5" d="M12 3l1.5 2.4 2.8.4.7 2.7 2.4 1.5-1.2 2.5 1.2 2.5-2.4 1.5-.7 2.7-2.8.4L12 21l-1.5-2.4-2.8-.4-.7-2.7-2.4-1.5 1.2-2.5-1.2-2.5 2.4-1.5.7-2.7 2.8-.4z"/>
+                    <circle cx="12" cy="12" r="3" stroke-width="1.5"/>
+                </svg>
+                Settings
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main -->
+    <div class="content-offset min-h-screen flex flex-col">
+
+        <!-- Header -->
+        <header class="sticky top-0 z-30 bg-gradient-to-r from-[#071342] via-[#06275c] to-[#07569a] text-white">
+
+            <div class="h-[68px] px-5 lg:px-6 flex items-center justify-between">
+
+                <div class="flex items-center gap-5">
+                    <button @click="sidebarOpen=true" class="lg:hidden">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+
+                    <nav class="hidden lg:flex items-center gap-7 text-[11px] font-medium">
+                        <a href="offerings.html" class="hover:text-white/80">Explore Offerings</a>
+                        <a href="how-it-works.html" class="hover:text-white/80">How It Works</a>
+                        <a href="index.html#selling" class="hover:text-white/80">Selling Royalties</a>
+                        <a href="about.html" class="hover:text-white/80">About</a>
+                    </nav>
+                </div>
+
+                <div class="flex items-center gap-5">
+
+                    <div class="hidden sm:block relative">
+                        <svg class="absolute left-3 top-2.5 w-3.5 h-3.5 text-blue-100/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <circle cx="11" cy="11" r="7" stroke-width="2"/>
+                            <path stroke-width="2" d="m20 20-4-4"/>
+                        </svg>
+                        <input type="search"
+                               placeholder="Search"
+                               class="w-[150px] h-[30px] rounded-lg bg-white/15 border border-white/10 pl-8 pr-3 text-[10px] text-white placeholder:text-white/80 outline-none focus:bg-white/20">
+                    </div>
+
+                    <button title="Cart" class="hover:text-blue-100">
+                        <svg class="w-[17px] h-[17px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-width="1.5" d="M3 4h2l2 12h11l3-8H6M9 20a1 1 0 100-2 1 1 0 000 2zm8 0a1 1 0 100-2 1 1 0 000 2z"/>
+                        </svg>
+                    </button>
+
+                    <div class="relative">
+                        <button @click="profileOpen=!profileOpen" class="flex items-center gap-2 text-[11px] font-semibold">
+                            <span class="w-7 h-7 rounded-full border border-white/20 bg-white/10 flex items-center justify-center">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="8" r="3" stroke-width="1.5"/>
+                                    <path stroke-width="1.5" d="M5 20a7 7 0 0114 0"/>
+                                </svg>
+                            </span>
+                            <span class="hidden sm:inline">Hi James</span>
+                            <svg class="w-3 h-3 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-width="2" d="m7 10 5 5 5-5"/>
+                            </svg>
+                        </button>
+
+                        <div x-show="profileOpen"
+                             @click.outside="profileOpen=false"
+                             x-transition
+                             class="absolute right-0 mt-2 w-36 rounded-lg bg-white text-slate-700 shadow-xl border border-slate-100 py-1"
+                             style="display:none">
+                            <a href="dashboard.html" class="block px-4 py-2 text-[11px] hover:bg-slate-50">Profile</a>
+                            <a href="settings.html" class="block px-4 py-2 text-[11px] hover:bg-slate-50">Settings</a>
+                            <a href="login.html" class="block px-4 py-2 text-[11px] text-red-600 hover:bg-red-50">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page title -->
+            <div class="h-[58px] border-t border-white/10 bg-[#061a4b]/65 flex items-center px-5 lg:px-6">
+                <div class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-blue-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-width="1.5" d="M12 3l1.5 2.4 2.8.4.7 2.7 2.4 1.5-1.2 2.5 1.2 2.5-2.4 1.5-.7 2.7-2.8.4L12 21l-1.5-2.4-2.8-.4-.7-2.7-2.4-1.5 1.2-2.5-1.2-2.5 2.4-1.5.7-2.7 2.8-.4z"/>
+                        <circle cx="12" cy="12" r="3" stroke-width="1.5"/>
+                    </svg>
+                    <h1 class="text-[13px] font-bold">Settings</h1>
+                </div>
+            </div>
+        </header>
+
+        <!-- Content -->
+        <main class="flex-1 bg-white px-5 sm:px-7 lg:px-6 xl:px-7 py-8">
+
+            <div class="max-w-[1050px] mx-auto">
+
+                <div class="mb-7">
+                    <h2 class="text-[18px] font-bold text-slate-800">Account Settings</h2>
+                    <p class="text-[11px] text-slate-500 mt-1">Manage your SongTrade account and preferences.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-6">
+
+                    <!-- Settings navigation -->
+                    <div class="setting-card rounded-lg bg-white p-2 h-fit">
+
+                        <button @click="active='account'"
+                                :class="active==='account' ? 'bg-blue-50 text-[#3974bd] font-semibold' : 'text-slate-600 hover:bg-slate-50'"
+                                class="w-full text-left px-3 py-2.5 rounded-md text-[11px]">
+                            Account Information
+                        </button>
+
+                        <button @click="active='security'"
+                                :class="active==='security' ? 'bg-blue-50 text-[#3974bd] font-semibold' : 'text-slate-600 hover:bg-slate-50'"
+                                class="w-full text-left px-3 py-2.5 rounded-md text-[11px]">
+                            Security
+                        </button>
+
+                        <button @click="active='notifications'"
+                                :class="active==='notifications' ? 'bg-blue-50 text-[#3974bd] font-semibold' : 'text-slate-600 hover:bg-slate-50'"
+                                class="w-full text-left px-3 py-2.5 rounded-md text-[11px]">
+                            Notifications
+                        </button>
+
+                        <button @click="active='preferences'"
+                                :class="active==='preferences' ? 'bg-blue-50 text-[#3974bd] font-semibold' : 'text-slate-600 hover:bg-slate-50'"
+                                class="w-full text-left px-3 py-2.5 rounded-md text-[11px]">
+                            Investment Preferences
+                        </button>
+
+                        <button @click="active='payments'"
+                                :class="active==='payments' ? 'bg-blue-50 text-[#3974bd] font-semibold' : 'text-slate-600 hover:bg-slate-50'"
+                                class="w-full text-left px-3 py-2.5 rounded-md text-[11px]">
+                            Payment Settings
+                        </button>
+                    </div>
+
+                    <!-- Settings panels -->
+                    <div>
+
+                        <!-- Account -->
+                        <section x-show="active==='account'" class="setting-card rounded-lg bg-white p-5 sm:p-6">
+                            <div class="border-b border-slate-100 pb-4 mb-5">
+                                <h3 class="text-[13px] font-bold text-slate-800">Account Information</h3>
+                                <p class="text-[10px] text-slate-500 mt-1">Update the information associated with your SongTrade account.</p>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label class="block text-[10px] font-semibold text-slate-600 mb-1.5">First Name</label>
+                                    <input value="James" class="w-full h-9 border border-slate-200 rounded-md px-3 text-[11px] outline-none focus:border-[#3974bd]">
+                                </div>
+
+                                <div>
+                                    <label class="block text-[10px] font-semibold text-slate-600 mb-1.5">Last Name</label>
+                                    <input value="Williams" class="w-full h-9 border border-slate-200 rounded-md px-3 text-[11px] outline-none focus:border-[#3974bd]">
+                                </div>
+
+                                <div>
+                                    <label class="block text-[10px] font-semibold text-slate-600 mb-1.5">Email Address</label>
+                                    <input value="james@example.com" type="email" class="w-full h-9 border border-slate-200 rounded-md px-3 text-[11px] outline-none focus:border-[#3974bd]">
+                                </div>
+
+                                <div>
+                                    <label class="block text-[10px] font-semibold text-slate-600 mb-1.5">Phone Number</label>
+                                    <input value="+234 800 000 0000" class="w-full h-9 border border-slate-200 rounded-md px-3 text-[11px] outline-none focus:border-[#3974bd]">
+                                </div>
+
+                                <div class="sm:col-span-2">
+                                    <label class="block text-[10px] font-semibold text-slate-600 mb-1.5">Country</label>
+                                    <select class="w-full h-9 border border-slate-200 rounded-md px-3 text-[11px] outline-none focus:border-[#3974bd] bg-white">
+                                        <option>Nigeria</option>
+                                        <option>United States</option>
+                                        <option>United Kingdom</option>
+                                        <option>Ghana</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mt-6 flex justify-end">
+                                <button class="px-5 py-2 rounded-md bg-[#3974bd] text-white text-[10px] font-semibold hover:bg-[#2d64a7]">
+                                    Save Changes
+                                </button>
+                            </div>
+                        </section>
+
+                        <!-- Security -->
+                        <section x-show="active==='security'" class="setting-card rounded-lg bg-white p-5 sm:p-6" style="display:none">
+                            <div class="border-b border-slate-100 pb-4 mb-5">
+                                <h3 class="text-[13px] font-bold text-slate-800">Security</h3>
+                                <p class="text-[10px] text-slate-500 mt-1">Keep your account secure by updating your password.</p>
+                            </div>
+
+                            <div class="space-y-5 max-w-[600px]">
+                                <div>
+                                    <label class="block text-[10px] font-semibold text-slate-600 mb-1.5">Current Password</label>
+                                    <input type="password" placeholder="Enter current password" class="w-full h-9 border border-slate-200 rounded-md px-3 text-[11px] outline-none focus:border-[#3974bd]">
+                                </div>
+
+                                <div>
+                                    <label class="block text-[10px] font-semibold text-slate-600 mb-1.5">New Password</label>
+                                    <input type="password" placeholder="Enter new password" class="w-full h-9 border border-slate-200 rounded-md px-3 text-[11px] outline-none focus:border-[#3974bd]">
+                                </div>
+
+                                <div>
+                                    <label class="block text-[10px] font-semibold text-slate-600 mb-1.5">Confirm New Password</label>
+                                    <input type="password" placeholder="Confirm new password" class="w-full h-9 border border-slate-200 rounded-md px-3 text-[11px] outline-none focus:border-[#3974bd]">
+                                </div>
+                            </div>
+
+                            <div class="mt-6 flex justify-end">
+                                <button class="px-5 py-2 rounded-md bg-[#3974bd] text-white text-[10px] font-semibold hover:bg-[#2d64a7]">
+                                    Update Password
+                                </button>
+                            </div>
+                        </section>
+
+                        <!-- Notifications -->
+                        <section x-show="active==='notifications'" class="setting-card rounded-lg bg-white p-5 sm:p-6" style="display:none">
+                            <div class="border-b border-slate-100 pb-4 mb-5">
+                                <h3 class="text-[13px] font-bold text-slate-800">Notifications</h3>
+                                <p class="text-[10px] text-slate-500 mt-1">Choose which updates you would like to receive.</p>
+                            </div>
+
+                            <div class="space-y-1">
+
+                                <div class="flex items-center justify-between py-4 border-b border-slate-100">
+                                    <div>
+                                        <p class="text-[11px] font-semibold text-slate-700">Email Notifications</p>
+                                        <p class="text-[9px] text-slate-500 mt-1">Receive important account and offering updates.</p>
+                                    </div>
+
+                                    <button @click="notifications=!notifications"
+                                            :class="notifications ? 'bg-[#3974bd]' : 'bg-slate-300'"
+                                            class="relative w-10 h-5 rounded-full transition-colors">
+                                        <span :class="notifications ? 'translate-x-5' : 'translate-x-0.5'"
+                                              class="absolute top-0.5 left-0 w-4 h-4 rounded-full bg-white shadow transition-transform"></span>
+                                    </button>
+                                </div>
+
+                                <div class="flex items-center justify-between py-4 border-b border-slate-100">
+                                    <div>
+                                        <p class="text-[11px] font-semibold text-slate-700">New Offering Alerts</p>
+                                        <p class="text-[9px] text-slate-500 mt-1">Get notified when new royalty offerings become available.</p>
+                                    </div>
+                                    <input type="checkbox" checked class="w-4 h-4 accent-[#3974bd]">
+                                </div>
+
+                                <div class="flex items-center justify-between py-4">
+                                    <div>
+                                        <p class="text-[11px] font-semibold text-slate-700">Royalty Payment Updates</p>
+                                        <p class="text-[9px] text-slate-500 mt-1">Receive notifications about royalty payments.</p>
+                                    </div>
+                                    <input type="checkbox" checked class="w-4 h-4 accent-[#3974bd]">
+                                </div>
+
+                            </div>
+                        </section>
+
+                        <!-- Preferences -->
+                        <section x-show="active==='preferences'" class="setting-card rounded-lg bg-white p-5 sm:p-6" style="display:none">
+                            <div class="border-b border-slate-100 pb-4 mb-5">
+                                <h3 class="text-[13px] font-bold text-slate-800">Investment Preferences</h3>
+                                <p class="text-[10px] text-slate-500 mt-1">Configure preferences for browsing and investing in SongShares.</p>
+                            </div>
+
+                            <div class="space-y-5">
+
+                                <div>
+                                    <label class="block text-[10px] font-semibold text-slate-600 mb-1.5">Preferred Offering Type</label>
+                                    <select class="w-full h-9 border border-slate-200 rounded-md px-3 text-[11px] bg-white outline-none focus:border-[#3974bd]">
+                                        <option>All SongShares</option>
+                                        <option>Music Catalogs</option>
+                                        <option>Individual Songs</option>
+                                        <option>Artist Royalties</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label class="block text-[10px] font-semibold text-slate-600 mb-1.5">Investment Range</label>
+                                    <select class="w-full h-9 border border-slate-200 rounded-md px-3 text-[11px] bg-white outline-none focus:border-[#3974bd]">
+                                        <option>Any Amount</option>
+                                        <option>Under $1,000</option>
+                                        <option>$1,000 - $5,000</option>
+                                        <option>$5,000 - $10,000</option>
+                                        <option>Over $10,000</option>
+                                    </select>
+                                </div>
+
+                                <div class="flex items-center justify-between border-t border-slate-100 pt-5">
+                                    <div>
+                                        <p class="text-[11px] font-semibold text-slate-700">AutoBuy</p>
+                                        <p class="text-[9px] text-slate-500 mt-1">Automatically participate in eligible offerings.</p>
+                                    </div>
+
+                                    <button @click="autobuy=!autobuy"
+                                            :class="autobuy ? 'bg-[#3974bd]' : 'bg-slate-300'"
+                                            class="relative w-10 h-5 rounded-full transition-colors">
+                                        <span :class="autobuy ? 'translate-x-5' : 'translate-x-0.5'"
+                                              class="absolute top-0.5 left-0 w-4 h-4 rounded-full bg-white shadow transition-transform"></span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="mt-6 flex justify-end">
+                                <button class="px-5 py-2 rounded-md bg-[#3974bd] text-white text-[10px] font-semibold hover:bg-[#2d64a7]">
+                                    Save Preferences
+                                </button>
+                            </div>
+                        </section>
+
+                        <!-- Payments -->
+                        <section id="payments" x-show="active==='payments'" class="setting-card rounded-lg bg-white p-5 sm:p-6" style="display:none">
+                            <div class="border-b border-slate-100 pb-4 mb-5">
+                                <h3 class="text-[13px] font-bold text-slate-800">Payment Settings</h3>
+                                <p class="text-[10px] text-slate-500 mt-1">Manage the payment method used for your SongTrade account.</p>
+                            </div>
+
+                            <div class="rounded-lg border border-slate-200 p-4 flex items-center justify-between gap-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center text-[#3974bd]">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <rect x="3" y="5" width="18" height="14" rx="2" stroke-width="1.5"/>
+                                            <path stroke-width="1.5" d="M3 10h18"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="text-[11px] font-bold text-slate-700">Visa ending in 4242</p>
+                                        <p class="text-[9px] text-slate-500 mt-1">Expires 12/28</p>
+                                    </div>
+                                </div>
+
+                                <button class="text-[10px] font-semibold text-[#3974bd] hover:underline">Edit</button>
+                            </div>
+
+                            <button class="mt-5 px-4 py-2 rounded-md border border-[#3974bd] text-[#3974bd] text-[10px] font-semibold hover:bg-blue-50">
+                                + Add Payment Method
+                            </button>
+                        </section>
+
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-[#3478bd] text-white">
+            <div class="max-w-[1050px] mx-auto px-5 lg:px-6 py-9">
+
+                <div class="flex flex-col lg:flex-row items-center justify-between gap-6 pb-6 border-b border-white/15">
+
+                    <a href="index.html" class="shrink-0">
+                        <img src="logo.png" alt="SongTrade" class="w-[125px] h-auto brightness-0 invert">
+                    </a>
+
+                    <div class="flex flex-wrap justify-center gap-x-3 gap-y-2 text-[9px] text-white/90">
+                        <a href="index.html#selling" class="footer-link">Music Creators/Sell Royalties</a>
+                        <span>•</span>
+                        <a href="offerings.html" class="footer-link">Current Auctions</a>
+                        <span>•</span>
+                        <a href="about.html" class="footer-link">About Us</a>
+                        <span>•</span>
+                        <a href="index.html#offerings" class="footer-link">News</a>
+                        <span>•</span>
+                        <a href="how-it-works.html#faq" class="footer-link">FAQs</a>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <a href="index.html" class="w-7 h-7 rounded-full bg-white flex items-center justify-center text-[#3478bd] font-bold text-[10px]">◎</a>
+                        <a href="index.html" class="w-7 h-7 rounded-full bg-white flex items-center justify-center text-[#3478bd] font-bold text-[11px]">f</a>
+                        <a href="index.html" class="w-7 h-7 rounded-full bg-white flex items-center justify-center text-[#3478bd] font-bold text-[10px]">𝕏</a>
+                        <a href="index.html" class="w-7 h-7 rounded-full bg-white flex items-center justify-center text-[#3478bd] font-bold text-[10px]">in</a>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row justify-between gap-3 py-6 text-[9px] text-white/90">
+                    <span>© 2026 SongTrade. All rights reserved.</span>
+                    <div class="flex flex-wrap gap-3">
+                        <a href="about.html" class="footer-link">Terms of Use</a>
+                        <a href="about.html" class="footer-link">Privacy Policy</a>
+                        <a href="about.html" class="footer-link">Offering Circular</a>
+                    </div>
+                </div>
+
+                <div class="space-y-4 text-[8px] leading-relaxed text-white/90">
+                    <p>
+                        This is a demonstration interface created for the SongTrade project.
+                        Information displayed here is illustrative only and should not be interpreted
+                        as financial, investment, legal, or tax advice.
+                    </p>
+                    <p>
+                        SongTrade is a project name used for this replica. Music royalty investments
+                        can involve substantial risk, including the possible loss of invested capital.
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+</body>
+</html>
