@@ -1,6 +1,6 @@
 # MusixVest
 
-MusixVest is a fictional web platform (school group project) that lets fans invest in songs. Users buy "SongShares" — fractional shares in a song's royalties — and earn a return as the song generates income.
+MusixVest is a web platform that lets fans invest in songs. Users buy "SongShares" — fractional shares in a song's royalties — and earn a return as the song generates income.
 
 This is currently a **static frontend prototype** (HTML, Tailwind CSS, Alpine.js). There is no backend or database yet — forms link between pages but don't save or process real data.
 
@@ -33,21 +33,6 @@ This is currently a **static frontend prototype** (HTML, Tailwind CSS, Alpine.js
 - [Alpine.js](https://alpinejs.dev/) (via CDN, for small interactive bits like menus)
 - Google Fonts (Inter)
 
-No build step, no backend, no database — yet.
-
-## Running it locally
-
-Since it's just static HTML files, you can either:
-
-- Open any `.html` file directly in your browser, or
-- Run a simple local server from the project folder, e.g.:
-
-```bash
-python3 -m http.server 8000
-```
-
-Then visit `http://localhost:8000/index.html`.
-
 ## Planned next steps
 
 - Backend and database to actually store users, songs, shares, and transactions
@@ -55,6 +40,3 @@ Then visit `http://localhost:8000/index.html`.
 - Admin panel for uploading songs and managing offerings
 - Real payment/deposit handling
 
-## Disclaimer
-
-This is a school project for demonstration purposes only. It is not a real investment platform and does not offer real financial or investment services.
