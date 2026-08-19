@@ -60,9 +60,9 @@
         ],
         deposits:{
           pending:[
-            {id:1, date:'Aug 18, 2026', investor:'Jordan Lee', amount:4500.00, method:'Bank transfer'},
-            {id:2, date:'Aug 18, 2026', investor:'Maya Carter', amount:2750.00, method:'Debit card'},
-            {id:3, date:'Aug 17, 2026', investor:'Noah Williams', amount:5200.00, method:'Wire transfer'}
+            {id:1, date:'Aug 18, 2026', investor:'Jordan Lee', amount:4500.00, method:'USDT (TRC20)'},
+            {id:2, date:'Aug 18, 2026', investor:'Maya Carter', amount:2750.00, method:'BTC'},
+            {id:3, date:'Aug 17, 2026', investor:'Noah Williams', amount:5200.00, method:'ETH'}
           ],
           resolved:[
             {id:4, date:'Aug 17, 2026', investor:'Olivia Brown', amount:1800.00, status:'Confirmed', reviewedBy:'Platform Admin'},
@@ -111,27 +111,27 @@
   </div>
   <nav class="flex-1 p-3 space-y-1 overflow-y-auto mt-1">
     <a href="#" @click.prevent="tab='overview'" :class="tab==='overview' && 'active'" class="side-link flex items-center gap-3 px-3 py-3 rounded-lg text-[11px] font-medium hover:bg-slate-50">
-      <span>⌂</span> Overview
+      <span class="inline-flex"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0"><path d="M3 9.5 12 3l9 6.5"/><path d="M5 10v10a1 1 0 0 0 1 1h3v-6h6v6h3a1 1 0 0 0 1-1V10"/></svg></span> Overview
     </a>
     <a href="#" @click.prevent="tab='offerings'" :class="tab==='offerings' && 'active'" class="side-link flex items-center gap-3 px-3 py-3 rounded-lg text-[11px] font-medium hover:bg-slate-50">
-      <span>♫</span> Manage Offerings
+      <span class="inline-flex"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span> Manage Offerings
     </a>
     <a href="#" @click.prevent="tab='users'" :class="tab==='users' && 'active'" class="side-link flex items-center gap-3 px-3 py-3 rounded-lg text-[11px] font-medium hover:bg-slate-50">
-      <span>◎</span> Users
+      <span class="inline-flex"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span> Users
     </a>
     <a href="#" @click.prevent="tab='deposits'" :class="tab==='deposits' && 'active'" class="side-link flex items-center gap-3 px-3 py-3 rounded-lg text-[11px] font-medium hover:bg-slate-50">
-      <span>$</span> Deposits
+      <span class="inline-flex"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span> Deposits
     </a>
     <a href="#" @click.prevent="tab='transactions'" :class="tab==='transactions' && 'active'" class="side-link flex items-center gap-3 px-3 py-3 rounded-lg text-[11px] font-medium hover:bg-slate-50">
-      <span>▤</span> Transactions
+      <span class="inline-flex"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></span> Transactions
     </a>
   </nav>
   <div class="p-3 border-t border-slate-100 space-y-1">
     <a href="dashboard.html" class="flex items-center gap-3 px-3 py-3 rounded-lg text-[11px] font-medium text-slate-600 hover:bg-slate-50">
-      <span>⇄</span> Investor View
+      <span class="inline-flex"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></span> Investor View
     </a>
     <a href="index.html" class="flex items-center gap-3 px-3 py-3 rounded-lg text-[11px] font-medium text-slate-600 hover:bg-slate-50">
-      <span>←</span> Back to website
+      <span class="inline-flex"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg></span> Back to website
     </a>
   </div>
 </aside>
@@ -141,7 +141,7 @@
 <header class="blue-gradient text-white sticky top-0 z-40">
   <div class="h-[68px] px-4 sm:px-6 flex items-center justify-between gap-4">
     <div class="flex items-center gap-3">
-      <button @click="sidebarOpen=true" class="lg:hidden w-9 h-9 rounded-md bg-white/10 hover:bg-white/15">☰</button>
+      <button @click="sidebarOpen=true" class="lg:hidden w-9 h-9 rounded-md bg-white/10 hover:bg-white/15 flex items-center justify-center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
       <div class="hidden sm:block text-[11px] font-semibold">MusixVest Admin</div>
     </div>
     <div class="flex items-center gap-3 sm:gap-5">
@@ -151,7 +151,7 @@
       <div class="relative">
         <button @click="profileOpen=!profileOpen" class="flex items-center gap-2 text-[11px] font-semibold">
           <span class="w-7 h-7 rounded-full bg-white/10 border border-white/20 flex items-center justify-center">A</span>
-          <span class="hidden sm:inline">Admin</span><span>⌄</span>
+          <span class="hidden sm:inline">Admin</span><span class="inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></span>
         </button>
         <div x-show="profileOpen" @click.outside="profileOpen=false" x-transition class="absolute right-0 mt-2 w-40 rounded-lg bg-white text-slate-700 shadow-xl py-1" style="display:none">
           <a href="dashboard.html" class="block px-4 py-2 text-[11px] hover:bg-slate-50">Investor View</a>
@@ -266,7 +266,7 @@
               <table class="w-full text-left">
                 <thead>
                   <tr class="text-[9px] uppercase tracking-wide text-slate-400 border-b border-slate-100">
-                    <th class="py-3">Requested</th><th class="py-3">Investor</th><th class="py-3">Amount</th><th class="py-3">Method</th><th class="py-3 text-right">Action</th>
+                    <th class="py-3">Requested</th><th class="py-3">Investor</th><th class="py-3">Amount</th><th class="py-3">Network</th><th class="py-3 text-right">Action</th>
                   </tr>
                 </thead>
                 <tbody class="text-[10px]">
@@ -355,7 +355,7 @@
   <div @click.outside="modalOpen=false" x-transition class="bg-white rounded-xl w-full max-w-lg p-6 max-h-[90vh] overflow-y-auto">
     <div class="flex items-center justify-between mb-5">
       <h3 class="text-[15px] font-bold text-slate-900" x-text="editingId ? 'Edit Offering' : 'Add New Offering'"></h3>
-      <button @click="modalOpen=false" class="text-slate-400 hover:text-slate-600 text-lg leading-none">✕</button>
+      <button @click="modalOpen=false" class="text-slate-400 hover:text-slate-600 leading-none"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
     <form @submit.prevent="saveOffering()" class="space-y-4">
       <div>

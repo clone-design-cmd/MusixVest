@@ -16,7 +16,7 @@
   .side-link.active{background:#eff6ff;color:#2d60c3;font-weight:700}
 </style>
 </head>
-<body class="bg-slate-50 text-slate-700" x-data="{sidebarOpen:false,profileOpen:false}">
+<body class="bg-slate-50 text-slate-700" x-data="{sidebarOpen:false,profileOpen:false,depositNetwork:'USDT (TRC20)',depositAddresses:{'USDT (TRC20)':'TXn9Yts4c7wm4ZeD1P8vR3qk6WbEo2Lp5H','USDT (ERC20)':'0x4A7fB1c9E82dF35a6c1B0e9D3F82C6a1B4E5D7c0','BTC':'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh','ETH':'0x8B3a5C6D1e9F42b7A0c8D5E3F1a6B9c4D2E7F0a1'}}">
 <a href="#main" class="skip-link">Skip to main content</a>
 
 <div class="min-h-screen">
@@ -29,15 +29,16 @@
       <a href="dashboard.html"><img src="assets/img/logo.png" alt="MusixVest home" class="w-[132px] h-auto"></a>
     </div>
     <nav aria-label="Dashboard" class="flex-1 p-3 space-y-1 overflow-y-auto">
-      <a href="dashboard.html" class="side-link flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium hover:bg-slate-50"><span aria-hidden="true">⌂</span> Dashboard</a>
-      <a href="dashboard.html#investments" class="side-link flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium hover:bg-slate-50"><span aria-hidden="true">◈</span> My Investments</a>
-      <a href="offerings.html" class="side-link flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium hover:bg-slate-50"><span aria-hidden="true">▣</span> Open Offerings</a>
-      <a href="dashboard.html#transactions" class="side-link flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium hover:bg-slate-50"><span aria-hidden="true">▤</span> Transactions</a>
-      <a href="settings.html#payments" class="side-link flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium hover:bg-slate-50"><span aria-hidden="true">▱</span> Deposit Funds</a>
-      <a href="settings.html" class="side-link active flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium hover:bg-slate-50"><span aria-hidden="true">⚙</span> Settings</a>
+      <a href="dashboard.html" class="side-link flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium hover:bg-slate-50"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0"><path d="M3 9.5 12 3l9 6.5"/><path d="M5 10v10a1 1 0 0 0 1 1h3v-6h6v6h3a1 1 0 0 0 1-1V10"/></svg> Dashboard</a>
+      <a href="dashboard.html#investments" class="side-link flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium hover:bg-slate-50"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="14 7 21 7 21 14"/></svg> My Investments</a>
+      <a href="offerings.html" class="side-link flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium hover:bg-slate-50"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg> Open Offerings</a>
+      <a href="dashboard.html#transactions" class="side-link flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium hover:bg-slate-50"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> Transactions</a>
+      <a href="settings.html#payments" class="side-link flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium hover:bg-slate-50"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0"><circle cx="12" cy="12" r="9"/><polyline points="8 12 12 16 16 12"/><line x1="12" y1="8" x2="12" y2="16"/></svg> Deposit Funds</a>
+      <a href="settings.html#withdraw" class="side-link flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium hover:bg-slate-50"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0"><circle cx="12" cy="12" r="9"/><polyline points="16 12 12 8 8 12"/><line x1="12" y1="16" x2="12" y2="8"/></svg> Withdraw Funds</a>
+      <a href="settings.html" class="side-link active flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium hover:bg-slate-50"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Settings</a>
     </nav>
     <div class="p-3 border-t border-slate-100">
-      <a href="index.html" class="flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50"><span aria-hidden="true">←</span> Back to website</a>
+      <a href="index.html" class="flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Back to website</a>
     </div>
   </aside>
 
@@ -46,13 +47,13 @@
     <header class="mv-gradient text-white sticky top-0 z-40">
       <div class="h-[68px] px-4 sm:px-6 flex items-center justify-between gap-4">
         <div class="flex items-center gap-3">
-          <button @click="sidebarOpen=true" class="lg:hidden min-w-11 min-h-11 rounded-lg bg-white/10 hover:bg-white/15" aria-label="Open menu">☰</button>
+          <button @click="sidebarOpen=true" class="lg:hidden min-w-11 min-h-11 rounded-lg bg-white/10 hover:bg-white/15 flex items-center justify-center" aria-label="Open menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
           <div class="hidden sm:block text-sm font-semibold">Settings</div>
         </div>
         <div class="flex items-center gap-3 sm:gap-5">
           <div class="relative">
             <button @click="profileOpen=!profileOpen" class="flex items-center gap-2 text-sm font-semibold" :aria-expanded="profileOpen" aria-haspopup="true">
-              <span id="avatar-initial" class="w-7 h-7 rounded-full bg-white/10 border border-white/20 flex items-center justify-center" aria-hidden="true"></span><span aria-hidden="true">⌄</span>
+              <span id="avatar-initial" class="w-7 h-7 rounded-full bg-white/10 border border-white/20 flex items-center justify-center" aria-hidden="true"></span><span aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></span>
             </button>
             <div x-show="profileOpen" @click.outside="profileOpen=false" x-transition class="absolute right-0 mt-2 w-36 rounded-lg bg-white text-slate-700 shadow-xl py-1" style="display:none">
               <button id="logout-btn" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">Log Out</button>
@@ -66,40 +67,29 @@
   <div class="max-w-4xl mx-auto space-y-6">
     <div class="mb-1"><p class="text-[#2d60c3] text-xs font-bold uppercase tracking-wider">Account</p><h1 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-1">Settings</h1></div>
     <section class="card p-5 sm:p-6"><h2 class="text-sm font-bold text-slate-900 mb-4">Profile</h2><dl class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm"><div><dt class="text-slate-400">Name</dt><dd class="font-semibold text-slate-800 mt-0.5">Alex Morgan</dd></div><div><dt class="text-slate-400">Email</dt><dd class="font-semibold text-slate-800 mt-0.5">alex.morgan@example.com</dd></div><div><dt class="text-slate-400">Verification status</dt><dd class="mt-0.5"><span class="badge badge-success">Verified</span></dd></div><div><dt class="text-slate-400">Member since</dt><dd class="font-semibold text-slate-800 mt-0.5">Jun 18, 2026</dd></div></dl></section>
-    <section id="payments" class="card p-5 sm:p-6">
-      <div class="flex items-center justify-between mb-1 gap-3 flex-wrap">
-        <h2 class="text-sm font-bold text-slate-900">Deposit Funds</h2>
-        <div class="flex items-center gap-3">
-          <span class="text-sm font-semibold text-slate-500">Balance: <span id="settings-balance" data-usd-amount="3230.00">$3,230.00</span></span>
-          <div class="flex items-center gap-1 text-[11px] text-slate-400" data-currency-toggle>
-            <button type="button" data-currency-btn="USD" class="opacity-100 underline">USD</button><span class="opacity-40">/</span><button type="button" data-currency-btn="GBP" class="opacity-60">GBP</button>
-          </div>
-        </div>
+    <section id="payments" class="card p-5 sm:p-6"><div class="flex items-center justify-between mb-1"><h2 class="text-sm font-bold text-slate-900">Deposit Funds</h2><span class="text-sm font-semibold text-slate-500">Balance: <span>$3,230.00</span></span></div><p class="text-xs text-slate-500 mb-4">Deposits are accepted via crypto only, to avoid the high fees charged by card and bank payment processors.</p>
+      <div class="field mb-4 max-w-xs"><label class="field-label" for="deposit-network">Network / Asset</label><select id="deposit-network" name="network" x-model="depositNetwork" class="input"><option>USDT (TRC20)</option><option>USDT (ERC20)</option><option>BTC</option><option>ETH</option></select></div>
+      <div class="rounded-lg border border-slate-200 bg-slate-50 p-4 mb-6">
+        <p class="text-xs text-slate-500 mb-1">Send your deposit to this address</p>
+        <p class="font-mono text-sm font-semibold text-slate-900 break-all" x-text="depositAddresses[depositNetwork]"></p>
+        <p class="text-xs text-slate-400 mt-2">Only send <span x-text="depositNetwork"></span> to this address. Deposits sent on the wrong network may be lost.</p>
       </div>
-      <p class="text-xs text-slate-500 mb-4">Choose a funding method, attach a screenshot of your payment confirmation, and submit your deposit request. $200.00 minimum per deposit.</p>
-      <form id="deposit-form" novalidate class="mb-6 space-y-4">
-        <div class="flex flex-col sm:flex-row gap-3 items-start sm:items-end">
-          <div class="field flex-1 w-full">
-            <label class="field-label" for="deposit-amount">Amount</label>
-            <input type="number" id="deposit-amount" name="amount" min="200" step="0.01" required class="input" placeholder="$200.00 minimum">
-            <p class="field-error" id="deposit-amount-error" role="alert">Enter an amount of at least $200.00.</p>
-          </div>
-          <div class="field flex-1 w-full">
-            <label class="field-label" for="deposit-method">Method</label>
-            <select id="deposit-method" name="method" class="input"><option>Bank transfer</option><option>Debit card</option><option>Wire transfer</option></select>
-          </div>
-        </div>
-        <div class="field w-full">
-          <label class="field-label" for="deposit-proof">Payment screenshot</label>
-          <input type="file" id="deposit-proof" name="proof" accept="image/*" required class="input">
-          <p class="field-hint">Upload a screenshot or photo of your payment confirmation (JPG or PNG, max 5MB) so we can verify and confirm your deposit.</p>
-          <p class="field-error" id="deposit-proof-error" role="alert">Please attach a screenshot of your payment confirmation.</p>
-        </div>
-        <div id="deposit-form-status" class="text-sm font-semibold text-[#1f9d55] hidden" role="status"></div>
-        <button type="submit" class="btn btn-primary w-full sm:w-auto"><span class="btn-label">Request Deposit</span></button>
+      <form action="#" method="post" class="flex flex-col sm:flex-row gap-3 items-start sm:items-end mb-6">
+        <div class="field flex-1 w-full"><label class="field-label" for="deposit-amount">Amount Sent</label><input type="number" id="deposit-amount" name="amount" min="1" step="0.01" required class="input" placeholder="$0.00"></div>
+        <div class="field flex-1 w-full"><label class="field-label" for="deposit-tx">Transaction Hash</label><input type="text" id="deposit-tx" name="tx_hash" required class="input" placeholder="Paste your transaction hash"></div>
+        <button type="submit" class="btn btn-primary w-full sm:w-auto">Notify of Deposit</button>
       </form>
-      <h3 class="text-sm font-bold text-slate-700 mb-3">Deposit history</h3>
-      <div class="table-wrap"><table class="w-full text-left"><thead><tr class="text-xs uppercase tracking-wide text-slate-400 border-b border-slate-100"><th class="py-3">Requested</th><th class="py-3">Amount</th><th class="py-3">Method</th><th class="py-3">Proof</th><th class="py-3">Status</th></tr></thead><tbody class="text-sm" id="deposit-history-body"><tr><td class="py-3">Aug 10, 2026</td><td>$3,000.00</td><td>Bank transfer</td><td class="text-slate-400">—</td><td><span class="badge badge-success">Confirmed</span></td></tr></tbody></table></div>
+      <h3 class="text-sm font-bold text-slate-700 mb-3">Deposit history</h3><div class="table-wrap"><table class="w-full text-left"><thead><tr class="text-xs uppercase tracking-wide text-slate-400 border-b border-slate-100"><th class="py-3">Requested</th><th class="py-3">Amount</th><th class="py-3">Network</th><th class="py-3">Status</th></tr></thead><tbody class="text-sm"><tr><td class="py-3">Aug 10, 2026</td><td>$3,000.00</td><td>USDT (TRC20)</td><td><span class="badge badge-success">Confirmed</span></td></tr></tbody></table></div>
+    </section>
+    <section id="withdraw" class="card p-5 sm:p-6"><div class="flex items-center justify-between mb-1"><h2 class="text-sm font-bold text-slate-900">Withdraw Funds</h2><span class="text-sm font-semibold text-slate-500">Balance: <span>$3,230.00</span></span></div><p class="text-xs text-slate-500 mb-4">Withdrawals are processed via crypto only.</p>
+      <p class="text-xs text-amber-700 bg-amber-50 border border-amber-100 rounded-lg px-3 py-2 mb-4">A <strong>5% fee</strong> applies to all withdrawals.</p>
+      <form action="#" method="post" class="flex flex-col sm:flex-row gap-3 items-start sm:items-end mb-6">
+        <div class="field flex-1 w-full"><label class="field-label" for="withdraw-amount">Amount</label><input type="number" id="withdraw-amount" name="amount" min="1" step="0.01" required class="input" placeholder="$0.00"></div>
+        <div class="field flex-1 w-full"><label class="field-label" for="withdraw-network">Blockchain</label><select id="withdraw-network" name="network" required class="input"><option value="" disabled selected>Select network</option><option>USDT (TRC20)</option><option>USDT (ERC20)</option><option>BTC</option><option>ETH</option></select></div>
+        <div class="field flex-1 w-full"><label class="field-label" for="withdraw-wallet">Wallet Address</label><input type="text" id="withdraw-wallet" name="wallet" required class="input" placeholder="Enter your wallet address"></div>
+        <button type="submit" class="btn btn-primary w-full sm:w-auto">Request Withdrawal</button>
+      </form>
+      <h3 class="text-sm font-bold text-slate-700 mb-3">Withdrawal history</h3><div class="table-wrap"><table class="w-full text-left"><thead><tr class="text-xs uppercase tracking-wide text-slate-400 border-b border-slate-100"><th class="py-3">Requested</th><th class="py-3">Amount</th><th class="py-3">Fee (5%)</th><th class="py-3">Network</th><th class="py-3">Wallet</th><th class="py-3">Status</th></tr></thead><tbody class="text-sm"><tr><td class="py-6 text-center text-slate-400" colspan="6">No withdrawal requests yet.</td></tr></tbody></table></div>
     </section>
   </div>
 </main>
@@ -114,105 +104,6 @@
 
   </div>
 </div>
-
-<script>
-(function () {
-  var MIN_DEPOSIT = 200;
-  var MAX_PROOF_BYTES = 5 * 1024 * 1024; // 5MB
-
-  var form = document.getElementById('deposit-form');
-  var amountInput = document.getElementById('deposit-amount');
-  var amountError = document.getElementById('deposit-amount-error');
-  var methodInput = document.getElementById('deposit-method');
-  var proofInput = document.getElementById('deposit-proof');
-  var proofError = document.getElementById('deposit-proof-error');
-  var status = document.getElementById('deposit-form-status');
-  var historyBody = document.getElementById('deposit-history-body');
-  var submitBtn = form.querySelector('button[type="submit"]');
-
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    status.classList.add('hidden');
-
-    var amount = parseFloat(amountInput.value);
-    var amountValid = !isNaN(amount) && amount >= MIN_DEPOSIT;
-    amountInput.setAttribute('aria-invalid', amountValid ? 'false' : 'true');
-    amountError.classList.toggle('is-visible', !amountValid);
-
-    var file = proofInput.files && proofInput.files[0];
-    var proofValid = !!file;
-    if (proofValid && file.size > MAX_PROOF_BYTES) {
-      proofValid = false;
-      proofError.textContent = 'That screenshot is too large (max 5MB).';
-    } else {
-      proofError.textContent = 'Please attach a screenshot of your payment confirmation.';
-    }
-    proofInput.setAttribute('aria-invalid', proofValid ? 'false' : 'true');
-    proofError.classList.toggle('is-visible', !proofValid);
-
-    if (!amountValid || !proofValid) return;
-
-    if (window.MV) window.MV.setLoading(submitBtn, true);
-
-    window.setTimeout(function () {
-      var today = new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
-      var proofUrl = URL.createObjectURL(file);
-
-      var row = document.createElement('tr');
-      row.className = 'border-b border-slate-50';
-      row.innerHTML =
-        '<td class="py-3">' + today + '</td>' +
-        '<td>$' + amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '</td>' +
-        '<td>' + methodInput.value + '</td>' +
-        '<td><a href="' + proofUrl + '" target="_blank" rel="noopener" class="text-[#2d60c3] font-semibold hover:underline">View</a></td>' +
-        '<td><span class="badge badge-warning">Pending review</span></td>';
-      historyBody.insertBefore(row, historyBody.firstChild);
-
-      status.textContent = 'Deposit request submitted  we\u2019ll confirm it once your payment screenshot is reviewed.';
-      status.classList.remove('hidden');
-
-      if (window.MV) window.MV.setLoading(submitBtn, false);
-      form.reset();
-      amountError.classList.remove('is-visible');
-      proofError.classList.remove('is-visible');
-    }, 500);
-  });
-})();
-</script>
-
-<script>
-(function () {
-  var RATE_USD_TO_GBP = 0.79; // demo/display-only rate
-  function getCurrency() { try { return localStorage.getItem('mv_currency') || 'USD'; } catch (e) { return 'USD'; } }
-  function setCurrency(c) { try { localStorage.setItem('mv_currency', c); } catch (e) {} }
-  function format(usd, currency) {
-    var value = currency === 'GBP' ? usd * RATE_USD_TO_GBP : usd;
-    var symbol = currency === 'GBP' ? '\u00a3' : '$';
-    return symbol + value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  }
-  function apply() {
-    var currency = getCurrency();
-    document.querySelectorAll('[data-usd-amount]').forEach(function (el) {
-      var usd = parseFloat(el.getAttribute('data-usd-amount'));
-      if (!isNaN(usd)) el.textContent = format(usd, currency);
-    });
-    document.querySelectorAll('[data-currency-btn]').forEach(function (btn) {
-      var active = btn.getAttribute('data-currency-btn') === currency;
-      btn.classList.toggle('opacity-100', active);
-      btn.classList.toggle('underline', active);
-      btn.classList.toggle('opacity-60', !active);
-    });
-  }
-  document.addEventListener('click', function (e) {
-    var btn = e.target.closest('[data-currency-btn]');
-    if (!btn) return;
-    setCurrency(btn.getAttribute('data-currency-btn'));
-    apply();
-  });
-  apply();
-})();
-</script>
-<script src="assets/js/site.js"></script>
 
 </body>
 </html>
