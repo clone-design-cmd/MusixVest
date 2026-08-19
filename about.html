@@ -1,239 +1,293 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MusixVest - About Us</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="shortcut icon" href="image.png" type="image/x-icon">
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MusixVest — About Us</title>
+<meta name="description" content="Learn about MusixVest, our approach to music royalty investing, who's behind it, and how to reach us.">
+<link rel="icon" href="assets/img/favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<link rel="stylesheet" href="assets/css/styles.css">
 </head>
-<body class="bg-white text-slate-800 antialiased selection:bg-blue-600 selection:text-white">
+<body class="bg-white text-slate-700 antialiased">
+<a href="#main" class="skip-link">Skip to main content</a>
 
-    <!-- NAVBAR -->
-    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-100">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
-            <a href="index.html" class="flex items-center gap-2">
-                <img src="logo.png" alt="MusixVest" class="h-9 w-auto object-contain">
-            </a>
-            <nav class="hidden lg:flex items-center space-x-7">
-                <a href="offerings.html" class="text-slate-600 hover:text-slate-900 font-medium text-sm transition-colors">Explore Offerings</a>
-                <a href="how-it-works.html" class="text-slate-600 hover:text-slate-900 font-medium text-sm transition-colors">How It Works</a>
-                <a href="index.html#selling" class="text-slate-600 hover:text-slate-900 font-medium text-sm transition-colors">Selling Royalties</a>
-                <a href="about.html" class="text-slate-900 font-semibold text-sm transition-colors">About</a>
-                <a href="how-it-works.html#faq" class="text-slate-600 hover:text-slate-900 font-medium text-sm transition-colors">FAQ</a>
-                <a href="login.html" class="text-slate-600 hover:text-slate-900 font-medium text-sm transition-colors">Login</a>
-            </nav>
-            <a href="register.html" class="bg-[#2D60C3] hover:bg-[#234DA0] text-white font-medium text-sm px-6 py-2.5 rounded-lg shadow-sm transition-all">
-                Get Started
-            </a>
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-100" x-data="{ mobileNavOpen: false }">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-3">
+    <a href="index.html" class="flex items-center gap-2 shrink-0">
+      <img src="assets/img/logo.png" alt="MusixVest home" class="h-10 w-auto object-contain">
+    </a>
+    <nav aria-label="Primary" class="hidden lg:flex items-center gap-7">
+      <a href="offerings.html" class="link-underline text-slate-500 hover:text-slate-900 text-sm transition-colors">Explore Offerings</a>
+      <a href="how-it-works.html" class="link-underline text-slate-500 hover:text-slate-900 text-sm transition-colors">How It Works</a>
+      <a href="about.html" class="text-slate-900 font-semibold text-sm">About</a>
+      <a href="how-it-works.html#faq" class="link-underline text-slate-500 hover:text-slate-900 text-sm transition-colors">FAQ</a>
+      <a href="login.html" class="link-underline text-slate-500 hover:text-slate-900 text-sm transition-colors">Log In</a>
+    </nav>
+    <div class="flex items-center gap-2 shrink-0">
+      <a href="register.html" class="btn btn-primary hidden sm:inline-flex">Get Started</a>
+      <button type="button" @click="mobileNavOpen = !mobileNavOpen" class="lg:hidden min-w-11 min-h-11 rounded-lg hover:bg-slate-100 active:bg-slate-200 flex items-center justify-center transition-colors" :aria-expanded="mobileNavOpen.toString()" aria-controls="mobile-nav-panel" aria-label="Toggle menu">
+        <svg x-show="!mobileNavOpen" class="w-5 h-5 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg x-show="mobileNavOpen" class="w-5 h-5 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" style="display:none"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+  </div>
+  <nav aria-label="Mobile" id="mobile-nav-panel" x-show="mobileNavOpen" x-transition.opacity.duration.150ms @click.outside="mobileNavOpen = false" @keydown.escape.window="mobileNavOpen = false" class="lg:hidden border-t border-slate-100 bg-white px-4 sm:px-6 py-3" style="display:none">
+    <a href="register.html" class="btn btn-primary w-full justify-center mb-2 sm:hidden">Get Started</a>
+    <a href="offerings.html" class="mobile-nav-link">Explore Offerings</a>
+    <a href="how-it-works.html" class="mobile-nav-link">How It Works</a>
+    <a href="about.html" class="mobile-nav-link is-active">About</a>
+    <a href="how-it-works.html#faq" class="mobile-nav-link">FAQ</a>
+    <a href="login.html" class="mobile-nav-link">Log In</a>
+  </nav>
+</header>
+
+<main id="main">
+
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 pt-16 sm:pt-20 pb-14" data-reveal>
+    <p class="eyebrow">About MusixVest</p>
+    <h1 class="text-3xl sm:text-4xl xl:text-5xl font-extrabold text-slate-900 mb-5 tracking-tight leading-[1.1]">Music royalties, opened up to fans</h1>
+    <p class="text-sm sm:text-base text-slate-500 leading-relaxed max-w-2xl">
+      MusixVest connects everyday listeners with music royalty investing  an asset class that's traditionally been limited to labels, publishers, and institutional funds. We're building it to be transparent from the first click, because we think that's the only version of this worth building.
+    </p>
+  </section>
+
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 pb-16 sm:pb-20">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+      <div class="card p-6" data-reveal>
+        <span class="icon-tile mb-4" aria-hidden="true">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m5-3.13a4 4 0 100-8 4 4 0 000 8zm7 3a4 4 0 00-3-3.87m-13 0a4 4 0 00-3 3.87"/></svg>
+        </span>
+        <h3 class="font-bold text-slate-900 text-sm mb-2">Fans first</h3>
+        <p class="text-xs text-slate-500 leading-relaxed">Anyone can start building a music royalty portfolio  not just institutional funds and industry insiders.</p>
+      </div>
+      <div class="card p-6" data-reveal>
+        <span class="icon-tile mb-4" aria-hidden="true">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+        </span>
+        <h3 class="font-bold text-slate-900 text-sm mb-2">Radical transparency</h3>
+        <p class="text-xs text-slate-500 leading-relaxed">Every fee, every deposit, every distribution is visible in your dashboard  not buried in fine print.</p>
+      </div>
+      <div class="card p-6" data-reveal>
+        <span class="icon-tile mb-4" aria-hidden="true">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 18V5l12-2v13M9 18a3 3 0 11-6 0 3 3 0 016 0zm12-2a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        </span>
+        <h3 class="font-bold text-slate-900 text-sm mb-2">Artists keep creating</h3>
+        <p class="text-xs text-slate-500 leading-relaxed">Rightsholders can raise funding directly from the people who already love their music.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-slate-50 border-y border-slate-100 py-16 sm:py-20">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6" data-reveal>
+      <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mb-4">What we're building</h2>
+      <p class="text-sm text-slate-500 leading-relaxed mb-5">
+        The platform lets artists and rightsholders list songs as SongShare offerings. Fans deposit funds, buy shares in a song, and track their portfolio from a personal dashboard. Every deposit is reviewed and confirmed by our team before funds are added to a fan's balance  we explain exactly how and why on the <a href="how-it-works.html" class="link-underline font-semibold text-slate-700 hover:text-slate-900">How It Works page</a>.
+      </p>
+      <ul class="space-y-2.5 text-sm text-slate-600">
+        <li class="flex gap-2.5"><span class="text-[#2d60c3] mt-0.5" aria-hidden="true">✓</span> Fractional royalty investing through SongShares</li>
+        <li class="flex gap-2.5"><span class="text-[#2d60c3] mt-0.5" aria-hidden="true">✓</span> Identity verification required before a fan can invest</li>
+        <li class="flex gap-2.5"><span class="text-[#2d60c3] mt-0.5" aria-hidden="true">✓</span> Every deposit reviewed by our team for account security</li>
+        <li class="flex gap-2.5"><span class="text-[#2d60c3] mt-0.5" aria-hidden="true">✓</span> A portfolio dashboard with full holdings and transaction history</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
+    <div class="text-center mb-4 max-w-2xl mx-auto" data-reveal>
+      <p class="eyebrow">Who's behind it</p>
+      <h2 class="text-xl sm:text-2xl font-bold text-slate-900">Our team</h2>
+      <p class="text-sm text-slate-500 mt-3 leading-relaxed">MusixVest is built by a small, early-stage team. We'd rather show you exactly who we are than hide behind a logo  bios below.</p>
+    </div>
+    <!--
+      Placeholder team cards  replace bracketed text, avatar
+      initials, and roles with real people before this goes live.
+      An "About" page with no accountable humans behind it is one
+      of the fastest ways to lose a skeptical user's trust.
+    -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mt-10">
+      <div class="card placeholder-card p-6 text-center" data-reveal>
+        <div class="avatar-initials mx-auto mb-4">FN</div>
+        <h3 class="font-bold text-slate-900 text-sm">[Founder name]</h3>
+        <p class="text-xs text-[#2d60c3] font-semibold mt-0.5 mb-2">Founder &amp; CEO</p>
+        <p class="text-xs text-slate-500 leading-relaxed">[A sentence or two on background and why they're building MusixVest.]</p>
+      </div>
+      <div class="card placeholder-card p-6 text-center" data-reveal>
+        <div class="avatar-initials mx-auto mb-4">CN</div>
+        <h3 class="font-bold text-slate-900 text-sm">[Co-founder name]</h3>
+        <p class="text-xs text-[#2d60c3] font-semibold mt-0.5 mb-2">[Role, e.g. Head of Product]</p>
+        <p class="text-xs text-slate-500 leading-relaxed">[A sentence or two on background and relevant experience.]</p>
+      </div>
+      <div class="card placeholder-card p-6 text-center" data-reveal>
+        <div class="avatar-initials mx-auto mb-4">TM</div>
+        <h3 class="font-bold text-slate-900 text-sm">[Team member name]</h3>
+        <p class="text-xs text-[#2d60c3] font-semibold mt-0.5 mb-2">[Role]</p>
+        <p class="text-xs text-slate-500 leading-relaxed">[A sentence or two on background and relevant experience.]</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="legal" class="bg-slate-50 border-y border-slate-100 py-16 sm:py-20">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6" data-reveal>
+      <p class="eyebrow">Trust &amp; compliance</p>
+      <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mb-5">How we handle your information and your money</h2>
+
+      <div class="space-y-5 text-sm text-slate-600 leading-relaxed">
+        <p><strong class="text-slate-800">Why we ask for identity information.</strong> Citizenship status, date of birth, and an ID number let us confirm you're eligible to invest and help prevent someone else from opening or accessing an account in your name. Your address should match the ID you'd use to verify in a full production system. We ask for what's needed to do that  nothing more.</p>
+        <p><strong class="text-slate-800">Security.</strong> Your connection to MusixVest is encrypted, and access to account data is restricted to authorized staff. We don't sell or share your personal information. Verification and account data exist to protect your access, not to be monetized.</p>
+        <p><strong class="text-slate-800">Regulatory status.</strong> SongShares involve real money and real risk, and offerings like these are typically subject to securities regulation. <span class="bg-amber-50 px-1 rounded">[Company legal name, registration details, and applicable regulatory disclosures go here as MusixVest formalizes its compliance program.]</span> If you don't see something you'd expect a regulated investment platform to disclose, ask us  we'd rather answer directly than have you wonder.</p>
+        <p class="text-xs text-slate-400 pt-2 border-t border-slate-200">Investing in music royalties involves risk, including possible loss of principal. Royalty income is not guaranteed, and a song's past income is not a promise of future results. This page is provided for general information and isn't investment, legal, or tax advice.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="max-w-4xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
+    <div class="text-center mb-10" data-reveal>
+      <p class="eyebrow">Get in touch</p>
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">We'd rather you ask than wonder</h2>
+      <p class="text-sm text-slate-500 mt-3 max-w-xl mx-auto leading-relaxed">Questions about an offering, a deposit, or whether MusixVest is a fit for you  reach out before you invest, not just after.</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+      <div class="lg:col-span-2 space-y-4" data-reveal>
+        <a href="mailto:hello@musixvest.com" class="card card-hover p-5 flex items-center gap-4">
+          <span class="icon-tile shrink-0" aria-hidden="true">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </span>
+          <span>
+            <span class="block font-bold text-slate-900 text-sm">Email us</span>
+            <span class="block text-xs text-slate-500 mt-0.5">hello@musixvest.com</span>
+          </span>
+        </a>
+        <div class="card p-5">
+          <p class="text-xs font-bold text-slate-900 uppercase tracking-wide mb-2">Before you write in</p>
+          <p class="text-xs text-slate-500 leading-relaxed">Include your account email if you're asking about a deposit or transaction  it helps us find your account faster. Never send a password, full ID number, or one-time code by email; we'll never ask for those.</p>
         </div>
-    </header>
+      </div>
 
-    <!-- MAIN CONTENT CONTAINER -->
-    <main class="py-16">
-        
-        <!-- HEADER TEXT SECTION -->
-        <section class="max-w-3xl mx-auto px-4 sm:px-6 text-center space-y-6 mb-20">
-            <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
-                About MusixVest
-            </h1>
-            
-            <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
-                For decades, the music industry kept ownership locked away for labels and insiders. We believe the music you love should belong to the people who made it matter — the fans. SongShares are your ticket into the story, the legacy, and the success of the songs that shaped you. This isn't just listening. This is belonging.
+      <div class="lg:col-span-3" data-reveal>
+        <div class="card p-6 sm:p-7">
+          <form id="contact-form" novalidate class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="field">
+                <label class="field-label" for="contact-name">Name</label>
+                <input type="text" id="contact-name" name="name" required class="input" placeholder="Your name">
+                <p class="field-error" id="contact-name-error">Enter your name.</p>
+              </div>
+              <div class="field">
+                <label class="field-label" for="contact-email">Email</label>
+                <input type="email" id="contact-email" name="email" required class="input" placeholder="you@example.com">
+                <p class="field-error" id="contact-email-error">Enter a valid email address.</p>
+              </div>
+            </div>
+            <div class="field">
+              <label class="field-label" for="contact-topic">What's this about?</label>
+              <select id="contact-topic" name="topic" class="input">
+                <option>General question</option>
+                <option>A deposit or transaction</option>
+                <option>Selling my catalog / listing a song</option>
+                <option>Press</option>
+                <option>Something else</option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="field-label" for="contact-message">Message</label>
+              <textarea id="contact-message" name="message" required rows="4" class="input" placeholder="How can we help?"></textarea>
+              <p class="field-error" id="contact-message-error">Enter a message.</p>
+            </div>
+            <div id="contact-form-status" class="alert alert-success hidden" role="status"></div>
+            <button type="submit" class="btn btn-primary w-full sm:w-auto">
+              <span class="btn-label">Send message</span>
+            </button>
+            <p class="field-hint">
+              This form is a front-end demo  connect it to a real inbox or ticketing tool once a backend is in place. Until then, use the email link.
             </p>
-
-            <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
-                With over $25M in total sales, MusixVest has been trusted to provide access to shares in recordings by iconic artists, including Beyoncé, Queen, TLC, Cardi B, Bad Bunny, Eminem, and Mariah Carey. With this innovative offering, anyone can turn their passion for music into passive income and forge unique, lasting bonds with the artists and songs they love. Join the thousands already on MusixVest and become an invested fan today.
-            </p>
-        </section>
-
-        <!-- TEAM GRID SECTION (SAGE GREEN CONTAINER) -->
-        <section class="bg-[#F3F4F6] py-16 border-y border-slate-100">
-            <div class="max-w-5xl mx-auto px-4 sm:px-6">
-                
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    
-                    <!-- Member 1 -->
-                    <div class="bg-[#8B9F93] text-white rounded-2xl p-5 text-center flex flex-col items-center space-y-3 shadow-sm hover:shadow-md transition-shadow">
-                        <div class="w-full aspect-[4/3] rounded-xl overflow-hidden bg-slate-200">
-                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover" alt="Sean Peace">
-                        </div>
-                        <div class="space-y-0.5">
-                            <h3 class="font-bold text-lg text-slate-900">Sean Peace</h3>
-                            <p class="text-xs text-slate-100 font-medium">CEO / Founder</p>
-                        </div>
-                        <a href="index.html" class="text-white hover:opacity-80 pt-1">
-                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-                        </a>
-                    </div>
-
-                    <!-- Member 2 -->
-                    <div class="bg-[#8B9F93] text-white rounded-2xl p-5 text-center flex flex-col items-center space-y-3 shadow-sm hover:shadow-md transition-shadow">
-                        <div class="w-full aspect-[4/3] rounded-xl overflow-hidden bg-slate-200">
-                            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover" alt="Zac Andersen">
-                        </div>
-                        <div class="space-y-0.5">
-                            <h3 class="font-bold text-lg text-slate-900">Zac Andersen</h3>
-                            <p class="text-xs text-slate-100 font-medium">CFO</p>
-                        </div>
-                        <a href="index.html" class="text-white hover:opacity-80 pt-1">
-                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-                        </a>
-                    </div>
-
-                    <!-- Member 3 -->
-                    <div class="bg-[#8B9F93] text-white rounded-2xl p-5 text-center flex flex-col items-center space-y-3 shadow-sm hover:shadow-md transition-shadow">
-                        <div class="w-full aspect-[4/3] rounded-xl overflow-hidden bg-slate-200">
-                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover" alt="Brian Casto">
-                        </div>
-                        <div class="space-y-0.5">
-                            <h3 class="font-bold text-lg text-slate-900">Brian Casto</h3>
-                            <p class="text-xs text-slate-100 font-medium">CRO</p>
-                        </div>
-                        <a href="index.html" class="text-white hover:opacity-80 pt-1">
-                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-                        </a>
-                    </div>
-
-                    <!-- Member 4 -->
-                    <div class="bg-[#8B9F93] text-white rounded-2xl p-5 text-center flex flex-col items-center space-y-3 shadow-sm hover:shadow-md transition-shadow">
-                        <div class="w-full aspect-[4/3] rounded-xl overflow-hidden bg-slate-200">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover" alt="Jayce Varden">
-                        </div>
-                        <div class="space-y-0.5">
-                            <h3 class="font-bold text-lg text-slate-900">Jayce Varden</h3>
-                            <p class="text-xs text-slate-100 font-medium">CSO</p>
-                        </div>
-                        <a href="index.html" class="text-white hover:opacity-80 pt-1">
-                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-                        </a>
-                    </div>
-
-                    <!-- Member 5 -->
-                    <div class="bg-[#8B9F93] text-white rounded-2xl p-5 text-center flex flex-col items-center space-y-3 shadow-sm hover:shadow-md transition-shadow">
-                        <div class="w-full aspect-[4/3] rounded-xl overflow-hidden bg-slate-200">
-                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover" alt="Drew Small">
-                        </div>
-                        <div class="space-y-0.5">
-                            <h3 class="font-bold text-lg text-slate-900">Drew Small</h3>
-                            <p class="text-xs text-slate-100 font-medium">VP Marketing</p>
-                        </div>
-                        <a href="index.html" class="text-white hover:opacity-80 pt-1">
-                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-                        </a>
-                    </div>
-
-                    <!-- Member 6 -->
-                    <div class="bg-[#8B9F93] text-white rounded-2xl p-5 text-center flex flex-col items-center space-y-3 shadow-sm hover:shadow-md transition-shadow">
-                        <div class="w-full aspect-[4/3] rounded-xl overflow-hidden bg-slate-200">
-                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover" alt="Alex Guiva">
-                        </div>
-                        <div class="space-y-0.5">
-                            <h3 class="font-bold text-lg text-slate-900">Alex Guiva</h3>
-                            <p class="text-xs text-slate-100 font-medium">Chairman / Co-Founder</p>
-                        </div>
-                        <a href="index.html" class="text-white hover:opacity-80 pt-1">
-                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-                        </a>
-                    </div>
-
-                    <!-- Member 7 -->
-                    <div class="bg-[#8B9F93] text-white rounded-2xl p-5 text-center flex flex-col items-center space-y-3 shadow-sm hover:shadow-md transition-shadow">
-                        <div class="w-full aspect-[4/3] rounded-xl overflow-hidden bg-slate-200">
-                            <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover" alt="Drew Smyser">
-                        </div>
-                        <div class="space-y-0.5">
-                            <h3 class="font-bold text-lg text-slate-900">Drew Smyser</h3>
-                            <p class="text-xs text-slate-100 font-medium">Director of Client Strategy</p>
-                        </div>
-                        <a href="index.html" class="text-white hover:opacity-80 pt-1">
-                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-                        </a>
-                    </div>
-
-                    <!-- Member 8 -->
-                    <div class="bg-[#8B9F93] text-white rounded-2xl p-5 text-center flex flex-col items-center space-y-3 shadow-sm hover:shadow-md transition-shadow">
-                        <div class="w-full aspect-[4/3] rounded-xl overflow-hidden bg-slate-200">
-                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover" alt="Katie KneaIe">
-                        </div>
-                        <div class="space-y-0.5">
-                            <h3 class="font-bold text-lg text-slate-900">Katie Kneale</h3>
-                            <p class="text-xs text-slate-100 font-medium">Director of Operations</p>
-                        </div>
-                        <a href="index.html" class="text-white hover:opacity-80 pt-1">
-                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-                        </a>
-                    </div>
-
-                    <!-- Member 9 -->
-                    <div class="bg-[#8B9F93] text-white rounded-2xl p-5 text-center flex flex-col items-center space-y-3 shadow-sm hover:shadow-md transition-shadow">
-                        <div class="w-full aspect-[4/3] rounded-xl overflow-hidden bg-slate-200">
-                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover" alt="Ronnie Thomas">
-                        </div>
-                        <div class="space-y-0.5">
-                            <h3 class="font-bold text-lg text-slate-900">Ronnie Thomas</h3>
-                            <p class="text-xs text-slate-100 font-medium">Business Development</p>
-                        </div>
-                        <a href="index.html" class="text-white hover:opacity-80 pt-1">
-                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-                        </a>
-                    </div>
-
-                </div>
-
-            </div>
-        </section>
-
-    </main>
-
-    <!-- FOOTER SECTION -->
-    <footer class="bg-white pt-12 pb-8 text-xs text-slate-500">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-slate-100">
-            <!-- Navigation Links -->
-            <div class="md:col-span-3 space-y-2">
-                <p class="font-bold text-slate-900 mb-3">Menu</p>
-                <p><a href="offerings.html" class="hover:text-slate-900">Explore Offerings</a></p>
-                <p><a href="how-it-works.html" class="hover:text-slate-900">How It Works</a></p>
-                <p><a href="index.html#selling" class="hover:text-slate-900">Selling Royalties</a></p>
-                <p><a href="about.html" class="hover:text-slate-900">About</a></p>
-                <p><a href="how-it-works.html#faq" class="hover:text-slate-900">FAQ</a></p>
-            </div>
-
-            <!-- Blue Newsletter Form Box -->
-            <div class="md:col-span-6 bg-[#2D60C3] text-white p-6 rounded-2xl space-y-3">
-                <h3 class="text-base font-bold text-center">Stay Updated</h3>
-                <p class="text-[11px] text-blue-100 text-center leading-normal">
-                    Never miss a beat. Be the first to know about the latest SongShare offerings and other news from MusixVest.
-                </p>
-                <form class="space-y-2 max-w-sm mx-auto pt-1" onsubmit="event.preventDefault();">
-                    <input type="text" placeholder="First Name" class="w-full bg-white text-slate-900 text-xs px-3 py-2 rounded focus:outline-none">
-                    <input type="email" placeholder="Email" class="w-full bg-white text-slate-900 text-xs px-3 py-2 rounded focus:outline-none">
-                    <div class="text-center pt-1">
-                        <button type="submit" class="bg-white text-[#2D60C3] font-bold text-xs px-6 py-2 rounded hover:bg-blue-50 transition-colors">
-                            Submit
-                        </button>
-                    </div>
-                </form>
-            </div>
+          </form>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <!-- Disclaimers & Copyright -->
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-6 space-y-3 text-[10px] text-slate-400 leading-normal">
-            <p>
-                This offering is made in reliance on Regulation A under the Securities Act of 1933. The securities offered are speculative, illiquid, and an investor could lose the entire investment. Investors should read the relevant Offering Circular and consider the risk disclosures therein before investing.
-            </p>
-            <p>
-                <strong>Disclaimer:</strong> IN MAKING AN INVESTMENT DECISION, INVESTORS MUST RELY ON THEIR OWN EXAMINATION OF THE ISSUER AND THE TERMS OF THE OFFERING, INCLUDING THE MERITS AND RISKS INVOLVED. REGULATION A OFFERINGS ARE SPECULATIVE, ILLIQUID, AND INVOLVE A HIGH DEGREE OF RISK, INCLUDING THE POSSIBLE LOSS OF YOUR ENTIRE INVESTMENT.
-            </p>
-            <p class="text-center pt-2">
-                © 2026 RoyaltyTraders LLC dba MusixVest. All rights reserved.
-            </p>
-        </div>
-    </footer>
+</main>
 
+<footer class="bg-[#3478bd] text-white mt-auto">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-9">
+    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-6 border-b border-white/15">
+      <a href="index.html"><img src="assets/img/logo.png" alt="MusixVest" class="w-[125px] h-auto brightness-0 invert"></a>
+      <nav aria-label="Footer" class="flex flex-wrap gap-x-4 gap-y-2 text-xs text-white/90">
+        <a href="index.html#selling" class="footer-link">Music Creators / Sell Royalties</a>
+        <a href="offerings.html" class="footer-link">Current Offerings</a>
+        <a href="about.html" class="footer-link">About Us</a>
+        <a href="how-it-works.html#faq" class="footer-link">FAQs</a>
+        <a href="about.html#contact" class="footer-link">Contact</a>
+      </nav>
+    </div>
+    <div class="flex flex-col sm:flex-row justify-between gap-3 py-6 text-xs text-white/90">
+      <span>© 2026 MusixVest. All rights reserved.</span>
+    </div>
+    <p class="text-xs leading-relaxed text-white/85 max-w-4xl">
+      MusixVest provides a focused marketplace for discovering and managing music royalty investments. Investing involves risk, including possible loss of principal.
+    </p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // Front-end-only demo handler: validates, shows a loading state on the
+  // button, then a success message. Wire this up to a real endpoint
+  // (email service, helpdesk API, etc.) once a backend exists.
+  var form = document.getElementById('contact-form');
+  if (!form) return;
+
+  var nameInput = document.getElementById('contact-name');
+  var nameError = document.getElementById('contact-name-error');
+  var emailInput = document.getElementById('contact-email');
+  var emailError = document.getElementById('contact-email-error');
+  var messageInput = document.getElementById('contact-message');
+  var messageError = document.getElementById('contact-message-error');
+  var status = document.getElementById('contact-form-status');
+  var submitBtn = form.querySelector('button[type="submit"]');
+
+  function isValidEmail(value) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    status.classList.add('hidden');
+
+    var nameValid = nameInput.value.trim().length > 0;
+    nameInput.setAttribute('aria-invalid', nameValid ? 'false' : 'true');
+    nameError.classList.toggle('is-visible', !nameValid);
+
+    var emailValid = isValidEmail(emailInput.value.trim());
+    emailInput.setAttribute('aria-invalid', emailValid ? 'false' : 'true');
+    emailError.classList.toggle('is-visible', !emailValid);
+
+    var messageValid = messageInput.value.trim().length > 0;
+    messageInput.setAttribute('aria-invalid', messageValid ? 'false' : 'true');
+    messageError.classList.toggle('is-visible', !messageValid);
+
+    if (!nameValid || !emailValid || !messageValid) return;
+
+    if (window.MV) window.MV.setLoading(submitBtn, true);
+
+    window.setTimeout(function () {
+      if (window.MV) window.MV.setLoading(submitBtn, false);
+      status.textContent = 'Thanks  this demo form doesn\u2019t send yet, but once it\u2019s connected your message will reach our team from right here.';
+      status.classList.remove('hidden');
+      form.reset();
+      nameError.classList.remove('is-visible');
+      emailError.classList.remove('is-visible');
+      messageError.classList.remove('is-visible');
+    }, 600);
+  });
+})();
+</script>
+<script src="assets/js/site.js"></script>
 </body>
 </html>

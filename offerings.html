@@ -1,528 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MusixVest - Explore Offerings</title>
-    <link rel="shortcut icon" href="image.png" type="image/x-icon">
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <style>
-        * { box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; }
-        .sidebar-width { width: 150px; }
-        .content-offset { margin-left: 150px; }
-
-        @media (max-width: 1023px) {
-            .sidebar-width { width: 150px; }
-            .content-offset { margin-left: 0; }
-        }
-
-        .offering-card {
-            border: 1px solid #e5e7eb;
-            box-shadow: 0 1px 4px rgba(0,0,0,.04);
-        }
-
-        .offering-card:hover {
-            box-shadow: 0 5px 16px rgba(0,0,0,.08);
-            transform: translateY(-2px);
-        }
-
-        .footer-link {
-            text-decoration: underline;
-            text-underline-offset: 2px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MusixVest — Explore Offerings</title>
+<link rel="icon" href="assets/img/favicon.png" type="image/png">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+<style>
+  .app-sidebar{width:250px}
+  .app-main{margin-left:250px}
+  @media(max-width:1023px){ .app-main{margin-left:0} }
+  .side-link.active{background:#eff6ff;color:#2d60c3;font-weight:700}
+</style>
 </head>
+<body class="bg-slate-50 text-slate-700" x-data="{sidebarOpen:false,profileOpen:false}">
+<a href="#main" class="skip-link">Skip to main content</a>
 
-<body class="bg-white text-slate-700 antialiased"
-      x-data="{ sidebarOpen: false, profileOpen: false, tab: 'live' }">
+<div class="min-h-screen">
+  <div x-show="sidebarOpen" @click="sidebarOpen=false" x-transition.opacity class="fixed inset-0 bg-black/40 z-40 lg:hidden" style="display:none"></div>
 
-    <!-- MOBILE OVERLAY -->
-    <div
-        x-show="sidebarOpen"
-        x-transition.opacity
-        @click="sidebarOpen = false"
-        class="fixed inset-0 bg-black/40 z-40 lg:hidden"
-        style="display:none"
-    ></div>
+  <aside class="app-sidebar fixed inset-y-0 left-0 bg-white border-r border-slate-200 z-50 flex flex-col"
+         :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
+         style="transition:transform .2s ease">
+    <div class="h-[88px] flex items-center justify-center px-5 border-b border-slate-100 shrink-0">
+      <a href="dashboard.html"><img src="assets/img/logo.png" alt="MusixVest home" class="w-[132px] h-auto"></a>
+    </div>
+    <nav aria-label="Dashboard" class="flex-1 p-3 space-y-1 overflow-y-auto">
+      <a href="dashboard.html" class="side-link flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium hover:bg-slate-50"><span aria-hidden="true">⌂</span> Dashboard</a>
+      <a href="dashboard.html#investments" class="side-link flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium hover:bg-slate-50"><span aria-hidden="true">◈</span> My Investments</a>
+      <a href="offerings.html" class="side-link active flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium hover:bg-slate-50"><span aria-hidden="true">▣</span> Open Offerings</a>
+      <a href="dashboard.html#transactions" class="side-link flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium hover:bg-slate-50"><span aria-hidden="true">▤</span> Transactions</a>
+      <a href="settings.html#payments" class="side-link flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium hover:bg-slate-50"><span aria-hidden="true">▱</span> Deposit Funds</a>
+      <a href="settings.html" class="side-link flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium hover:bg-slate-50"><span aria-hidden="true">⚙</span> Settings</a>
+    </nav>
+    <div class="p-3 border-t border-slate-100">
+      <a href="index.html" class="flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50"><span aria-hidden="true">←</span> Back to website</a>
+    </div>
+  </aside>
 
-    <!-- LEFT SIDEBAR -->
-    <aside
-        class="sidebar-width fixed left-0 top-0 bottom-0 bg-white border-r border-slate-200 z-50 flex flex-col"
-        :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
-        style="transition: transform .2s ease;"
-    >
-        <!-- REAL MusixVest LOGO -->
-        <div class="h-[104px] flex items-center justify-center border-b border-slate-100 px-3">
-            <a href="index.html">
-                <img src="logo.png" alt="MusixVest" class="w-[112px] h-auto object-contain">
-            </a>
+  <div class="app-main min-h-screen flex flex-col">
+
+    <header class="mv-gradient text-white sticky top-0 z-40">
+      <div class="h-[68px] px-4 sm:px-6 flex items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <button @click="sidebarOpen=true" class="lg:hidden min-w-11 min-h-11 rounded-lg bg-white/10 hover:bg-white/15" aria-label="Open menu">☰</button>
+          <div class="hidden sm:block text-sm font-semibold">Open Offerings</div>
+        </div>
+        <div class="flex items-center gap-3 sm:gap-5">
+          <span class="flex items-center gap-2 text-sm font-semibold bg-white/10 px-3 py-1.5 rounded-full">Balance: <span id="balance-pill" data-usd-amount="3230.00">$3,230.00</span><span class="flex items-center gap-1 text-[10px] font-semibold" data-currency-toggle><button type="button" data-currency-btn="USD" class="opacity-100 underline">USD</button><span class="opacity-40">/</span><button type="button" data-currency-btn="GBP" class="opacity-60">GBP</button></span></span>
+          <div class="relative">
+            <button @click="profileOpen=!profileOpen" class="flex items-center gap-2 text-sm font-semibold" :aria-expanded="profileOpen" aria-haspopup="true">
+              <span id="avatar-initial" class="w-7 h-7 rounded-full bg-white/10 border border-white/20 flex items-center justify-center" aria-hidden="true"></span><span aria-hidden="true">⌄</span>
+            </button>
+            <div x-show="profileOpen" @click.outside="profileOpen=false" x-transition class="absolute right-0 mt-2 w-36 rounded-lg bg-white text-slate-700 shadow-xl py-1" style="display:none">
+              <a href="settings.html" class="block px-4 py-2 text-sm hover:bg-slate-50">Settings</a>
+              <button id="logout-btn" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">Log Out</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="main" class="flex-1 px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+      <div class="max-w-6xl mx-auto">
+
+        <div class="mb-7">
+          <p class="text-[#2d60c3] text-xs font-bold uppercase tracking-wider">Marketplace</p>
+          <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-1">Open Offerings</h1>
+          <p class="text-sm text-slate-500 mt-2">Buy fractional SongShares in the songs currently open for investment.</p>
         </div>
 
-        <nav class="flex-1 pt-5">
-            <a href="dashboard.html"
-               class="flex items-center gap-2.5 px-5 py-3 text-[11px] font-medium text-slate-700 hover:bg-slate-50">
-                <svg class="w-[19px] h-[19px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-width="1.5" d="M4 5h16v14H4zM8 9h8M8 13h5"/>
-                </svg>
-                Dashboard
-            </a>
+        <div id="offerings-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5"><article class="card card-hover p-5 flex flex-col">
+ <div class="song-cover"><img src="assets/img/covers/stand-strong.jpg" alt="Stand Strong cover art" loading="lazy" onerror="this.remove()"><svg class="song-cover-fallback" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M9 18V5l12-2v13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="18" cy="16" r="3" stroke="currentColor" stroke-width="1.5"/></svg></div>
+ <div class="flex justify-between items-start gap-3 mt-4"><div><h2 class="font-bold text-slate-900 text-base">Stand Strong</h2><p class="text-sm text-slate-500">Nova Reyes</p></div><span class="badge badge-success">Active</span></div>
+ <div class="mt-5 grid grid-cols-2 gap-4"><div><p class="text-xs text-slate-500">Price per share</p><p class="font-bold text-slate-900 mt-1">$20.00</p></div><div><p class="text-xs text-slate-500">Shares available</p><p class="font-bold text-slate-900 mt-1">290</p></div></div>
+ <div class="mt-5 h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-[#2d60c3]" style="width:42%"></div></div><p class="text-xs text-slate-500 mt-2">42% of shares allocated</p>
+ <a href="login.html" class="btn btn-primary w-full text-center mt-5">View Investment</a>
+</article>
+<article class="card card-hover p-5 flex flex-col">
+ <div class="song-cover"><img src="assets/img/covers/under-pressure.jpg" alt="Under Pressure cover art" loading="lazy" onerror="this.remove()"><svg class="song-cover-fallback" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M9 18V5l12-2v13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="18" cy="16" r="3" stroke="currentColor" stroke-width="1.5"/></svg></div>
+ <div class="flex justify-between items-start gap-3 mt-4"><div><h2 class="font-bold text-slate-900 text-base">Under Pressure</h2><p class="text-sm text-slate-500">The Amberlight</p></div><span class="badge badge-success">Active</span></div>
+ <div class="mt-5 grid grid-cols-2 gap-4"><div><p class="text-xs text-slate-500">Price per share</p><p class="font-bold text-slate-900 mt-1">$25.00</p></div><div><p class="text-xs text-slate-500">Shares available</p><p class="font-bold text-slate-900 mt-1">220</p></div></div>
+ <div class="mt-5 h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-[#2d60c3]" style="width:45%"></div></div><p class="text-xs text-slate-500 mt-2">45% of shares allocated</p>
+ <a href="login.html" class="btn btn-primary w-full text-center mt-5">View Investment</a>
+</article>
+<article class="card card-hover p-5 flex flex-col">
+ <div class="song-cover"><img src="assets/img/covers/fight-song.jpg" alt="Fight Song cover art" loading="lazy" onerror="this.remove()"><svg class="song-cover-fallback" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M9 18V5l12-2v13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="18" cy="16" r="3" stroke="currentColor" stroke-width="1.5"/></svg></div>
+ <div class="flex justify-between items-start gap-3 mt-4"><div><h2 class="font-bold text-slate-900 text-base">Fight Song</h2><p class="text-sm text-slate-500">Callum Bray</p></div><span class="badge badge-success">Active</span></div>
+ <div class="mt-5 grid grid-cols-2 gap-4"><div><p class="text-xs text-slate-500">Price per share</p><p class="font-bold text-slate-900 mt-1">$15.00</p></div><div><p class="text-xs text-slate-500">Shares available</p><p class="font-bold text-slate-900 mt-1">60</p></div></div>
+ <div class="mt-5 h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-[#2d60c3]" style="width:90%"></div></div><p class="text-xs text-slate-500 mt-2">90% of shares allocated</p>
+ <a href="login.html" class="btn btn-primary w-full text-center mt-5">View Investment</a>
+</article>
+<article class="card p-5 flex flex-col opacity-80">
+ <div class="song-cover"><img src="assets/img/covers/midnight-static.jpg" alt="Midnight Static cover art" loading="lazy" onerror="this.remove()"><svg class="song-cover-fallback" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M9 18V5l12-2v13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="18" cy="16" r="3" stroke="currentColor" stroke-width="1.5"/></svg></div>
+ <div class="flex justify-between items-start gap-3 mt-4"><div><h2 class="font-bold text-slate-900 text-base">Midnight Static</h2><p class="text-sm text-slate-500">Juno Wilder</p></div><span class="badge badge-danger">Sold out</span></div>
+ <div class="mt-5 grid grid-cols-2 gap-4"><div><p class="text-xs text-slate-500">Price per share</p><p class="font-bold text-slate-900 mt-1">$30.00</p></div><div><p class="text-xs text-slate-500">Shares available</p><p class="font-bold text-slate-900 mt-1">0</p></div></div>
+ <div class="mt-5 h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-slate-400 w-full"></div></div><p class="text-xs text-slate-500 mt-2">Offering fully allocated</p>
+ <button disabled class="btn btn-secondary w-full mt-5">Sold Out</button>
+</article></div>
 
-            <a href="dashboard.html#investments"
-               class="flex items-center gap-2.5 px-5 py-3 text-[11px] font-medium text-slate-700 hover:bg-slate-50">
-                <svg class="w-[19px] h-[19px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-width="1.5" d="M12 3v18M7 7h10M6 12h12M7 17h10"/>
-                </svg>
-                My Investments
-            </a>
+      </div>
+    </main>
 
-            <!-- ACTIVE -->
-            <a href="offerings.html"
-               class="relative flex items-center gap-2.5 px-5 py-3 text-[11px] font-semibold text-[#3974bd] bg-blue-50/20">
-                <span class="absolute left-0 top-0 bottom-0 w-[3px] bg-[#3974bd]"></span>
-                <svg class="w-[19px] h-[19px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-width="1.5" d="M4 7h16v13H4zM7 7V5a5 5 0 0110 0v2"/>
-                </svg>
-                Open Bids/Offers
-            </a>
+    <footer class="bg-[#3478bd] text-white mt-auto">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-9">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-6 border-b border-white/15">
+          <a href="index.html"><img src="assets/img/logo.png" alt="MusixVest" class="w-[125px] h-auto brightness-0 invert"></a>
+          <nav aria-label="Footer" class="flex flex-wrap gap-x-4 gap-y-2 text-xs text-white/90">
+            <a href="about.html" class="footer-link">About Us</a>
+            <a href="how-it-works.html#faq" class="footer-link">FAQs</a>
+          </nav>
+        </div>
+      </div>
+    </footer>
 
-            <a href="offerings.html#favorites" class="flex items-center gap-2.5 px-5 py-3 text-[11px] font-medium text-slate-700 hover:bg-slate-50">
-                <svg class="w-[19px] h-[19px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-width="1.5" d="M12 20s-7-4.4-7-10a4 4 0 017-2.4A4 4 0 0119 10c0 5.6-7 10-7 10z"/>
-                </svg>
-                Favorites
-            </a>
+  </div>
+</div>
 
-            <a href="dashboard.html#transactions" class="flex items-center gap-2.5 px-5 py-3 text-[11px] font-medium text-slate-700 hover:bg-slate-50">
-                <svg class="w-[19px] h-[19px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-width="1.5" d="M6 4h9l3 3v13H6zM9 10h6M9 14h6M9 18h4"/>
-                </svg>
-                Invoices
-            </a>
-
-            <a href="settings.html#payments" class="flex items-center gap-2.5 px-5 py-3 text-[11px] font-medium text-slate-700 hover:bg-slate-50">
-                <svg class="w-[19px] h-[19px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <rect x="3" y="6" width="18" height="13" rx="2" stroke-width="1.5"/>
-                    <path stroke-width="1.5" d="M3 10h18M7 15h3"/>
-                </svg>
-                Payment Details
-            </a>
-
-            <a href="settings.html" class="flex items-center gap-2.5 px-5 py-3 text-[11px] font-medium text-slate-700 hover:bg-slate-50">
-                <svg class="w-[19px] h-[19px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-width="1.5" d="M12 3l1.5 2.4 2.8.4.7 2.7 2.4 1.5-1.2 2.5 1.2 2.5-2.4 1.5-.7 2.7-2.8.4L12 21l-1.5-2.4-2.8-.4-.7-2.7-2.4-1.5 1.2-2.5-1.2-2.5 2.4-1.5.7-2.7 2.8-.4z"/>
-                    <circle cx="12" cy="12" r="3" stroke-width="1.5"/>
-                </svg>
-                Settings
-            </a>
-        </nav>
-    </aside>
-
-    <!-- MAIN -->
-    <div class="content-offset min-h-screen flex flex-col">
-
-        <!-- HEADER -->
-        <header class="sticky top-0 z-30 bg-gradient-to-r from-[#071342] via-[#06275c] to-[#07569a] text-white">
-
-            <div class="h-[68px] px-5 lg:px-6 flex items-center justify-between">
-
-                <div class="flex items-center gap-5">
-                    <button @click="sidebarOpen = true" class="lg:hidden">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                        </svg>
-                    </button>
-
-                    <nav class="hidden lg:flex items-center gap-7 text-[11px] font-medium">
-                        <a href="offerings.html" class="text-white font-semibold">Explore Offerings</a>
-                        <a href="how-it-works.html" class="hover:text-white/80">How It Works</a>
-                        <a href="index.html#selling" class="hover:text-white/80">Selling Royalties</a>
-                        <a href="about.html" class="hover:text-white/80">About</a>
-                    </nav>
-                </div>
-
-                <div class="flex items-center gap-5">
-
-                    <div class="hidden sm:block relative">
-                        <svg class="absolute left-3 top-2.5 w-3.5 h-3.5 text-blue-100/80"
-                             fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <circle cx="11" cy="11" r="7" stroke-width="2"/>
-                            <path stroke-width="2" d="m20 20-4-4"/>
-                        </svg>
-                        <input
-                            type="search"
-                            placeholder="Search"
-                            class="w-[150px] h-[30px] rounded-lg bg-white/15 border border-white/10 pl-8 pr-3 text-[10px] text-white placeholder:text-white/80 outline-none focus:bg-white/20"
-                        >
-                    </div>
-
-                    <button class="hover:text-blue-100" title="Cart">
-                        <svg class="w-[17px] h-[17px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-width="1.5" d="M3 4h2l2 12h11l3-8H6M9 20a1 1 0 100-2 1 1 0 000 2zm8 0a1 1 0 100-2 1 1 0 000 2z"/>
-                        </svg>
-                    </button>
-
-                    <div class="relative">
-                        <button @click="profileOpen = !profileOpen" class="flex items-center gap-2 text-[11px] font-semibold">
-                            <span class="w-7 h-7 rounded-full border border-white/20 bg-white/10 flex items-center justify-center">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <circle cx="12" cy="8" r="3" stroke-width="1.5"/>
-                                    <path stroke-width="1.5" d="M5 20a7 7 0 0114 0"/>
-                                </svg>
-                            </span>
-                            <span class="hidden sm:inline">Hi James</span>
-                            <svg class="w-3 h-3 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-width="2" d="m7 10 5 5 5-5"/>
-                            </svg>
-                        </button>
-
-                        <div
-                            x-show="profileOpen"
-                            @click.outside="profileOpen = false"
-                            x-transition
-                            class="absolute right-0 mt-2 w-36 rounded-lg bg-white text-slate-700 shadow-xl border border-slate-100 py-1"
-                            style="display:none"
-                        >
-                            <a href="dashboard.html" class="block px-4 py-2 text-[11px] hover:bg-slate-50">Profile</a>
-                            <a href="settings.html" class="block px-4 py-2 text-[11px] hover:bg-slate-50">Settings</a>
-                            <a href="login.html" class="block px-4 py-2 text-[11px] text-red-600 hover:bg-red-50">Logout</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- PAGE TITLE -->
-            <div class="h-[58px] border-t border-white/10 bg-[#061a4b]/65 flex items-center px-5 lg:px-6">
-                <div class="flex items-center gap-2">
-                    <svg class="w-5 h-5 text-blue-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-width="1.5" d="M4 5h16v14H4zM8 9h8M8 13h5"/>
-                    </svg>
-                    <h1 class="text-[13px] font-bold">Explore Offerings</h1>
-                </div>
-            </div>
-        </header>
-
-        <!-- CONTENT -->
-        <main id="favorites" class="flex-1 bg-white px-5 sm:px-7 lg:px-6 xl:px-7 py-8">
-
-            <div class="max-w-[1050px] mx-auto">
-
-                <!-- TABS -->
-                <div class="border-b border-slate-200 mb-7">
-                    <div class="flex items-center gap-7 overflow-x-auto">
-                        <button
-                            @click="tab = 'artists'"
-                            :class="tab === 'artists' ? 'text-[#3974bd] border-[#3974bd] font-bold' : 'text-slate-500 border-transparent'"
-                            class="pb-3 text-[12px] border-b-2 whitespace-nowrap">
-                            Artists
-                        </button>
-
-                        <button
-                            @click="tab = 'live'"
-                            :class="tab === 'live' ? 'text-[#3974bd] border-[#3974bd] font-bold' : 'text-slate-500 border-transparent'"
-                            class="pb-3 text-[12px] border-b-2 whitespace-nowrap">
-                            Live Now
-                        </button>
-
-                        <button
-                            @click="tab = 'upcoming'"
-                            :class="tab === 'upcoming' ? 'text-[#3974bd] border-[#3974bd] font-bold' : 'text-slate-500 border-transparent'"
-                            class="pb-3 text-[12px] border-b-2 whitespace-nowrap">
-                            Upcoming Sales
-                        </button>
-                    </div>
-                </div>
-
-                <!-- CONTROLS -->
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-7">
-
-                    <div class="flex items-center gap-2 text-[11px] text-slate-500">
-                        <span>Results</span>
-                        <select class="h-8 border border-slate-200 rounded-md bg-white px-2 text-[11px] text-slate-600 outline-none">
-                            <option>12 per page</option>
-                            <option>24 per page</option>
-                            <option>36 per page</option>
-                        </select>
-                    </div>
-
-                    <div class="flex items-center gap-2 text-[11px] text-slate-500">
-                        <span>Sort by</span>
-                        <select class="h-8 border border-slate-200 rounded-md bg-white px-3 text-[11px] text-slate-600 outline-none">
-                            <option>Featured</option>
-                            <option>Newest</option>
-                            <option>Ending Soon</option>
-                            <option>Artist A-Z</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- OFFERING GRID -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-
-                    <!-- CARD 1 -->
-                    <article class="offering-card rounded-xl bg-white p-3 transition-all">
-                        <div class="relative aspect-square rounded-lg overflow-hidden bg-slate-100">
-                            <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&auto=format&fit=crop"
-                                 class="w-full h-full object-cover" alt="Stand Strong Cover">
-                            <span class="absolute top-3 left-3 bg-red-600 text-white text-[9px] font-bold px-2 py-1 rounded-full uppercase">On Sale!</span>
-                            <button class="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/90 text-slate-600 hover:text-red-500">♡</button>
-                            <div class="absolute bottom-3 left-3 bg-black/60 text-white px-2 py-1 rounded-full text-[9px]">
-                                Taboo
-                            </div>
-                        </div>
-                        <div class="pt-3 space-y-2">
-                            <div class="flex justify-between text-[9px] text-slate-500">
-                                <span>Ends in: 58D:15H:20M</span>
-                                <span class="bg-slate-100 px-2 py-0.5 rounded">Songshares</span>
-                            </div>
-                            <h3 class="font-bold text-[11px] leading-snug text-slate-900">
-                                Taboo (feat. Angelica Nicole) - "Stand Strong"
-                            </h3>
-                            <button class="w-full mt-1 py-2 rounded-md bg-[#3974bd] text-white text-[10px] font-semibold hover:bg-[#2d64a7]">
-                                View Offering
-                            </button>
-                        </div>
-                    </article>
-
-                    <!-- CARD 2 -->
-                    <article class="offering-card rounded-xl bg-white p-3 transition-all">
-                        <div class="relative aspect-square rounded-lg overflow-hidden bg-slate-100">
-                            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop"
-                                 class="w-full h-full object-cover" alt="Queen Under Pressure">
-                            <span class="absolute top-3 left-3 bg-red-600 text-white text-[9px] font-bold px-2 py-1 rounded-full uppercase">On Sale!</span>
-                            <button class="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/90 text-slate-600 hover:text-red-500">♡</button>
-                            <div class="absolute bottom-3 left-3 bg-black/60 text-white px-2 py-1 rounded-full text-[9px]">Queen</div>
-                        </div>
-                        <div class="pt-3 space-y-2">
-                            <div class="flex justify-between text-[9px] text-slate-500">
-                                <span>Ends in: 22D:15H:20M</span>
-                                <span class="bg-slate-100 px-2 py-0.5 rounded">Songshares</span>
-                            </div>
-                            <h3 class="font-bold text-[11px] leading-snug text-slate-900">
-                                Queen - "Under Pressure" (Series 2)
-                            </h3>
-                            <button class="w-full mt-1 py-2 rounded-md bg-[#3974bd] text-white text-[10px] font-semibold hover:bg-[#2d64a7]">
-                                View Offering
-                            </button>
-                        </div>
-                    </article>
-
-                    <!-- CARD 3 -->
-                    <article class="offering-card rounded-xl bg-white p-3 transition-all">
-                        <div class="relative aspect-square rounded-lg overflow-hidden bg-slate-100">
-                            <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&auto=format&fit=crop"
-                                 class="w-full h-full object-cover" alt="Beyoncé Radio">
-                            <span class="absolute top-3 left-3 bg-red-600 text-white text-[9px] font-bold px-2 py-1 rounded-full uppercase">On Sale!</span>
-                            <button class="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/90 text-slate-600 hover:text-red-500">♡</button>
-                            <div class="absolute bottom-3 left-3 bg-black/60 text-white px-2 py-1 rounded-full text-[9px]">Beyoncé</div>
-                        </div>
-                        <div class="pt-3 space-y-2">
-                            <div class="flex justify-between text-[9px] text-slate-500">
-                                <span>Ends in: 22D:15H:20M</span>
-                                <span class="bg-slate-100 px-2 py-0.5 rounded">Songshares</span>
-                            </div>
-                            <h3 class="font-bold text-[11px] leading-snug text-slate-900">
-                                Beyoncé - "Radio" (Series 2)
-                            </h3>
-                            <button class="w-full mt-1 py-2 rounded-md bg-[#3974bd] text-white text-[10px] font-semibold hover:bg-[#2d64a7]">
-                                View Offering
-                            </button>
-                        </div>
-                    </article>
-
-                    <!-- CARD 4 -->
-                    <article class="offering-card rounded-xl bg-white p-3 transition-all">
-                        <div class="relative aspect-square rounded-lg overflow-hidden bg-slate-100">
-                            <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&auto=format&fit=crop"
-                                 class="w-full h-full object-cover" alt="Mariah Carey">
-                            <span class="absolute top-3 left-3 bg-red-600 text-white text-[9px] font-bold px-2 py-1 rounded-full uppercase">On Sale!</span>
-                            <button class="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/90 text-slate-600 hover:text-red-500">♡</button>
-                            <div class="absolute bottom-3 left-3 bg-black/60 text-white px-2 py-1 rounded-full text-[9px]">Mariah Carey</div>
-                        </div>
-                        <div class="pt-3 space-y-2">
-                            <div class="flex justify-between text-[9px] text-slate-500">
-                                <span>Ends in: 207D:06H:09M</span>
-                                <span class="bg-slate-100 px-2 py-0.5 rounded">Songshares</span>
-                            </div>
-                            <h3 class="font-bold text-[11px] leading-snug text-slate-900">
-                                Mariah Carey - Vol. 1
-                            </h3>
-                            <button class="w-full mt-1 py-2 rounded-md bg-[#3974bd] text-white text-[10px] font-semibold hover:bg-[#2d64a7]">
-                                View Offering
-                            </button>
-                        </div>
-                    </article>
-
-                    <!-- CARD 5 -->
-                    <article class="offering-card rounded-xl bg-white p-3 transition-all">
-                        <div class="relative aspect-square rounded-lg overflow-hidden bg-slate-100">
-                            <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600&auto=format&fit=crop"
-                                 class="w-full h-full object-cover" alt="Rachel Platten">
-                            <span class="absolute top-3 left-3 bg-red-600 text-white text-[9px] font-bold px-2 py-1 rounded-full uppercase">On Sale!</span>
-                            <button class="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/90 text-slate-600 hover:text-red-500">♡</button>
-                            <div class="absolute bottom-3 left-3 bg-black/60 text-white px-2 py-1 rounded-full text-[9px]">Rachel Platten</div>
-                        </div>
-                        <div class="pt-3 space-y-2">
-                            <div class="flex justify-between text-[9px] text-slate-500">
-                                <span>Ends in: 22D:15H:20M</span>
-                                <span class="bg-slate-100 px-2 py-0.5 rounded">Songshares</span>
-                            </div>
-                            <h3 class="font-bold text-[11px] leading-snug text-slate-900">
-                                Rachel Platten - "Fight Song"
-                            </h3>
-                            <button class="w-full mt-1 py-2 rounded-md bg-[#3974bd] text-white text-[10px] font-semibold hover:bg-[#2d64a7]">
-                                View Offering
-                            </button>
-                        </div>
-                    </article>
-
-                    <!-- CARD 6 -->
-                    <article class="offering-card rounded-xl bg-white p-3 transition-all">
-                        <div class="relative aspect-square rounded-lg overflow-hidden bg-slate-100">
-                            <img src="https://images.unsplash.com/photo-1511735111819-9a3f7709049c?w=600&auto=format&fit=crop"
-                                 class="w-full h-full object-cover" alt="Pitbull">
-                            <span class="absolute top-3 left-3 bg-red-600 text-white text-[9px] font-bold px-2 py-1 rounded-full uppercase">On Sale!</span>
-                            <button class="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/90 text-slate-600 hover:text-red-500">♡</button>
-                            <div class="absolute bottom-3 left-3 bg-black/60 text-white px-2 py-1 rounded-full text-[9px]">Pitbull</div>
-                        </div>
-                        <div class="pt-3 space-y-2">
-                            <div class="flex justify-between text-[9px] text-slate-500">
-                                <span>Ends in: 22D:15H:20M</span>
-                                <span class="bg-slate-100 px-2 py-0.5 rounded">Songshares</span>
-                            </div>
-                            <h3 class="font-bold text-[11px] leading-snug text-slate-900">
-                                Chris Brown & Pitbull - Vol.1
-                            </h3>
-                            <button class="w-full mt-1 py-2 rounded-md bg-[#3974bd] text-white text-[10px] font-semibold hover:bg-[#2d64a7]">
-                                View Offering
-                            </button>
-                        </div>
-                    </article>
-
-                    <!-- CARD 7 -->
-                    <article class="offering-card rounded-xl bg-white p-3 transition-all">
-                        <div class="relative aspect-square rounded-lg overflow-hidden bg-slate-100">
-                            <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&auto=format&fit=crop"
-                                 class="w-full h-full object-cover" alt="Chris Brown">
-                            <span class="absolute top-3 left-3 bg-red-600 text-white text-[9px] font-bold px-2 py-1 rounded-full uppercase">On Sale!</span>
-                            <button class="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/90 text-slate-600 hover:text-red-500">♡</button>
-                            <div class="absolute bottom-3 left-3 bg-black/60 text-white px-2 py-1 rounded-full text-[9px]">Chris Brown</div>
-                        </div>
-                        <div class="pt-3 space-y-2">
-                            <div class="flex justify-between text-[9px] text-slate-500">
-                                <span>Ends in: 22D:15H:20M</span>
-                                <span class="bg-slate-100 px-2 py-0.5 rounded">Songshares</span>
-                            </div>
-                            <h3 class="font-bold text-[11px] leading-snug text-slate-900">
-                                Chris Brown - "Go Crazy"
-                            </h3>
-                            <button class="w-full mt-1 py-2 rounded-md bg-[#3974bd] text-white text-[10px] font-semibold hover:bg-[#2d64a7]">
-                                View Offering
-                            </button>
-                        </div>
-                    </article>
-
-                    <!-- CARD 8 -->
-                    <article class="offering-card rounded-xl bg-white p-3 transition-all opacity-90">
-                        <div class="relative aspect-square rounded-lg overflow-hidden bg-slate-100">
-                            <img src="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=600&auto=format&fit=crop"
-                                 class="w-full h-full object-cover grayscale" alt="Duran Duran">
-                            <span class="absolute top-3 left-3 bg-red-600 text-white text-[9px] font-bold px-2 py-1 rounded-full uppercase">Sold Out</span>
-                            <button class="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/90 text-slate-600 hover:text-red-500">♡</button>
-                            <div class="absolute bottom-3 left-3 bg-black/60 text-white px-2 py-1 rounded-full text-[9px]">Duran Duran</div>
-                        </div>
-                        <div class="pt-3 space-y-2">
-                            <div class="flex justify-between text-[9px] text-slate-500">
-                                <span class="text-red-500 font-semibold">Sold Out</span>
-                                <span class="bg-slate-100 px-2 py-0.5 rounded">Songshares</span>
-                            </div>
-                            <h3 class="font-bold text-[11px] leading-snug text-slate-900">
-                                Duran Duran - "Come Undone" (Series 2)
-                            </h3>
-                            <button disabled class="w-full mt-1 py-2 rounded-md bg-slate-200 text-slate-500 text-[10px] font-semibold cursor-not-allowed">
-                                Sold Out
-                            </button>
-                        </div>
-                    </article>
-
-                </div>
-
-                <!-- PAGINATION -->
-                <div class="mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[10px] text-slate-500">
-                    <span>Showing 1-12 of 35</span>
-
-                    <div class="flex items-center gap-1">
-                        <button class="w-7 h-7 rounded border border-slate-200 hover:bg-slate-50">‹</button>
-                        <button class="w-7 h-7 rounded bg-[#3974bd] text-white font-semibold">1</button>
-                        <button class="w-7 h-7 rounded border border-slate-200 hover:bg-slate-50">2</button>
-                        <button class="w-7 h-7 rounded border border-slate-200 hover:bg-slate-50">3</button>
-                        <button class="w-7 h-7 rounded border border-slate-200 hover:bg-slate-50">›</button>
-                    </div>
-                </div>
-
-            </div>
-        </main>
-
-        <!-- FOOTER -->
-        <footer class="bg-[#3478bd] text-white">
-            <div class="max-w-[1050px] mx-auto px-5 lg:px-6 py-9">
-
-                <div class="flex flex-col lg:flex-row items-center justify-between gap-6 pb-6 border-b border-white/15">
-
-                    <a href="index.html" class="shrink-0">
-                        <img src="logo.png" alt="MusixVest" class="w-[125px] h-auto brightness-0 invert">
-                    </a>
-
-                    <div class="flex flex-wrap justify-center gap-x-3 gap-y-2 text-[9px] text-white/90">
-                        <a href="index.html#selling" class="footer-link">Music Creators/Sell Royalties</a>
-                        <span>•</span>
-                        <a href="offerings.html" class="footer-link">Current Auctions</a>
-                        <span>•</span>
-                        <a href="about.html" class="footer-link">About Us</a>
-                        <span>•</span>
-                        <a href="index.html#offerings" class="footer-link">News</a>
-                        <span>•</span>
-                        <a href="how-it-works.html#faq" class="footer-link">FAQs</a>
-                    </div>
-
-                    <div class="flex items-center gap-3">
-                        <a href="index.html" class="w-7 h-7 rounded-full bg-white flex items-center justify-center text-[#3478bd] font-bold text-[10px]">◎</a>
-                        <a href="index.html" class="w-7 h-7 rounded-full bg-white flex items-center justify-center text-[#3478bd] font-bold text-[11px]">f</a>
-                        <a href="index.html" class="w-7 h-7 rounded-full bg-white flex items-center justify-center text-[#3478bd] font-bold text-[10px]">𝕏</a>
-                        <a href="index.html" class="w-7 h-7 rounded-full bg-white flex items-center justify-center text-[#3478bd] font-bold text-[10px]">in</a>
-                    </div>
-                </div>
-
-                <div class="flex flex-col sm:flex-row justify-between gap-3 py-6 text-[9px] text-white/90">
-                    <span>© 2026 MusixVest. All rights reserved.</span>
-                    <div class="flex flex-wrap gap-3">
-                        <a href="about.html" class="footer-link">Terms of Use</a>
-                        <a href="about.html" class="footer-link">Privacy Policy</a>
-                        <a href="about.html" class="footer-link">Offering Circular</a>
-                    </div>
-                </div>
-
-                <div class="space-y-4 text-[8px] leading-relaxed text-white/90">
-                    <p>
-                        This is a demonstration dashboard created for the MusixVest project. The interface is inspired by the
-                        layout and information architecture of a music-rights investment platform.
-                    </p>
-                    <p>
-                        <strong>IMPORTANT:</strong> MusixVest is a project name used for this replica. Information displayed here is
-                        illustrative only and should not be interpreted as financial, investment, legal, or tax advice.
-                    </p>
-                    <p>
-                        Music royalty investments can involve substantial risk, including the possible loss of invested capital.
-                        Review all applicable documentation and obtain independent professional advice before making any real
-                        investment decision.
-                    </p>
-                </div>
-            </div>
-        </footer>
-    </div>
-
+<script>
+  (function () {
+    var slugs = ['stand-strong', 'under-pressure', 'fight-song', 'midnight-static'];
+    slugs.forEach(function (slug) {
+      var saved = null;
+      try { saved = localStorage.getItem('mv_cover_' + slug); } catch (e) {}
+      if (!saved) return;
+      var img = document.querySelector('.song-cover img[src*="' + slug + '"]');
+      if (img) img.src = saved;
+    });
+  })();
+</script>
+<script>
+(function () {
+  var RATE_USD_TO_GBP = 0.79; // demo/display-only rate
+  function getCurrency() { try { return localStorage.getItem('mv_currency') || 'USD'; } catch (e) { return 'USD'; } }
+  function setCurrency(c) { try { localStorage.setItem('mv_currency', c); } catch (e) {} }
+  function format(usd, currency) {
+    var value = currency === 'GBP' ? usd * RATE_USD_TO_GBP : usd;
+    var symbol = currency === 'GBP' ? '\u00a3' : '$';
+    return symbol + value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+  function apply() {
+    var currency = getCurrency();
+    document.querySelectorAll('[data-usd-amount]').forEach(function (el) {
+      var usd = parseFloat(el.getAttribute('data-usd-amount'));
+      if (!isNaN(usd)) el.textContent = format(usd, currency);
+    });
+    document.querySelectorAll('[data-currency-btn]').forEach(function (btn) {
+      var active = btn.getAttribute('data-currency-btn') === currency;
+      btn.classList.toggle('opacity-100', active);
+      btn.classList.toggle('underline', active);
+      btn.classList.toggle('opacity-60', !active);
+    });
+  }
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-currency-btn]');
+    if (!btn) return;
+    setCurrency(btn.getAttribute('data-currency-btn'));
+    apply();
+  });
+  apply();
+})();
+</script>
 </body>
 </html>
