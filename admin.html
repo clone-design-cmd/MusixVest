@@ -78,6 +78,17 @@
           this.deposits.resolved.unshift({id:d.id, date:d.date, investor:d.investor, amount:d.amount, status:'Rejected', reviewedBy:'Platform Admin'});
           this.deposits.pending = this.deposits.pending.filter(x=>x.id!==d.id);
         },
+        cryptoAddresses:{
+          'USDT (TRC20)':'TXn9Yts4c7wm4ZeD1P8vR3qk6WbEo2Lp5H',
+          'USDT (ERC20)':'0x4A7fB1c9E82dF35a6c1B0e9D3F82C6a1B4E5D7c0',
+          'BTC':'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh',
+          'ETH':'0x8B3a5C6D1e9F42b7A0c8D5E3F1a6B9c4D2E7F0a1'
+        },
+        addressesSaved:false,
+        saveAddresses(){
+          this.addressesSaved=true;
+          setTimeout(()=>{ this.addressesSaved=false; }, 3000);
+        },
         newOffering:{title:'', artist:'', price:'', totalShares:'', royaltyRate:'', status:'Draft'},
         editingId:null,
         openAddModal(){ this.editingId=null; this.newOffering={title:'',artist:'',price:'',totalShares:'',royaltyRate:'',status:'Draft'}; this.modalOpen=true },
@@ -121,6 +132,9 @@
     </a>
     <a href="#" @click.prevent="tab='deposits'" :class="tab==='deposits' && 'active'" class="side-link flex items-center gap-3 px-3 py-3 rounded-lg text-[11px] font-medium hover:bg-slate-50">
       <span class="inline-flex"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span> Deposits
+    </a>
+    <a href="#" @click.prevent="tab='payments'" :class="tab==='payments' && 'active'" class="side-link flex items-center gap-3 px-3 py-3 rounded-lg text-[11px] font-medium hover:bg-slate-50">
+      <span class="inline-flex"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M6 15h4"/></svg></span> Payment Settings
     </a>
     <a href="#" @click.prevent="tab='transactions'" :class="tab==='transactions' && 'active'" class="side-link flex items-center gap-3 px-3 py-3 rounded-lg text-[11px] font-medium hover:bg-slate-50">
       <span class="inline-flex"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></span> Transactions
@@ -168,7 +182,7 @@
         <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-7">
           <div>
             <p class="text-[#3974bd] text-[10px] font-bold uppercase tracking-wider">Admin Panel</p>
-            <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-1" x-text="tab==='overview' ? 'Overview' : tab==='offerings' ? 'Manage Offerings' : tab==='users' ? 'Users' : tab==='deposits' ? 'Deposit Requests' : 'Transactions'"></h1>
+            <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-1" x-text="tab==='overview' ? 'Overview' : tab==='offerings' ? 'Manage Offerings' : tab==='users' ? 'Users' : tab==='deposits' ? 'Deposit Requests' : tab==='payments' ? 'Payment Settings' : 'Transactions'"></h1>
             <p class="text-[11px] text-slate-500 mt-2">Upload SongShare offerings, review investors, and monitor activity.</p>
           </div>
           <button @click="openAddModal()" class="sm:hidden btn-primary px-5 py-2.5 rounded-md text-[10px] font-semibold text-center">+ New Offering</button>
@@ -313,6 +327,24 @@
             </div>
             <p class="text-[8px] text-slate-400 mt-3">Static demo data — wire this to real deposit records once backend logic is built.</p>
           </div>
+        </section>
+
+        <!-- PAYMENT SETTINGS TAB -->
+        <section x-show="tab==='overview' || tab==='payments'" class="soft-card bg-white rounded-xl p-5 mb-6">
+          <div class="mb-4"><h2 class="text-[13px] font-bold text-slate-900">Crypto Deposit Addresses</h2><p class="text-[9px] text-slate-500 mt-1">These are the wallet addresses shown to investors when they deposit funds. Update them if a wallet changes.</p></div>
+          <div class="space-y-4 max-w-xl">
+            <template x-for="network in Object.keys(cryptoAddresses)" :key="network">
+              <div class="field">
+                <label class="field-label text-[9px]" x-text="network"></label>
+                <input type="text" x-model="cryptoAddresses[network]" class="input font-mono text-[11px]">
+              </div>
+            </template>
+          </div>
+          <div class="flex items-center gap-3 mt-5">
+            <button @click="saveAddresses()" class="btn-primary px-4 py-2 rounded-md text-[10px] font-semibold">Save Changes</button>
+            <span class="text-[9px] text-emerald-600 font-semibold" x-show="addressesSaved" x-transition>Saved</span>
+          </div>
+          <p class="text-[8px] text-slate-400 mt-4">Changes apply only to this browser session — connect this form to your backend so updates persist and sync to the investor-facing deposit page.</p>
         </section>
 
         <!-- TRANSACTIONS TAB (placeholder, static) -->
