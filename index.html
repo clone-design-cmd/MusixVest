@@ -10,71 +10,50 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body class="bg-white text-slate-700 antialiased">
 <a href="#main" class="skip-link">Skip to main content</a>
 
-<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-100" x-data="{ mobileNavOpen: false }">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-3">
-    <a href="index.html" class="flex items-center gap-2 shrink-0">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-100">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-2">
       <img src="assets/img/logo.png" alt="MusixVest home" class="h-10 w-auto object-contain">
     </a>
     <nav aria-label="Primary" class="hidden lg:flex items-center gap-7">
-      <a href="offerings.html" class="link-underline text-slate-500 hover:text-slate-900 text-sm transition-colors">Explore Offerings</a>
-      <a href="how-it-works.html" class="link-underline text-slate-500 hover:text-slate-900 text-sm transition-colors">How It Works</a>
-      <a href="index.html#selling" class="link-underline text-slate-500 hover:text-slate-900 text-sm transition-colors">Selling Royalties</a>
-      <a href="about.html" class="link-underline text-slate-500 hover:text-slate-900 text-sm transition-colors">About</a>
-      <a href="how-it-works.html#faq" class="link-underline text-slate-500 hover:text-slate-900 text-sm transition-colors">FAQ</a>
-      <a href="login.html" class="link-underline text-slate-500 hover:text-slate-900 text-sm transition-colors">Log In</a>
+      <a href="offerings.html" class="text-slate-500 hover:text-slate-900 text-sm transition-colors">Explore Offerings</a>
+      <a href="how-it-works.html" class="text-slate-500 hover:text-slate-900 text-sm transition-colors">How It Works</a>
+      <a href="index.html#selling" class="text-slate-500 hover:text-slate-900 text-sm transition-colors">Selling Royalties</a>
+      <a href="about.html" class="text-slate-500 hover:text-slate-900 text-sm transition-colors">About</a>
+      <a href="contact.html" class="text-slate-500 hover:text-slate-900 text-sm transition-colors">Contact</a>
+      <a href="how-it-works.html#faq" class="text-slate-500 hover:text-slate-900 text-sm transition-colors">FAQ</a>
+      <a href="login.html" class="text-slate-500 hover:text-slate-900 text-sm transition-colors">Log In</a>
     </nav>
-    <div class="flex items-center gap-2 shrink-0">
-      <a href="register.html" class="btn btn-primary hidden sm:inline-flex">Get Started</a>
-      <button type="button" @click="mobileNavOpen = !mobileNavOpen" class="lg:hidden min-w-11 min-h-11 rounded-lg hover:bg-slate-100 active:bg-slate-200 flex items-center justify-center transition-colors" :aria-expanded="mobileNavOpen.toString()" aria-controls="mobile-nav-panel" aria-label="Toggle menu">
-        <svg x-show="!mobileNavOpen" class="w-5 h-5 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-        <svg x-show="mobileNavOpen" class="w-5 h-5 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" style="display:none"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-      </button>
-    </div>
+    <a href="register.html" class="btn btn-primary">Get Started</a>
   </div>
-  <nav aria-label="Mobile" id="mobile-nav-panel" x-show="mobileNavOpen" x-transition.opacity.duration.150ms @click.outside="mobileNavOpen = false" @keydown.escape.window="mobileNavOpen = false" class="lg:hidden border-t border-slate-100 bg-white px-4 sm:px-6 py-3" style="display:none">
-    <a href="register.html" class="btn btn-primary w-full justify-center mb-2 sm:hidden">Get Started</a>
-    <a href="offerings.html" class="mobile-nav-link">Explore Offerings</a>
-    <a href="how-it-works.html" class="mobile-nav-link">How It Works</a>
-    <a href="index.html#selling" class="mobile-nav-link">Selling Royalties</a>
-    <a href="about.html" class="mobile-nav-link">About</a>
-    <a href="how-it-works.html#faq" class="mobile-nav-link">FAQ</a>
-    <a href="login.html" class="mobile-nav-link">Log In</a>
-  </nav>
 </header>
 
 <main id="main">
 
-  <section class="max-w-6xl mx-auto px-4 sm:px-6 pt-16 sm:pt-20 pb-20 sm:pb-24 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
-    <div class="lg:col-span-6 space-y-7" data-reveal>
-      <h1 class="text-4xl sm:text-5xl xl:text-6xl font-extrabold text-slate-900 leading-[1.08] tracking-tight text-balance">
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 pt-14 pb-20 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+    <div class="lg:col-span-6 space-y-6">
+      <h1 class="text-4xl sm:text-5xl xl:text-6xl font-extrabold text-slate-900 leading-[1.1] tracking-tight">
         Make music your next investment
       </h1>
       <p class="text-base sm:text-lg text-slate-500 leading-relaxed max-w-lg">
         Buy fractional SongShares in music royalties and earn a portion of the income each time a song streams, sells, or gets licensed.
       </p>
-      <div class="flex flex-wrap gap-3 pt-1">
+      <div class="flex flex-wrap gap-3">
         <a href="offerings.html" class="btn btn-primary">Explore Offerings</a>
         <a href="how-it-works.html" class="btn btn-secondary">How It Works</a>
       </div>
-      <p class="text-xs text-slate-400 pt-2 max-w-md">
-        Investing in music royalties involves risk, including possible loss of principal. See our <a href="how-it-works.html#faq" class="link-underline font-semibold text-slate-500 hover:text-slate-700">FAQ</a> for details.
-      </p>
     </div>
 
-    <div class="lg:col-span-6" data-reveal>
-      <div class="card card-hover p-6 max-w-sm mx-auto" aria-hidden="true">
+    <div class="lg:col-span-6">
+      <div class="card p-6 max-w-sm mx-auto" aria-hidden="true">
         <div class="flex justify-between items-center text-xs text-slate-400 font-semibold uppercase tracking-wider border-b border-slate-100 pb-3 mb-4">
           <span>Portfolio Overview</span>
-          <span class="relative flex h-2 w-2">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-          </span>
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
         </div>
         <p class="text-xs text-slate-400">Portfolio value</p>
         <p class="text-3xl font-extrabold text-slate-900 mb-4">$12,480.00</p>
@@ -89,49 +68,21 @@
     </div>
   </section>
 
-  <section class="border-y border-slate-100 py-10 bg-slate-50/60" aria-label="Why invest with MusixVest">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6">
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        <div class="flex items-start gap-3" data-reveal>
-          <span class="icon-tile" aria-hidden="true">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 7h6m-6 4h6m-6 4h4M5 21h14a1 1 0 001-1V4a1 1 0 00-1-1H5a1 1 0 00-1 1v16a1 1 0 001 1z"/></svg>
-          </span>
-          <div>
-            <h3 class="font-bold text-slate-900 text-sm">Own a fraction, not the whole</h3>
-            <p class="text-xs text-slate-500 mt-1 leading-relaxed">Buy as many or as few SongShares as you want in a single offering.</p>
-          </div>
-        </div>
-        <div class="flex items-start gap-3" data-reveal>
-          <span class="icon-tile" aria-hidden="true">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          </span>
-          <div>
-            <h3 class="font-bold text-slate-900 text-sm">Identity-verified investors</h3>
-            <p class="text-xs text-slate-500 mt-1 leading-relaxed">Every account completes verification before it can invest.</p>
-          </div>
-        </div>
-        <div class="flex items-start gap-3" data-reveal>
-          <span class="icon-tile" aria-hidden="true">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 13.5l3-3 3 3 5-5m0 0h-3.5M14 5.5H18v4"/></svg>
-          </span>
-          <div>
-            <h3 class="font-bold text-slate-900 text-sm">Transparent tracking</h3>
-            <p class="text-xs text-slate-500 mt-1 leading-relaxed">Your dashboard shows every holding, deposit, and transaction  no hidden entries.</p>
-          </div>
-        </div>
-      </div>
+  <section class="border-y border-slate-100 py-6 bg-slate-50/50" aria-label="Featured coverage">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <p class="text-sm text-center font-semibold text-slate-400 uppercase tracking-widest mb-4">
+        Built for music investors
+      </p>
+      <p class="text-center text-sm text-slate-500 max-w-2xl mx-auto">
+        Explore music royalty opportunities through a streamlined investment experience.
+      </p>
     </div>
   </section>
 
-  <section id="offerings-preview" class="bg-slate-50 py-20 sm:py-24 border-b border-slate-100">
+  <section id="offerings-preview" class="bg-slate-50 py-20 border-b border-slate-100">
     <div class="max-w-5xl mx-auto px-4 sm:px-6">
-      <div class="text-center mb-12" data-reveal>
-        <p class="eyebrow">Marketplace</p>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Featured Offerings</h2>
-        <p class="text-sm text-slate-500 mt-2 max-w-md mx-auto">A sample of songs currently open for investment.</p>
-      </div>
-      <div id="featured-offerings" class="grid grid-cols-1 md:grid-cols-3 gap-6"><article class="card card-hover p-4" data-reveal>
-  <div class="song-cover mb-3"><img src="assets/img/covers/stand-strong.jpg" alt="Stand Strong cover art" loading="lazy" onerror="this.remove()"><svg class="song-cover-fallback" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M9 18V5l12-2v13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="18" cy="16" r="3" stroke="currentColor" stroke-width="1.5"/></svg></div>
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 text-center mb-12">Featured Offerings</h2>
+      <div id="featured-offerings" class="grid grid-cols-1 md:grid-cols-3 gap-6"><article class="card p-4">
   <div class="flex justify-between items-start mb-3">
     <div><h3 class="font-bold text-slate-900 text-sm">Stand Strong</h3><p class="text-xs text-slate-500">Nova Reyes</p></div>
     <span class="badge badge-success">Active</span>
@@ -139,8 +90,7 @@
   <div class="flex justify-between text-xs text-slate-500 mb-3"><span>$20.00 / share</span><span>290 available</span></div>
   <a href="offerings.html" class="btn btn-primary w-full text-center">View Offering</a>
 </article>
-<article class="card card-hover p-4" data-reveal>
-  <div class="song-cover mb-3"><img src="assets/img/covers/under-pressure.jpg" alt="Under Pressure cover art" loading="lazy" onerror="this.remove()"><svg class="song-cover-fallback" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M9 18V5l12-2v13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="18" cy="16" r="3" stroke="currentColor" stroke-width="1.5"/></svg></div>
+<article class="card p-4">
   <div class="flex justify-between items-start mb-3">
     <div><h3 class="font-bold text-slate-900 text-sm">Under Pressure</h3><p class="text-xs text-slate-500">The Amberlight</p></div>
     <span class="badge badge-success">Active</span>
@@ -148,8 +98,7 @@
   <div class="flex justify-between text-xs text-slate-500 mb-3"><span>$25.00 / share</span><span>220 available</span></div>
   <a href="offerings.html" class="btn btn-primary w-full text-center">View Offering</a>
 </article>
-<article class="card card-hover p-4" data-reveal>
-  <div class="song-cover mb-3"><img src="assets/img/covers/fight-song.jpg" alt="Fight Song cover art" loading="lazy" onerror="this.remove()"><svg class="song-cover-fallback" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M9 18V5l12-2v13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="18" cy="16" r="3" stroke="currentColor" stroke-width="1.5"/></svg></div>
+<article class="card p-4">
   <div class="flex justify-between items-start mb-3">
     <div><h3 class="font-bold text-slate-900 text-sm">Fight Song</h3><p class="text-xs text-slate-500">Callum Bray</p></div>
     <span class="badge badge-success">Active</span>
@@ -163,59 +112,42 @@
     </div>
   </section>
 
-  <section class="py-20 sm:py-24 bg-white border-t border-slate-100">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6">
-      <div class="text-center mb-14" data-reveal>
-        <p class="eyebrow">Process</p>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Getting started is easy</h2>
-      </div>
-      <ol class="step-track">
-        <li class="step-row" data-reveal>
-          <span class="step-num" aria-hidden="true">1</span>
-          <div class="card p-5 flex-1">
+  <section class="py-20 bg-white border-t border-slate-100">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 text-center mb-14">Getting started is easy</h2>
+      <ol class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <li class="flex gap-4 items-start">
+          <span class="w-9 h-9 rounded-full bg-[#2d60c3] text-white flex items-center justify-center font-bold text-sm shrink-0" aria-hidden="true">1</span>
+          <div>
             <h3 class="font-bold text-slate-900 text-base">Create your account</h3>
             <p class="text-sm text-slate-500 mt-1">Register and verify your identity to unlock investing.</p>
           </div>
         </li>
-        <li class="step-row" data-reveal>
-          <span class="step-num" aria-hidden="true">2</span>
-          <div class="card p-5 flex-1">
+        <li class="flex gap-4 items-start">
+          <span class="w-9 h-9 rounded-full bg-[#2d60c3] text-white flex items-center justify-center font-bold text-sm shrink-0" aria-hidden="true">2</span>
+          <div>
             <h3 class="font-bold text-slate-900 text-base">Deposit and buy SongShares</h3>
             <p class="text-sm text-slate-500 mt-1">Add funds to your balance, then invest in songs you believe in.</p>
           </div>
         </li>
-        <li class="step-row" data-reveal>
-          <span class="step-num is-final" aria-hidden="true">3</span>
-          <div class="card p-5 flex-1">
+        <li class="flex gap-4 items-start">
+          <span class="w-9 h-9 rounded-full bg-[#2d60c3] text-white flex items-center justify-center font-bold text-sm shrink-0" aria-hidden="true">3</span>
+          <div>
             <h3 class="font-bold text-slate-900 text-base">Earn royalty distributions</h3>
             <p class="text-sm text-slate-500 mt-1">Track your portfolio and returns from your dashboard.</p>
           </div>
         </li>
       </ol>
-      <p class="text-center mt-10" data-reveal>
-        <a href="how-it-works.html" class="link-underline font-semibold text-sm text-[#2d60c3]">See the full process, step by step →</a>
-      </p>
     </div>
   </section>
 
-  <section id="selling" class="max-w-5xl mx-auto px-4 sm:px-6 my-16 sm:my-20">
-    <div class="bg-slate-100 rounded-2xl p-8 sm:p-12 border border-slate-200/60 flex flex-col md:flex-row items-center justify-between gap-6" data-reveal>
+  <section id="selling" class="max-w-5xl mx-auto px-4 sm:px-6 my-16">
+    <div class="bg-slate-100 rounded-2xl p-8 sm:p-12 border border-slate-200/60 flex flex-col md:flex-row items-center justify-between gap-6">
       <div class="space-y-3 max-w-lg">
         <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-tight">Are you an artist, songwriter, or rightsholder?</h2>
         <p class="text-sm text-slate-500">List your catalog on MusixVest and raise funding directly from fans.</p>
       </div>
-      <a href="about.html#contact" class="btn btn-primary shrink-0">Contact Us</a>
-    </div>
-  </section>
-
-  <section class="bg-[#071342] py-16 sm:py-20">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center" data-reveal>
-      <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Ready to build your music portfolio?</h2>
-      <p class="text-sm text-blue-200 mt-3 max-w-lg mx-auto">Create an account, verify your identity, and browse open offerings in a few minutes.</p>
-      <div class="flex flex-wrap justify-center gap-3 mt-7">
-        <a href="register.html" class="btn btn-primary">Get Started</a>
-        <a href="how-it-works.html#faq" class="btn text-white border border-white/25 hover:bg-white/10">Read the FAQ</a>
-      </div>
+      <a href="contact.html" class="btn btn-primary shrink-0">Contact Us</a>
     </div>
   </section>
 
@@ -225,32 +157,20 @@
   <div class="max-w-5xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-slate-100">
     <nav aria-label="Footer" class="md:col-span-6 space-y-2">
       <p class="font-bold text-slate-900 mb-3">Menu</p>
-      <p><a href="offerings.html" class="link-underline hover:text-slate-900">Explore Offerings</a></p>
-      <p><a href="how-it-works.html" class="link-underline hover:text-slate-900">How It Works</a></p>
-      <p><a href="index.html#selling" class="link-underline hover:text-slate-900">Selling Royalties</a></p>
-      <p><a href="about.html" class="link-underline hover:text-slate-900">About</a></p>
-      <p><a href="how-it-works.html#faq" class="link-underline hover:text-slate-900">FAQ</a></p>
-      <p><a href="about.html#contact" class="link-underline hover:text-slate-900">Contact</a></p>
+      <p><a href="offerings.html" class="hover:text-slate-900">Explore Offerings</a></p>
+      <p><a href="how-it-works.html" class="hover:text-slate-900">How It Works</a></p>
+      <p><a href="index.html#selling" class="hover:text-slate-900">Selling Royalties</a></p>
+      <p><a href="about.html" class="hover:text-slate-900">About</a></p>
+      <p><a href="contact.html" class="hover:text-slate-900">Contact</a></p>
+      <p><a href="how-it-works.html#faq" class="hover:text-slate-900">FAQ</a></p>
     </nav>
+    <div class="md:col-span-6 flex md:justify-end items-start">
+      <a href="admin-login.html" class="text-slate-400 hover:text-slate-600 underline underline-offset-2">Admin log in</a>
+    </div>
   </div>
-  <div class="max-w-5xl mx-auto px-4 sm:px-6 pt-6 text-xs text-slate-400 leading-normal">
-    <p>MusixVest provides a marketplace for discovering and managing fractional music royalty investments. Investing involves risk, including possible loss of principal.</p>
-    <p class="text-center pt-4">© 2026 MusixVest. All rights reserved.</p>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 pt-6 text-xs text-slate-400 leading-normal"><p class="text-center pt-2">© 2026 MusixVest. All rights reserved.</p>
   </div>
 </footer>
 
-<script>
-  (function () {
-    var slugs = ['stand-strong', 'under-pressure', 'fight-song'];
-    slugs.forEach(function (slug) {
-      var saved = null;
-      try { saved = localStorage.getItem('mv_cover_' + slug); } catch (e) {}
-      if (!saved) return;
-      var img = document.querySelector('.song-cover img[src*="' + slug + '"]');
-      if (img) img.src = saved;
-    });
-  })();
-</script>
-<script src="assets/js/site.js"></script>
 </body>
 </html>

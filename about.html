@@ -4,210 +4,67 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MusixVest — About Us</title>
-<meta name="description" content="Learn about MusixVest, our approach to music royalty investing, who's behind it, and how to reach us.">
+<meta name="description" content="Learn about MusixVest and our approach to music royalty investing.">
 <link rel="icon" href="assets/img/favicon.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body class="bg-white text-slate-700 antialiased">
 <a href="#main" class="skip-link">Skip to main content</a>
 
-<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-100" x-data="{ mobileNavOpen: false }">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-3">
-    <a href="index.html" class="flex items-center gap-2 shrink-0">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-100">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-2">
       <img src="assets/img/logo.png" alt="MusixVest home" class="h-10 w-auto object-contain">
     </a>
     <nav aria-label="Primary" class="hidden lg:flex items-center gap-7">
-      <a href="offerings.html" class="link-underline text-slate-500 hover:text-slate-900 text-sm transition-colors">Explore Offerings</a>
-      <a href="how-it-works.html" class="link-underline text-slate-500 hover:text-slate-900 text-sm transition-colors">How It Works</a>
+      <a href="offerings.html" class="text-slate-500 hover:text-slate-900 text-sm">Explore Offerings</a>
+      <a href="how-it-works.html" class="text-slate-500 hover:text-slate-900 text-sm">How It Works</a>
       <a href="about.html" class="text-slate-900 font-semibold text-sm">About</a>
-      <a href="how-it-works.html#faq" class="link-underline text-slate-500 hover:text-slate-900 text-sm transition-colors">FAQ</a>
-      <a href="login.html" class="link-underline text-slate-500 hover:text-slate-900 text-sm transition-colors">Log In</a>
+      <a href="contact.html" class="text-slate-500 hover:text-slate-900 text-sm">Contact</a>
+      <a href="how-it-works.html#faq" class="text-slate-500 hover:text-slate-900 text-sm">FAQ</a>
+      <a href="login.html" class="text-slate-500 hover:text-slate-900 text-sm">Log In</a>
     </nav>
-    <div class="flex items-center gap-2 shrink-0">
-      <a href="register.html" class="btn btn-primary hidden sm:inline-flex">Get Started</a>
-      <button type="button" @click="mobileNavOpen = !mobileNavOpen" class="lg:hidden min-w-11 min-h-11 rounded-lg hover:bg-slate-100 active:bg-slate-200 flex items-center justify-center transition-colors" :aria-expanded="mobileNavOpen.toString()" aria-controls="mobile-nav-panel" aria-label="Toggle menu">
-        <svg x-show="!mobileNavOpen" class="w-5 h-5 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-        <svg x-show="mobileNavOpen" class="w-5 h-5 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" style="display:none"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-      </button>
-    </div>
+    <a href="register.html" class="btn btn-primary">Get Started</a>
   </div>
-  <nav aria-label="Mobile" id="mobile-nav-panel" x-show="mobileNavOpen" x-transition.opacity.duration.150ms @click.outside="mobileNavOpen = false" @keydown.escape.window="mobileNavOpen = false" class="lg:hidden border-t border-slate-100 bg-white px-4 sm:px-6 py-3" style="display:none">
-    <a href="register.html" class="btn btn-primary w-full justify-center mb-2 sm:hidden">Get Started</a>
-    <a href="offerings.html" class="mobile-nav-link">Explore Offerings</a>
-    <a href="how-it-works.html" class="mobile-nav-link">How It Works</a>
-    <a href="about.html" class="mobile-nav-link is-active">About</a>
-    <a href="how-it-works.html#faq" class="mobile-nav-link">FAQ</a>
-    <a href="login.html" class="mobile-nav-link">Log In</a>
-  </nav>
 </header>
 
-<main id="main">
+<main id="main" class="max-w-4xl mx-auto px-4 sm:px-6 py-16 space-y-14">
 
-  <section class="max-w-4xl mx-auto px-4 sm:px-6 pt-16 sm:pt-20 pb-14" data-reveal>
-    <p class="eyebrow">About MusixVest</p>
-    <h1 class="text-3xl sm:text-4xl xl:text-5xl font-extrabold text-slate-900 mb-5 tracking-tight leading-[1.1]">Music royalties, opened up to fans</h1>
-    <p class="text-sm sm:text-base text-slate-500 leading-relaxed max-w-2xl">
-      MusixVest connects everyday listeners with music royalty investing  an asset class that's traditionally been limited to labels, publishers, and institutional funds. We're building it to be transparent from the first click, because we think that's the only version of this worth building.
+  <section>
+    <p class="text-[#2d60c3] text-xs font-bold uppercase tracking-wider mb-2">About MusixVest</p>
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4">Connecting fans and artists through music royalties</h1>
+    <p class="text-sm sm:text-base text-slate-500 leading-relaxed">
+      MusixVest connects investors with music royalty opportunities, making it easier to discover catalogs and manage SongShares in one place.
     </p>
   </section>
 
-  <section class="max-w-5xl mx-auto px-4 sm:px-6 pb-16 sm:pb-20">
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
-      <div class="card p-6" data-reveal>
-        <span class="icon-tile mb-4" aria-hidden="true">
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m5-3.13a4 4 0 100-8 4 4 0 000 8zm7 3a4 4 0 00-3-3.87m-13 0a4 4 0 00-3 3.87"/></svg>
-        </span>
-        <h3 class="font-bold text-slate-900 text-sm mb-2">Fans first</h3>
-        <p class="text-xs text-slate-500 leading-relaxed">Anyone can start building a music royalty portfolio  not just institutional funds and industry insiders.</p>
-      </div>
-      <div class="card p-6" data-reveal>
-        <span class="icon-tile mb-4" aria-hidden="true">
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-        </span>
-        <h3 class="font-bold text-slate-900 text-sm mb-2">Radical transparency</h3>
-        <p class="text-xs text-slate-500 leading-relaxed">Every fee, every deposit, every distribution is visible in your dashboard  not buried in fine print.</p>
-      </div>
-      <div class="card p-6" data-reveal>
-        <span class="icon-tile mb-4" aria-hidden="true">
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 18V5l12-2v13M9 18a3 3 0 11-6 0 3 3 0 016 0zm12-2a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-        </span>
-        <h3 class="font-bold text-slate-900 text-sm mb-2">Artists keep creating</h3>
-        <p class="text-xs text-slate-500 leading-relaxed">Rightsholders can raise funding directly from the people who already love their music.</p>
-      </div>
-    </div>
+  <section>
+    <h2 class="text-xl font-bold text-slate-900 mb-3">What we're building</h2>
+    <p class="text-sm text-slate-500 leading-relaxed mb-4">
+      The platform lets artists and rightsholders list songs as "SongShares" offerings. Fans deposit funds, buy
+      shares in a song, and track their portfolio from a personal dashboard. An admin reviews and confirms every
+      deposit before funds are added to a fan's balance.
+    </p>
+    <ul class="space-y-2 text-sm text-slate-600">
+      <li class="flex gap-2"><span class="text-[#2d60c3]" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0 mt-0.5"><polyline points="20 6 9 17 4 12"/></svg></span> Fractional royalty investing through SongShares</li>
+      <li class="flex gap-2"><span class="text-[#2d60c3]" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0 mt-0.5"><polyline points="20 6 9 17 4 12"/></svg></span> Identity verification before a fan can invest</li>
+      <li class="flex gap-2"><span class="text-[#2d60c3]" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0 mt-0.5"><polyline points="20 6 9 17 4 12"/></svg></span> Admin-reviewed deposits for account security</li>
+      <li class="flex gap-2"><span class="text-[#2d60c3]" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0 mt-0.5"><polyline points="20 6 9 17 4 12"/></svg></span> A portfolio dashboard with holdings and transaction history</li>
+    </ul>
   </section>
 
-  <section class="bg-slate-50 border-y border-slate-100 py-16 sm:py-20">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6" data-reveal>
-      <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mb-4">What we're building</h2>
-      <p class="text-sm text-slate-500 leading-relaxed mb-5">
-        The platform lets artists and rightsholders list songs as SongShare offerings. Fans deposit funds, buy shares in a song, and track their portfolio from a personal dashboard. Every deposit is reviewed and confirmed by our team before funds are added to a fan's balance  we explain exactly how and why on the <a href="how-it-works.html" class="link-underline font-semibold text-slate-700 hover:text-slate-900">How It Works page</a>.
-      </p>
-      <ul class="space-y-2.5 text-sm text-slate-600">
-        <li class="flex gap-2.5"><span class="text-[#2d60c3] mt-0.5" aria-hidden="true">✓</span> Fractional royalty investing through SongShares</li>
-        <li class="flex gap-2.5"><span class="text-[#2d60c3] mt-0.5" aria-hidden="true">✓</span> Identity verification required before a fan can invest</li>
-        <li class="flex gap-2.5"><span class="text-[#2d60c3] mt-0.5" aria-hidden="true">✓</span> Every deposit reviewed by our team for account security</li>
-        <li class="flex gap-2.5"><span class="text-[#2d60c3] mt-0.5" aria-hidden="true">✓</span> A portfolio dashboard with full holdings and transaction history</li>
-      </ul>
-    </div>
+  <section>
+    <h2 class="text-xl font-bold text-slate-900 mb-3">Why we ask for identity information</h2>
+    <p class="text-sm text-slate-500 leading-relaxed">
+      Our verification flow is designed to protect account access and support a secure investing experience. Investors provide the information required to establish and maintain their account.
+    </p>
   </section>
 
-  <section class="max-w-5xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
-    <div class="text-center mb-4 max-w-2xl mx-auto" data-reveal>
-      <p class="eyebrow">Who's behind it</p>
-      <h2 class="text-xl sm:text-2xl font-bold text-slate-900">Our team</h2>
-      <p class="text-sm text-slate-500 mt-3 leading-relaxed">MusixVest is built by a small, early-stage team. We'd rather show you exactly who we are than hide behind a logo  bios below.</p>
-    </div>
-    <!--
-      Placeholder team cards  replace bracketed text, avatar
-      initials, and roles with real people before this goes live.
-      An "About" page with no accountable humans behind it is one
-      of the fastest ways to lose a skeptical user's trust.
-    -->
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mt-10">
-      <div class="card placeholder-card p-6 text-center" data-reveal>
-        <div class="avatar-initials mx-auto mb-4">FN</div>
-        <h3 class="font-bold text-slate-900 text-sm">[Founder name]</h3>
-        <p class="text-xs text-[#2d60c3] font-semibold mt-0.5 mb-2">Founder &amp; CEO</p>
-        <p class="text-xs text-slate-500 leading-relaxed">[A sentence or two on background and why they're building MusixVest.]</p>
-      </div>
-      <div class="card placeholder-card p-6 text-center" data-reveal>
-        <div class="avatar-initials mx-auto mb-4">CN</div>
-        <h3 class="font-bold text-slate-900 text-sm">[Co-founder name]</h3>
-        <p class="text-xs text-[#2d60c3] font-semibold mt-0.5 mb-2">[Role, e.g. Head of Product]</p>
-        <p class="text-xs text-slate-500 leading-relaxed">[A sentence or two on background and relevant experience.]</p>
-      </div>
-      <div class="card placeholder-card p-6 text-center" data-reveal>
-        <div class="avatar-initials mx-auto mb-4">TM</div>
-        <h3 class="font-bold text-slate-900 text-sm">[Team member name]</h3>
-        <p class="text-xs text-[#2d60c3] font-semibold mt-0.5 mb-2">[Role]</p>
-        <p class="text-xs text-slate-500 leading-relaxed">[A sentence or two on background and relevant experience.]</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="legal" class="bg-slate-50 border-y border-slate-100 py-16 sm:py-20">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6" data-reveal>
-      <p class="eyebrow">Trust &amp; compliance</p>
-      <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mb-5">How we handle your information and your money</h2>
-
-      <div class="space-y-5 text-sm text-slate-600 leading-relaxed">
-        <p><strong class="text-slate-800">Why we ask for identity information.</strong> Citizenship status, date of birth, and an ID number let us confirm you're eligible to invest and help prevent someone else from opening or accessing an account in your name. Your address should match the ID you'd use to verify in a full production system. We ask for what's needed to do that  nothing more.</p>
-        <p><strong class="text-slate-800">Security.</strong> Your connection to MusixVest is encrypted, and access to account data is restricted to authorized staff. We don't sell or share your personal information. Verification and account data exist to protect your access, not to be monetized.</p>
-        <p><strong class="text-slate-800">Regulatory status.</strong> SongShares involve real money and real risk, and offerings like these are typically subject to securities regulation. <span class="bg-amber-50 px-1 rounded">[Company legal name, registration details, and applicable regulatory disclosures go here as MusixVest formalizes its compliance program.]</span> If you don't see something you'd expect a regulated investment platform to disclose, ask us  we'd rather answer directly than have you wonder.</p>
-        <p class="text-xs text-slate-400 pt-2 border-t border-slate-200">Investing in music royalties involves risk, including possible loss of principal. Royalty income is not guaranteed, and a song's past income is not a promise of future results. This page is provided for general information and isn't investment, legal, or tax advice.</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact" class="max-w-4xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
-    <div class="text-center mb-10" data-reveal>
-      <p class="eyebrow">Get in touch</p>
-      <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">We'd rather you ask than wonder</h2>
-      <p class="text-sm text-slate-500 mt-3 max-w-xl mx-auto leading-relaxed">Questions about an offering, a deposit, or whether MusixVest is a fit for you  reach out before you invest, not just after.</p>
-    </div>
-
-    <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
-      <div class="lg:col-span-2 space-y-4" data-reveal>
-        <a href="mailto:hello@musixvest.com" class="card card-hover p-5 flex items-center gap-4">
-          <span class="icon-tile shrink-0" aria-hidden="true">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-          </span>
-          <span>
-            <span class="block font-bold text-slate-900 text-sm">Email us</span>
-            <span class="block text-xs text-slate-500 mt-0.5">hello@musixvest.com</span>
-          </span>
-        </a>
-        <div class="card p-5">
-          <p class="text-xs font-bold text-slate-900 uppercase tracking-wide mb-2">Before you write in</p>
-          <p class="text-xs text-slate-500 leading-relaxed">Include your account email if you're asking about a deposit or transaction  it helps us find your account faster. Never send a password, full ID number, or one-time code by email; we'll never ask for those.</p>
-        </div>
-      </div>
-
-      <div class="lg:col-span-3" data-reveal>
-        <div class="card p-6 sm:p-7">
-          <form id="contact-form" novalidate class="space-y-4">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div class="field">
-                <label class="field-label" for="contact-name">Name</label>
-                <input type="text" id="contact-name" name="name" required class="input" placeholder="Your name">
-                <p class="field-error" id="contact-name-error">Enter your name.</p>
-              </div>
-              <div class="field">
-                <label class="field-label" for="contact-email">Email</label>
-                <input type="email" id="contact-email" name="email" required class="input" placeholder="you@example.com">
-                <p class="field-error" id="contact-email-error">Enter a valid email address.</p>
-              </div>
-            </div>
-            <div class="field">
-              <label class="field-label" for="contact-topic">What's this about?</label>
-              <select id="contact-topic" name="topic" class="input">
-                <option>General question</option>
-                <option>A deposit or transaction</option>
-                <option>Selling my catalog / listing a song</option>
-                <option>Press</option>
-                <option>Something else</option>
-              </select>
-            </div>
-            <div class="field">
-              <label class="field-label" for="contact-message">Message</label>
-              <textarea id="contact-message" name="message" required rows="4" class="input" placeholder="How can we help?"></textarea>
-              <p class="field-error" id="contact-message-error">Enter a message.</p>
-            </div>
-            <div id="contact-form-status" class="alert alert-success hidden" role="status"></div>
-            <button type="submit" class="btn btn-primary w-full sm:w-auto">
-              <span class="btn-label">Send message</span>
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
+  
 
 </main>
 
@@ -219,72 +76,18 @@
         <a href="index.html#selling" class="footer-link">Music Creators / Sell Royalties</a>
         <a href="offerings.html" class="footer-link">Current Offerings</a>
         <a href="about.html" class="footer-link">About Us</a>
+        <a href="contact.html" class="footer-link">Contact</a>
         <a href="how-it-works.html#faq" class="footer-link">FAQs</a>
-        <a href="about.html#contact" class="footer-link">Contact</a>
       </nav>
     </div>
     <div class="flex flex-col sm:flex-row justify-between gap-3 py-6 text-xs text-white/90">
       <span>© 2026 MusixVest. All rights reserved.</span>
     </div>
     <p class="text-xs leading-relaxed text-white/85 max-w-4xl">
-      MusixVest provides a focused marketplace for discovering and managing music royalty investments. Investing involves risk, including possible loss of principal.
+      MusixVest provides a focused marketplace for discovering and managing music royalty investments.
     </p>
   </div>
 </footer>
 
-<script>
-(function () {
-  // Front-end-only demo handler: validates, shows a loading state on the
-  // button, then a success message. Wire this up to a real endpoint
-  // (email service, helpdesk API, etc.) once a backend exists.
-  var form = document.getElementById('contact-form');
-  if (!form) return;
-
-  var nameInput = document.getElementById('contact-name');
-  var nameError = document.getElementById('contact-name-error');
-  var emailInput = document.getElementById('contact-email');
-  var emailError = document.getElementById('contact-email-error');
-  var messageInput = document.getElementById('contact-message');
-  var messageError = document.getElementById('contact-message-error');
-  var status = document.getElementById('contact-form-status');
-  var submitBtn = form.querySelector('button[type="submit"]');
-
-  function isValidEmail(value) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-  }
-
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    status.classList.add('hidden');
-
-    var nameValid = nameInput.value.trim().length > 0;
-    nameInput.setAttribute('aria-invalid', nameValid ? 'false' : 'true');
-    nameError.classList.toggle('is-visible', !nameValid);
-
-    var emailValid = isValidEmail(emailInput.value.trim());
-    emailInput.setAttribute('aria-invalid', emailValid ? 'false' : 'true');
-    emailError.classList.toggle('is-visible', !emailValid);
-
-    var messageValid = messageInput.value.trim().length > 0;
-    messageInput.setAttribute('aria-invalid', messageValid ? 'false' : 'true');
-    messageError.classList.toggle('is-visible', !messageValid);
-
-    if (!nameValid || !emailValid || !messageValid) return;
-
-    if (window.MV) window.MV.setLoading(submitBtn, true);
-
-    window.setTimeout(function () {
-      if (window.MV) window.MV.setLoading(submitBtn, false);
-      status.textContent = 'Thanks  this demo form doesn\u2019t send yet, but once it\u2019s connected your message will reach our team from right here.';
-      status.classList.remove('hidden');
-      form.reset();
-      nameError.classList.remove('is-visible');
-      emailError.classList.remove('is-visible');
-      messageError.classList.remove('is-visible');
-    }, 600);
-  });
-})();
-</script>
-<script src="assets/js/site.js"></script>
 </body>
 </html>
