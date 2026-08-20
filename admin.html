@@ -48,10 +48,22 @@
         pendingDeleteTitle:'',
         tab:'offerings',
         offerings:[
-          {id:1, title:'Stand Strong', artist:'Grace Aldridge', cover:'🎵', price:520, totalShares:100, sold:64, royaltyRate:'12% APR (illustrative)', status:'Active'},
-          {id:2, title:'Under Pressure', artist:'The Velvet Static', cover:'🎵', price:550, totalShares:80, sold:41, royaltyRate:'9% APR (illustrative)', status:'Active'},
-          {id:3, title:'Fight Song', artist:'Marlowe & Cain', cover:'🎵', price:630, totalShares:60, sold:60, royaltyRate:'11% APR (illustrative)', status:'Sold Out'},
-          {id:4, title:'Night Signal', artist:'Nova Reyes', cover:'🎵', price:410, totalShares:120, sold:12, royaltyRate:'8% APR (illustrative)', status:'Draft'}
+          {id:1, title:'Stand Strong', artist:'Grace Aldridge', cover:'🎵', price:520, totalShares:100, sold:64, royaltyRate:'12% APR (illustrative)', status:'Active',
+            description:'An anthemic single about pushing through hard times. Streams have grown steadily since release, with sync licensing interest from two independent films.',
+            durationDays:365,
+            growthSchedule:[{days:30,pct:3},{days:90,pct:9},{days:180,pct:18},{days:365,pct:32}]},
+          {id:2, title:'Under Pressure', artist:'The Velvet Static', cover:'🎵', price:550, totalShares:80, sold:41, royaltyRate:'9% APR (illustrative)', status:'Active',
+            description:'A moody alt-rock track with a loyal fanbase and consistent playlist placements across major streaming platforms.',
+            durationDays:270,
+            growthSchedule:[{days:30,pct:2},{days:90,pct:6},{days:180,pct:13},{days:270,pct:21}]},
+          {id:3, title:'Fight Song', artist:'Marlowe & Cain', cover:'🎵', price:630, totalShares:60, sold:60, royaltyRate:'11% APR (illustrative)', status:'Sold Out',
+            description:'A high-energy collaboration that peaked on regional charts, with royalties from streaming, radio, and licensing.',
+            durationDays:180,
+            growthSchedule:[{days:30,pct:3},{days:60,pct:7},{days:120,pct:15},{days:180,pct:24}]},
+          {id:4, title:'Night Signal', artist:'Nova Reyes', cover:'🎵', price:410, totalShares:120, sold:12, royaltyRate:'8% APR (illustrative)', status:'Draft',
+            description:'A synth-driven track still building its early streaming momentum ahead of a wider playlist push.',
+            durationDays:365,
+            growthSchedule:[{days:30,pct:1},{days:90,pct:5},{days:180,pct:11},{days:365,pct:19}]}
         ],
         users:[
           {id:1, name:'James Whitfield', email:'james@example.com', verified:true, holdings:16, balance:3200.00, joined:'Jun 2, 2026'},
@@ -89,18 +101,38 @@
           this.addressesSaved=true;
           setTimeout(()=>{ this.addressesSaved=false; }, 3000);
         },
-        newOffering:{title:'', artist:'', price:'', totalShares:'', royaltyRate:'', status:'Draft'},
+        newOffering:{title:'', artist:'', price:'', totalShares:'', royaltyRate:'', status:'Draft', description:'', durationDays:'', growthSchedule:[], coverImage:''},
         editingId:null,
-        openAddModal(){ this.editingId=null; this.newOffering={title:'',artist:'',price:'',totalShares:'',royaltyRate:'',status:'Draft'}; this.modalOpen=true },
-        openEditModal(o){ this.editingId=o.id; this.newOffering={title:o.title,artist:o.artist,price:o.price,totalShares:o.totalShares,royaltyRate:o.royaltyRate,status:o.status}; this.modalOpen=true },
+        openAddModal(){ this.editingId=null; this.newOffering={title:'',artist:'',price:'',totalShares:'',royaltyRate:'',status:'Draft',description:'',durationDays:'',growthSchedule:[{days:'',pct:''}],coverImage:''}; this.modalOpen=true },
+        openEditModal(o){ this.editingId=o.id; this.newOffering={title:o.title,artist:o.artist,price:o.price,totalShares:o.totalShares,royaltyRate:o.royaltyRate,status:o.status,description:o.description||'',durationDays:o.durationDays||'',growthSchedule:(o.growthSchedule&&o.growthSchedule.length?o.growthSchedule.map(m=>({...m})):[{days:'',pct:''}]),coverImage:o.coverImage||''}; this.modalOpen=true },
+        coverError:'',
+        onCoverSelected(e){
+          this.coverError='';
+          let file = e.target.files[0];
+          if(!file) return;
+          if(!file.type.startsWith('image/')){ this.coverError='Please choose an image file.'; e.target.value=''; return; }
+          if(file.size > 5*1024*1024){ this.coverError='Image must be under 5MB.'; e.target.value=''; return; }
+          let reader = new FileReader();
+          reader.onload = (ev) => { this.newOffering.coverImage = ev.target.result; };
+          reader.readAsDataURL(file);
+          e.target.value='';
+        },
+        removeCover(){ this.newOffering.coverImage=''; },
+        addMilestone(){ this.newOffering.growthSchedule.push({days:'',pct:''}) },
+        removeMilestone(idx){ this.newOffering.growthSchedule.splice(idx,1) },
         saveOffering(){
           if(!this.newOffering.title || !this.newOffering.artist || !this.newOffering.price || !this.newOffering.totalShares) return;
+          let cleanSchedule = this.newOffering.growthSchedule
+            .filter(m=>m.days!=='' && m.pct!=='')
+            .map(m=>({days:Number(m.days), pct:Number(m.pct)}))
+            .sort((a,b)=>a.days-b.days);
+          let payload = {...this.newOffering, price:Number(this.newOffering.price), totalShares:Number(this.newOffering.totalShares), durationDays:this.newOffering.durationDays?Number(this.newOffering.durationDays):null, growthSchedule:cleanSchedule};
           if(this.editingId){
             let o = this.offerings.find(x=>x.id===this.editingId);
-            Object.assign(o, this.newOffering, {price:Number(this.newOffering.price), totalShares:Number(this.newOffering.totalShares)});
+            Object.assign(o, payload);
           } else {
             let nextId = this.offerings.length ? Math.max(...this.offerings.map(o=>o.id))+1 : 1;
-            this.offerings.push({id:nextId, cover:'🎵', sold:0, ...this.newOffering, price:Number(this.newOffering.price), totalShares:Number(this.newOffering.totalShares)});
+            this.offerings.push({id:nextId, cover:'🎵', sold:0, ...payload});
           }
           this.modalOpen=false;
         },
@@ -214,7 +246,8 @@
                   <tr class="border-b border-slate-50">
                     <td class="py-3">
                       <div class="flex items-center gap-2.5">
-                        <span class="w-8 h-8 rounded-md bg-slate-100 flex items-center justify-center text-sm" x-text="o.cover"></span>
+                        <img x-show="o.coverImage" :src="o.coverImage" class="w-8 h-8 rounded-md object-cover" alt="">
+                        <span x-show="!o.coverImage" class="w-8 h-8 rounded-md bg-slate-100 flex items-center justify-center text-sm" x-text="o.cover"></span>
                         <div><p class="font-semibold text-slate-900" x-text="o.title"></p><p class="text-[9px] text-slate-400" x-text="o.artist"></p></div>
                       </div>
                     </td>
@@ -413,6 +446,32 @@
         <input x-model="newOffering.royaltyRate" type="text" placeholder="e.g. 12% APR (illustrative)" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-[11px] focus:outline-none focus:border-[#3974bd] focus:ring-1 focus:ring-[#3974bd]">
       </div>
       <div>
+        <label class="block text-[10px] font-semibold text-slate-600 mb-1.5">Description</label>
+        <textarea x-model="newOffering.description" rows="3" placeholder="What's the story behind this song? Why should investors care?" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-[11px] focus:outline-none focus:border-[#3974bd] focus:ring-1 focus:ring-[#3974bd]"></textarea>
+        <p class="text-[9px] text-slate-400 mt-1">Shown on the offering's product page for investors.</p>
+      </div>
+      <div>
+        <label class="block text-[10px] font-semibold text-slate-600 mb-1.5">Investment Duration (days)</label>
+        <input x-model="newOffering.durationDays" type="number" min="1" placeholder="e.g. 365" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-[11px] focus:outline-none focus:border-[#3974bd] focus:ring-1 focus:ring-[#3974bd]">
+        <p class="text-[9px] text-slate-400 mt-1">How long this offering's investment term lasts.</p>
+      </div>
+      <div>
+        <div class="flex items-center justify-between mb-1.5">
+          <label class="block text-[10px] font-semibold text-slate-600">Growth Milestones</label>
+          <button type="button" @click="addMilestone()" class="text-[9px] font-semibold text-[#2d60c3] hover:underline">+ Add Milestone</button>
+        </div>
+        <p class="text-[9px] text-slate-400 mb-2">Set the value increase (%) an investor sees after a given number of days.</p>
+        <div class="space-y-2">
+          <template x-for="(m, idx) in newOffering.growthSchedule" :key="idx">
+            <div class="flex items-center gap-2">
+              <input x-model="m.days" type="number" min="1" placeholder="Days" class="w-1/2 px-3 py-2 rounded-lg border border-slate-300 text-[11px] focus:outline-none focus:border-[#3974bd] focus:ring-1 focus:ring-[#3974bd]">
+              <input x-model="m.pct" type="number" min="0" step="0.1" placeholder="% increase" class="w-1/2 px-3 py-2 rounded-lg border border-slate-300 text-[11px] focus:outline-none focus:border-[#3974bd] focus:ring-1 focus:ring-[#3974bd]">
+              <button type="button" @click="removeMilestone(idx)" class="text-slate-400 hover:text-red-500 shrink-0" aria-label="Remove milestone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+            </div>
+          </template>
+        </div>
+      </div>
+      <div>
         <label class="block text-[10px] font-semibold text-slate-600 mb-1.5">Status</label>
         <select x-model="newOffering.status" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-[11px] bg-white focus:outline-none focus:border-[#3974bd] focus:ring-1 focus:ring-[#3974bd]">
           <option>Draft</option>
@@ -420,7 +479,19 @@
           <option>Sold Out</option>
         </select>
       </div>
-      <p class="text-[9px] text-slate-400">Cover art upload isn't wired up yet  this demo uses a placeholder icon for every offering.</p>
+      <div>
+        <label class="block text-[10px] font-semibold text-slate-600 mb-1.5">Cover Art</label>
+        <div class="flex items-center gap-3">
+          <img x-show="newOffering.coverImage" :src="newOffering.coverImage" class="w-14 h-14 rounded-lg object-cover border border-slate-200" alt="Cover art preview">
+          <span x-show="!newOffering.coverImage" class="w-14 h-14 rounded-lg bg-slate-100 flex items-center justify-center text-xl shrink-0" aria-hidden="true">🎵</span>
+          <div class="flex-1">
+            <input type="file" accept="image/*" @change="onCoverSelected($event)" id="cover-upload" class="block w-full text-[10px] text-slate-600 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-[10px] file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200">
+            <button type="button" x-show="newOffering.coverImage" @click="removeCover()" class="text-[9px] text-red-500 font-semibold mt-1">Remove image</button>
+          </div>
+        </div>
+        <p class="text-[9px] text-red-500 mt-1" x-show="coverError" x-text="coverError"></p>
+        <p class="text-[9px] text-slate-400 mt-1" x-show="!newOffering.coverImage">JPG or PNG, up to 5MB. Falls back to a placeholder icon if none is uploaded.</p>
+      </div>
       <div class="flex gap-3 pt-2">
         <button type="submit" class="btn-primary flex-1 py-2.5 rounded-lg text-[11px] font-semibold" x-text="editingId ? 'Save Changes' : 'Publish Offering'"></button>
         <button type="button" @click="modalOpen=false" class="btn-outline px-5 py-2.5 rounded-lg text-[11px] font-semibold">Cancel</button>
