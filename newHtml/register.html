@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MusixVest — Create Account</title>
+<meta name="description" content="Create your MusixVest account to start investing in fractional music royalties.">
+<link rel="icon" href="assets/img/favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="bg-white text-slate-800 antialiased min-h-screen">
+<a href="#main" class="skip-link">Skip to main content</a>
+
+<div class="min-h-screen grid grid-cols-1 lg:grid-cols-12">
+
+  <div class="lg:col-span-4 bg-[#2D60C3] text-white p-8 sm:p-12 lg:p-16 flex flex-col justify-between">
+    <div>
+      <a href="index.html" class="inline-block mb-12">
+        <img src="assets/img/logo.png" alt="MusixVest home" class="h-8 w-auto object-contain brightness-0 invert">
+      </a>
+      <div class="space-y-8">
+        <div>
+          <h2 class="text-xl sm:text-2xl font-bold mb-3">What is MusixVest</h2>
+          <p class="text-blue-100 text-xs sm:text-sm leading-relaxed">
+            MusixVest lets fans invest in songs through SongShares, fractional royalty interests. Create an account
+            to browse offerings and build a music portfolio.
+          </p>
+        </div>
+        <div>
+          <h2 class="text-xl sm:text-2xl font-bold mb-3">Getting started</h2>
+          <p class="text-blue-100 text-xs sm:text-sm leading-relaxed">Complete the form to create your account. You'll verify your identity next.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main id="main" class="lg:col-span-8 p-8 sm:p-12 lg:p-16 flex items-center justify-center">
+    <div class="w-full max-w-2xl space-y-8">
+
+      <h1 class="text-3xl font-extrabold text-slate-900">Create account</h1>
+
+      <div id="form-alert" class="alert alert-danger hidden" role="alert"></div>
+
+      <form id="register-form" novalidate class="space-y-6">
+
+        <div class="bg-amber-50/50 border border-amber-200/80 rounded-xl p-4 text-xs text-slate-600">
+          <span class="font-bold text-slate-800">Note:</span> Enter your first and last name as they appear on your government ID.
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="field">
+            <label class="field-label" for="firstName">First name</label>
+            <input type="text" id="firstName" name="firstName" required autocomplete="given-name" class="input" placeholder="Enter your first name">
+            <p class="field-error" id="firstName-error">Enter your first name.</p>
+          </div>
+          <div class="field">
+            <label class="field-label" for="lastName">Last name</label>
+            <input type="text" id="lastName" name="lastName" required autocomplete="family-name" class="input" placeholder="Enter your last name">
+            <p class="field-error" id="lastName-error">Enter your last name.</p>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="email">Email address</label>
+          <input type="email" id="email" name="email" required autocomplete="email" class="input" placeholder="Enter your email address">
+          <p class="field-error" id="email-error">Enter a valid email address.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="field">
+            <label class="field-label" for="password">Password</label>
+            <input type="password" id="password" name="password" required autocomplete="new-password" minlength="8" class="input" placeholder="Enter your password">
+            <p class="field-hint">Minimum 8 characters.</p>
+            <p class="field-error" id="password-error">Password must be at least 8 characters.</p>
+          </div>
+          <div class="field">
+            <label class="field-label" for="confirmPassword">Confirm password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required autocomplete="new-password" class="input" placeholder="Re-enter your password">
+            <p class="field-error" id="confirmPassword-error">Passwords do not match.</p>
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-500">
+          By clicking Register, you agree to MusixVest's <a href="about.html" class="text-[#2D60C3] font-medium hover:underline">Terms of Service</a> and <a href="about.html" class="text-[#2D60C3] font-medium hover:underline">Privacy Policy</a>.
+        </p>
+
+        <div>
+          <button type="submit" class="btn btn-primary px-8 py-3.5">Register</button>
+        </div>
+
+        <p class="text-sm text-slate-600 pt-2">
+          Already have an account? <a href="login.html" class="text-[#2D60C3] font-semibold hover:underline">Log in</a>
+        </p>
+
+      </form>
+    </div>
+  </main>
+
+</div>
+
+</body>
+</html>

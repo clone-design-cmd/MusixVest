@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MusixVest — How It Works</title>
+<meta name="description" content="How MusixVest works: register, verify your identity, deposit funds, and buy fractional SongShares in music royalties.">
+<link rel="icon" href="assets/img/favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="bg-white text-slate-700 antialiased">
+<a href="#main" class="skip-link">Skip to main content</a>
+
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-100">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-2">
+      <img src="assets/img/logo.png" alt="MusixVest home" class="h-10 w-auto object-contain">
+    </a>
+    <nav aria-label="Primary" class="hidden lg:flex items-center gap-7">
+      <a href="login.html" class="text-slate-500 hover:text-slate-900 text-sm">Explore Offerings</a>
+      <a href="how-it-works.html" class="text-slate-900 font-semibold text-sm">How It Works</a>
+      <a href="about.html" class="text-slate-500 hover:text-slate-900 text-sm">About</a>
+      <a href="contact.html" class="text-slate-500 hover:text-slate-900 text-sm">Contact</a>
+      <a href="how-it-works.html#faq" class="text-slate-500 hover:text-slate-900 text-sm">FAQ</a>
+      <a href="login.html" class="text-slate-500 hover:text-slate-900 text-sm">Log In</a>
+    </nav>
+    <a href="register.html" class="btn btn-primary">Get Started</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 pt-16 pb-10 text-center">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4">How MusixVest works</h1>
+    <p class="text-sm sm:text-base text-slate-500 max-w-2xl mx-auto">
+      From creating an account to owning your first SongShare, here's the full path a fan takes on MusixVest.
+    </p>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 pb-16">
+    <ol class="space-y-6">
+      <li class="card p-6 flex gap-5">
+        <span class="w-9 h-9 rounded-full bg-[#2d60c3] text-white flex items-center justify-center font-bold text-sm shrink-0" aria-hidden="true">1</span>
+        <div>
+          <h2 class="font-bold text-slate-900 text-base mb-1">Create an account</h2>
+          <p class="text-sm text-slate-500">Register with your name, email, and a password.</p>
+        </div>
+      </li>
+      <li class="card p-6 flex gap-5">
+        <span class="w-9 h-9 rounded-full bg-[#2d60c3] text-white flex items-center justify-center font-bold text-sm shrink-0" aria-hidden="true">2</span>
+        <div>
+          <h2 class="font-bold text-slate-900 text-base mb-1">Verify your identity</h2>
+          <p class="text-sm text-slate-500">Confirm you're eligible to invest by providing your date of birth, address, and identification details.</p>
+        </div>
+      </li>
+      <li class="card p-6 flex gap-5">
+        <span class="w-9 h-9 rounded-full bg-[#2d60c3] text-white flex items-center justify-center font-bold text-sm shrink-0" aria-hidden="true">3</span>
+        <div>
+          <h2 class="font-bold text-slate-900 text-base mb-1">Deposit funds</h2>
+          <p class="text-sm text-slate-500">Request a deposit from your settings page. An admin reviews and confirms it before it's added to your balance.</p>
+        </div>
+      </li>
+      <li class="card p-6 flex gap-5">
+        <span class="w-9 h-9 rounded-full bg-[#2d60c3] text-white flex items-center justify-center font-bold text-sm shrink-0" aria-hidden="true">4</span>
+        <div>
+          <h2 class="font-bold text-slate-900 text-base mb-1">Buy SongShares</h2>
+          <p class="text-sm text-slate-500">Browse open offerings and buy fractional shares in the songs you want to back.</p>
+        </div>
+      </li>
+      <li class="card p-6 flex gap-5">
+        <span class="w-9 h-9 rounded-full bg-[#2d60c3] text-white flex items-center justify-center font-bold text-sm shrink-0" aria-hidden="true">5</span>
+        <div>
+          <h2 class="font-bold text-slate-900 text-base mb-1">Track your portfolio</h2>
+          <p class="text-sm text-slate-500">Your dashboard shows your holdings, royalty distributions, and transaction history.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section id="faq" class="bg-slate-50 border-t border-slate-100 py-16">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6">
+      <h2 class="text-2xl font-extrabold text-slate-900 text-center mb-8">Frequently asked questions</h2>
+      <div x-data="{ open: 0 }" class="space-y-3">
+
+        <div class="card">
+          <button type="button" @click="open = open === 1 ? 0 : 1" class="w-full flex items-center justify-between p-5 text-left" :aria-expanded="open === 1" aria-controls="faq-1">
+            <span class="font-semibold text-slate-900 text-sm">What is a SongShare?</span>
+            <span aria-hidden="true" x-text="open === 1 ? '−' : '+'" class="text-[#2d60c3] font-bold text-lg"></span>
+          </button>
+          <div id="faq-1" x-show="open === 1" x-collapse class="px-5 pb-5 text-sm text-slate-500">
+            A SongShare represents a fractional interest in a song's royalty income. Owning shares means you receive a portion of the income that song generates.
+          </div>
+        </div>
+
+        <div class="card">
+          <button type="button" @click="open = open === 2 ? 0 : 2" class="w-full flex items-center justify-between p-5 text-left" :aria-expanded="open === 2" aria-controls="faq-2">
+            <span class="font-semibold text-slate-900 text-sm">Why does a deposit need admin approval?</span>
+            <span aria-hidden="true" x-text="open === 2 ? '−' : '+'" class="text-[#2d60c3] font-bold text-lg"></span>
+          </button>
+          <div id="faq-2" x-show="open === 2" x-collapse class="px-5 pb-5 text-sm text-slate-500">
+            Every deposit is reviewed by an admin before funds appear in your available balance. This mirrors how real financial platforms confirm incoming transfers before releasing funds.
+          </div>
+        </div>
+
+        <div class="card">
+          <button type="button" @click="open = open === 3 ? 0 : 3" class="w-full flex items-center justify-between p-5 text-left" :aria-expanded="open === 3" aria-controls="faq-3">
+            <span class="font-semibold text-slate-900 text-sm">Why do I need to verify my identity?</span>
+            <span aria-hidden="true" x-text="open === 3 ? '−' : '+'" class="text-[#2d60c3] font-bold text-lg"></span>
+          </button>
+          <div id="faq-3" x-show="open === 3" x-collapse class="px-5 pb-5 text-sm text-slate-500">
+            Verification confirms you're eligible to invest, similar to identity checks used by real investment platforms.
+          </div>
+        </div>
+
+        <div class="card">
+          <button type="button" @click="open = open === 4 ? 0 : 4" class="w-full flex items-center justify-between p-5 text-left" :aria-expanded="open === 4" aria-controls="faq-4">
+            <span class="font-semibold text-slate-900 text-sm">Is MusixVest a real investment platform?</span>
+            <span aria-hidden="true" x-text="open === 4 ? '−' : '+'" class="text-[#2d60c3] font-bold text-lg"></span>
+          </button>
+          <div id="faq-4" x-show="open === 4" x-collapse class="px-5 pb-5 text-sm text-slate-500">
+            MusixVest is designed to provide a streamlined experience for discovering, reviewing, and managing music royalty investments.
+          </div>
+        </div>
+
+        <div class="card">
+          <button type="button" @click="open = open === 5 ? 0 : 5" class="w-full flex items-center justify-between p-5 text-left" :aria-expanded="open === 5" aria-controls="faq-5">
+            <span class="font-semibold text-slate-900 text-sm">What is Meet &amp; Greet?</span>
+            <span aria-hidden="true" x-text="open === 5 ? '−' : '+'" class="text-[#2d60c3] font-bold text-lg"></span>
+          </button>
+          <div id="faq-5" x-show="open === 5" x-collapse class="px-5 pb-5 text-sm text-slate-500">
+            Meet &amp; Greet is a perk for SongShare holders  occasional virtual and in-person sessions with the artists behind the songs you've invested in. You can request an invite once you're logged in and holding shares in that song's offering.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="bg-[#3478bd] text-white mt-auto">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-9">
+    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-6 border-b border-white/15">
+      <a href="index.html"><img src="assets/img/logo.png" alt="MusixVest" class="w-[125px] h-auto brightness-0 invert"></a>
+      <nav aria-label="Footer" class="flex flex-wrap gap-x-4 gap-y-2 text-xs text-white/90">
+        <a href="index.html#selling" class="footer-link">Music Creators / Sell Royalties</a>
+        <a href="login.html" class="footer-link">Current Offerings</a>
+        <a href="about.html" class="footer-link">About Us</a>
+        <a href="contact.html" class="footer-link">Contact</a>
+        <a href="how-it-works.html#faq" class="footer-link">FAQs</a>
+      </nav>
+    </div>
+    <div class="flex flex-col sm:flex-row justify-between gap-3 py-6 text-xs text-white/90">
+      <span>© 2026 MusixVest. All rights reserved.</span>
+    </div>
+    <p class="text-xs leading-relaxed text-white/85 max-w-4xl">
+      MusixVest provides a focused marketplace for discovering and managing music royalty investments.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

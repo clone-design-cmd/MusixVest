@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#071342">
+<title>MusixVest - Admin</title>
+<link rel="icon" href="assets/img/favicon.png" type="image/png">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+  .shell{min-height:100vh}
+  .app-sidebar{width:250px}
+  .app-main{margin-left:250px}
+  .public-header{min-height:72px}
+  .blue-gradient{background:linear-gradient(115deg,#06133f 0%,#073d7c 55%,#0a68ad 100%)}
+  .soft-card{border:1px solid #e5e7eb;box-shadow:0 2px 10px rgba(15,23,42,.045)}
+  .btn-primary{background:#3974bd;color:white}
+  .btn-primary:hover{background:#2e66a9}
+  .btn-outline{border:1px solid #cbd5e1;color:#334155}
+  .btn-outline:hover{background:#f8fafc}
+  .footer-link{text-decoration:underline;text-underline-offset:2px}
+  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .table-wrap table{min-width:760px}
+  .side-link.active{background:#eff6ff;color:#3974bd;font-weight:700}
+  @media(max-width:1023px){
+    .app-sidebar{width:270px}
+    .app-main{margin-left:0}
+  }
+</style>
+
+</head>
+<body class="bg-slate-50 text-slate-700"
+      x-data="{
+        sidebarOpen:false,
+        profileOpen:false,
+        modalOpen:false,
+        confirmOpen:false,
+        pendingDeleteId:null,
+        pendingDeleteTitle:'',
+        tab:'offerings',
+        offerings:[
+          {id:1, title:'Stand Strong', artist:'Grace Aldridge', cover:'🎵', price:520, totalShares:100, sold:64, royaltyRate:'12% APR (illustrative)', status:'Active',
+            description:'An anthemic single about pushing through hard times. Streams have grown steadily since release, with sync licensing interest from two independent films.',
+            durationDays:365,
+            growthSchedule:[{days:30,pct:3},{days:90,pct:9},{days:180,pct:18},{days:365,pct:32}]},
+          {id:2, title:'Under Pressure', artist:'The Velvet Static', cover:'🎵', price:550, totalShares:80, sold:41, royaltyRate:'9% APR (illustrative)', status:'Active',
+            description:'A moody alt-rock track with a loyal fanbase and consistent playlist placements across major streaming platforms.',
+            durationDays:270,
+            growthSchedule:[{days:30,pct:2},{days:90,pct:6},{days:180,pct:13},{days:270,pct:21}]},
+          {id:3, title:'Fight Song', artist:'Marlowe & Cain', cover:'🎵', price:630, totalShares:60, sold:60, royaltyRate:'11% APR (illustrative)', status:'Sold Out',
+            description:'A high-energy collaboration that peaked on regional charts, with royalties from streaming, radio, and licensing.',
+            durationDays:180,
+            growthSchedule:[{days:30,pct:3},{days:60,pct:7},{days:120,pct:15},{days:180,pct:24}]},
+          {id:4, title:'Night Signal', artist:'Nova Reyes', cover:'🎵', price:410, totalShares:120, sold:12, royaltyRate:'8% APR (illustrative)', status:'Draft',
+            description:'A synth-driven track still building its early streaming momentum ahead of a wider playlist push.',
+            durationDays:365,
+            growthSchedule:[{days:30,pct:1},{days:90,pct:5},{days:180,pct:11},{days:365,pct:19}]}
+        ],
+        users:[
+          {id:1, name:'James Whitfield', email:'james@example.com', verified:true, holdings:16, balance:3200.00, joined:'Jun 2, 2026'},
+          {id:2, name:'Alicia Moreno', email:'alicia@example.com', verified:true, holdings:9, balance:940.50, joined:'Jun 18, 2026'},
+          {id:3, name:'Devon Park', email:'devon@example.com', verified:false, holdings:0, balance:0, joined:'Aug 10, 2026'}
+        ],
+        deposits:{
+          pending:[
+            {id:1, date:'Aug 18, 2026', investor:'Jordan Lee', amount:4500.00, method:'USDT (TRC20)'},
+            {id:2, date:'Aug 18, 2026', investor:'Maya Carter', amount:2750.00, method:'BTC'},
+            {id:3, date:'Aug 17, 2026', investor:'Noah Williams', amount:5200.00, method:'ETH'}
+          ],
+          resolved:[
+            {id:4, date:'Aug 17, 2026', investor:'Olivia Brown', amount:1800.00, status:'Confirmed', reviewedBy:'Platform Admin'},
+            {id:5, date:'Aug 16, 2026', investor:'Ethan Davis', amount:950.00, status:'Rejected', reviewedBy:'Platform Admin'}
+          ]
+        },
+        registeredInvestors:1284,
+        confirmDeposit(d){
+          this.deposits.resolved.unshift({id:d.id, date:d.date, investor:d.investor, amount:d.amount, status:'Confirmed', reviewedBy:'Platform Admin'});
+          this.deposits.pending = this.deposits.pending.filter(x=>x.id!==d.id);
+        },
+        rejectDeposit(d){
+          this.deposits.resolved.unshift({id:d.id, date:d.date, investor:d.investor, amount:d.amount, status:'Rejected', reviewedBy:'Platform Admin'});
+          this.deposits.pending = this.deposits.pending.filter(x=>x.id!==d.id);
+        },
+        cryptoAddresses:{
+          'USDT (TRC20)':'TXn9Yts4c7wm4ZeD1P8vR3qk6WbEo2Lp5H',
+          'USDT (ERC20)':'0x4A7fB1c9E82dF35a6c1B0e9D3F82C6a1B4E5D7c0',
+          'BTC':'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh',
+          'ETH':'0x8B3a5C6D1e9F42b7A0c8D5E3F1a6B9c4D2E7F0a1'
+        },
+        addressesSaved:false,
+        saveAddresses(){
+          this.addressesSaved=true;
+          setTimeout(()=>{ this.addressesSaved=false; }, 3000);
+        },
+        newOffering:{
+          title:'', artist:'', price:'', totalShares:'', royaltyRate:'', status:'Draft',
+          description:'', durationDays:'', growthSchedule:[], coverImage:''
+        },
+        editingId:null,
+        openAddModal(){
+          this.editingId=null;
+          this.newOffering={
+            title:'', artist:'', price:'', totalShares:'', royaltyRate:'', status:'Draft',
+            description:'', durationDays:'', growthSchedule:[{days:'',pct:''}], coverImage:''
+          };
+          this.modalOpen=true;
+        },
+        openEditModal(o){
+          this.editingId=o.id;
+          this.newOffering={
+            title:o.title,
+            artist:o.artist,
+            price:o.price,
+            totalShares:o.totalShares,
+            royaltyRate:o.royaltyRate,
+            status:o.status,
+            description:o.description||'',
+            durationDays:o.durationDays||'',
+            growthSchedule:(o.growthSchedule && o.growthSchedule.length) ? o.growthSchedule.map(m=>({...m})) : [{days:'',pct:''}],
+            coverImage:o.coverImage||''
+          };
+          this.modalOpen=true;
+        },
+        coverError:'',
+        onCoverSelected(e){
+          this.coverError='';
+          let file = e.target.files[0];
+          if(!file) return;
+          if(!file.type.startsWith('image/')){ this.coverError='Please choose an image file.'; e.target.value=''; return; }
+          if(file.size > 5*1024*1024){ this.coverError='Image must be under 5MB.'; e.target.value=''; return; }
+          let reader = new FileReader();
+          reader.onload = (ev) => { this.newOffering.coverImage = ev.target.result; };
+          reader.readAsDataURL(file);
+          e.target.value='';
+        },
+        removeCover(){ this.newOffering.coverImage=''; },
+        addMilestone(){ this.newOffering.growthSchedule.push({days:'',pct:''}) },
+        removeMilestone(idx){ this.newOffering.growthSchedule.splice(idx,1) },
+        saveOffering(){
+          if(!this.newOffering.title || !this.newOffering.artist || !this.newOffering.price || !this.newOffering.totalShares) return;
+          let cleanSchedule = this.newOffering.growthSchedule
+            .filter(m=>m.days!=='' && m.pct!=='')
+            .map(m=>({days:Number(m.days), pct:Number(m.pct)}))
+            .sort((a,b)=>a.days-b.days);
+          let payload = {...this.newOffering, price:Number(this.newOffering.price), totalShares:Number(this.newOffering.totalShares), durationDays:this.newOffering.durationDays?Number(this.newOffering.durationDays):null, growthSchedule:cleanSchedule};
+          if(this.editingId){
+            let o = this.offerings.find(x=>x.id===this.editingId);
+            Object.assign(o, payload);
+          } else {
+            let nextId = this.offerings.length ? Math.max(...this.offerings.map(o=>o.id))+1 : 1;
+            this.offerings.push({id:nextId, cover:'🎵', sold:0, ...payload});
+          }
+          this.modalOpen=false;
+        },
+        askDelete(o){ this.pendingDeleteId=o.id; this.pendingDeleteTitle=o.title; this.confirmOpen=true },
+        confirmDelete(){ this.offerings = this.offerings.filter(o=>o.id!==this.pendingDeleteId); this.confirmOpen=false }
+      }">
+<a href="#main" class="skip-link">Skip to main content</a>
+<div class="min-h-screen">
+  <div x-show="sidebarOpen" @click="sidebarOpen=false" x-transition.opacity class="fixed inset-0 bg-black/40 z-40 lg:hidden" style="display:none"></div>
+
+<aside class="app-sidebar fixed lg:fixed inset-y-0 left-0 bg-white border-r border-slate-200 z-50 flex flex-col"
+       :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
+       style="transition:transform .2s ease">
+  <div class="h-[88px] flex items-center justify-center px-5 border-b border-slate-100 shrink-0">
+    <a href="admin.html"><img src="assets/img/logo.png" alt="MusixVest" class="w-[132px] h-auto"></a>
+  </div>
+  <div class="px-4 pt-4">
+    <span class="inline-block text-[9px] font-bold tracking-wider uppercase text-white bg-[#0a2a5e] px-2.5 py-1 rounded-full">Admin Panel</span>
+  </div>
+  <nav class="flex-1 p-3 space-y-1 overflow-y-auto mt-1">
+    <a href="#" @click.prevent="tab='overview'" :class="tab==='overview' && 'active'" class="side-link flex items-center gap-3 px-3 py-3 rounded-lg text-[11px] font-medium hover:bg-slate-50">
+      <span class="inline-flex">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0">
+          <path d="M3 9.5 12 3l9 6.5"/>
+          <path d="M5 10v10a1 1 0 0 0 1 1h3v-6h6v6h3a1 1 0 0 0 1-1V10"/>
+        </svg>
+      </span>
+      Overview
+    </a>
+    <a href="#" @click.prevent="tab='offerings'" :class="tab==='offerings' && 'active'" class="side-link flex items-center gap-3 px-3 py-3 rounded-lg text-[11px] font-medium hover:bg-slate-50">
+      <span class="inline-flex">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0">
+          <path d="M9 18V5l12-2v13"/>
+          <circle cx="6" cy="18" r="3"/>
+          <circle cx="18" cy="16" r="3"/>
+        </svg>
+      </span>
+      Manage Offerings
+    </a>
+    <a href="#" @click.prevent="tab='users'" :class="tab==='users' && 'active'" class="side-link flex items-center gap-3 px-3 py-3 rounded-lg text-[11px] font-medium hover:bg-slate-50">
+      <span class="inline-flex">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+      </span>
+      Users
+    </a>
+    <a href="#" @click.prevent="tab='deposits'" :class="tab==='deposits' && 'active'" class="side-link flex items-center gap-3 px-3 py-3 rounded-lg text-[11px] font-medium hover:bg-slate-50">
+      <span class="inline-flex">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0">
+          <line x1="12" y1="1" x2="12" y2="23"/>
+          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+        </svg>
+      </span>
+      Deposits
+    </a>
+    <a href="#" @click.prevent="tab='payments'" :class="tab==='payments' && 'active'" class="side-link flex items-center gap-3 px-3 py-3 rounded-lg text-[11px] font-medium hover:bg-slate-50">
+      <span class="inline-flex">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0">
+          <rect x="2" y="6" width="20" height="14" rx="2"/>
+          <path d="M2 10h20"/>
+          <path d="M6 15h4"/>
+        </svg>
+      </span>
+      Payment Settings
+    </a>
+    <a href="#" @click.prevent="tab='transactions'" :class="tab==='transactions' && 'active'" class="side-link flex items-center gap-3 px-3 py-3 rounded-lg text-[11px] font-medium hover:bg-slate-50">
+      <span class="inline-flex">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0">
+          <line x1="8" y1="6" x2="21" y2="6"/>
+          <line x1="8" y1="12" x2="21" y2="12"/>
+          <line x1="8" y1="18" x2="21" y2="18"/>
+          <line x1="3" y1="6" x2="3.01" y2="6"/>
+          <line x1="3" y1="12" x2="3.01" y2="12"/>
+          <line x1="3" y1="18" x2="3.01" y2="18"/>
+        </svg>
+      </span>
+      Transactions
+    </a>
+  </nav>
+  <div class="p-3 border-t border-slate-100 space-y-1">
+    <a href="dashboard.html" class="flex items-center gap-3 px-3 py-3 rounded-lg text-[11px] font-medium text-slate-600 hover:bg-slate-50">
+      <span class="inline-flex">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0">
+          <polyline points="17 1 21 5 17 9"/>
+          <path d="M3 11V9a4 4 0 0 1 4-4h14"/>
+          <polyline points="7 23 3 19 7 15"/>
+          <path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+        </svg>
+      </span>
+      Investor View
+    </a>
+    <a href="index.html" class="flex items-center gap-3 px-3 py-3 rounded-lg text-[11px] font-medium text-slate-600 hover:bg-slate-50">
+      <span class="inline-flex">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0">
+          <line x1="19" y1="12" x2="5" y2="12"/>
+          <polyline points="12 19 5 12 12 5"/>
+        </svg>
+      </span>
+      Back to website
+    </a>
+  </div>
+</aside>
+
+  <div class="app-main min-h-screen flex flex-col">
+
+<header class="blue-gradient text-white sticky top-0 z-40">
+  <div class="h-[68px] px-4 sm:px-6 flex items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <button @click="sidebarOpen=true" class="lg:hidden w-9 h-9 rounded-md bg-white/10 hover:bg-white/15 flex items-center justify-center">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+      <div class="hidden sm:block text-[11px] font-semibold">MusixVest Admin</div>
+    </div>
+    <div class="flex items-center gap-3 sm:gap-5">
+      <button @click="openAddModal()" class="hidden sm:inline-flex btn-primary items-center gap-1.5 px-4 py-2 rounded-md text-[10px] font-semibold">
+        + New Offering
+      </button>
+      <div class="relative">
+        <button @click="profileOpen=!profileOpen" class="flex items-center gap-2 text-[11px] font-semibold">
+          <span class="w-7 h-7 rounded-full bg-white/10 border border-white/20 flex items-center justify-center">A</span>
+          <span class="hidden sm:inline">Admin</span><span class="inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg></span>
+        </button>
+        <div x-show="profileOpen" @click.outside="profileOpen=false" x-transition class="absolute right-0 mt-2 w-40 rounded-lg bg-white text-slate-700 shadow-xl py-1" style="display:none">
+          <a href="dashboard.html" class="block px-4 py-2 text-[11px] hover:bg-slate-50">Investor View</a>
+          <a href="login.html" class="block px-4 py-2 text-[11px] text-red-600 hover:bg-red-50">Log Out</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+    <main id="main" class="flex-1 px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+      <div class="max-w-7xl mx-auto">
+
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-7">
+          <div>
+            <p class="text-[#3974bd] text-[10px] font-bold uppercase tracking-wider">Admin Panel</p>
+            <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-1" x-text="tab==='overview' ? 'Overview' : tab==='offerings' ? 'Manage Offerings' : tab==='users' ? 'Users' : tab==='deposits' ? 'Deposit Requests' : tab==='payments' ? 'Payment Settings' : 'Transactions'"></h1>
+            <p class="text-[11px] text-slate-500 mt-2">Upload SongShare offerings, review investors, and monitor activity.</p>
+          </div>
+          <button @click="openAddModal()" class="sm:hidden btn-primary px-5 py-2.5 rounded-md text-[10px] font-semibold text-center">+ New Offering</button>
+        </div>
+
+        <!-- STAT CARDS (always visible) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+          <div class="soft-card bg-white rounded-xl p-5">
+            <p class="text-[10px] text-slate-500">Total Offerings</p>
+            <p class="text-2xl font-bold text-slate-900 mt-2" x-text="offerings.length"></p>
+            <p class="text-[9px] text-slate-500 mt-2" x-text="offerings.filter(o=>o.status==='Active').length + ' active'"></p>
+          </div>
+          <div class="soft-card bg-white rounded-xl p-5">
+            <p class="text-[10px] text-slate-500">Registered Users</p>
+            <p class="text-2xl font-bold text-slate-900 mt-2" x-text="users.length"></p>
+            <p class="text-[9px] text-slate-500 mt-2" x-text="users.filter(u=>u.verified).length + ' verified'"></p>
+          </div>
+          <div class="soft-card bg-white rounded-xl p-5">
+            <p class="text-[10px] text-slate-500">Shares Sold</p>
+            <p class="text-2xl font-bold text-slate-900 mt-2" x-text="offerings.reduce((s,o)=>s+o.sold,0)"></p>
+            <p class="text-[9px] text-slate-500 mt-2">Across all offerings</p>
+          </div>
+          <div class="soft-card bg-white rounded-xl p-5">
+            <p class="text-[10px] text-slate-500">Capital Raised</p>
+            <p class="text-2xl font-bold text-slate-900 mt-2" x-text="'$' + offerings.reduce((s,o)=>s+o.sold*o.price,0).toLocaleString()"></p>
+            <p class="text-[9px] text-slate-500 mt-2">Illustrative total</p>
+          </div>
+        </div>
+
+        <!-- OFFERINGS TAB -->
+        <section x-show="tab==='overview' || tab==='offerings'" class="soft-card bg-white rounded-xl p-5 mb-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+            <div><h2 class="text-[13px] font-bold text-slate-900">Song Offerings</h2><p class="text-[9px] text-slate-500 mt-1">Every SongShare offering listed on the platform.</p></div>
+            <button @click="openAddModal()" class="btn-primary px-4 py-2 rounded-md text-[10px] font-semibold">+ Add Offering</button>
+          </div>
+          <div class="table-wrap">
+                        <table class="w-full text-left">
+              <thead>
+                <tr class="text-[9px] uppercase tracking-wide text-slate-400 border-b border-slate-100">
+                  <th class="py-3">Song</th>
+                  <th class="py-3">Price/Share</th>
+                  <th class="py-3">Shares Sold</th>
+                  <th class="py-3">Royalty Rate</th>
+                  <th class="py-3">Status</th>
+                  <th class="py-3 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="text-[10px]">
+                <template x-for="o in offerings" :key="o.id">
+                <tr class="border-b border-slate-50">
+                  <td class="py-3">
+                      <div class="flex items-center gap-2.5">
+                        <img x-show="o.coverImage" :src="o.coverImage" class="w-8 h-8 rounded-md object-cover" alt="">
+                        <span x-show="!o.coverImage" class="w-8 h-8 rounded-md bg-slate-100 flex items-center justify-center text-sm" x-text="o.cover"></span>
+                        <div><p class="font-semibold text-slate-900" x-text="o.title"></p><p class="text-[9px] text-slate-400" x-text="o.artist"></p></div>
+                      </div>
+                    </td>
+                  <td x-text="'$' + o.price"></td>
+                  <td x-text="o.sold + ' / ' + o.totalShares"></td>
+                  <td x-text="o.royaltyRate"></td>
+                  <td>
+                      <span class="px-2 py-1 rounded-full"
+                            :class="o.status==='Active' ? 'bg-emerald-50 text-emerald-600' : o.status==='Sold Out' ? 'bg-slate-100 text-slate-500' : 'bg-amber-50 text-amber-600'"
+                            x-text="o.status"></span>
+                    </td>
+                  <td class="py-3 text-right whitespace-nowrap">
+                      <button @click="openEditModal(o)" class="text-[#3974bd] font-semibold mr-3">Edit</button>
+                      <button @click="askDelete(o)" class="text-red-500 font-semibold">Remove</button>
+                    </td>
+                </tr>
+                </template>
+                <tr x-show="offerings.length===0">
+                  <td colspan="6" class="py-8 text-center text-slate-400 text-[10px]">No offerings yet. Click "Add Offering" to upload one.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- USERS TAB -->
+        <section x-show="tab==='overview' || tab==='users'" class="soft-card bg-white rounded-xl p-5 mb-6">
+          <div class="mb-4"><h2 class="text-[13px] font-bold text-slate-900">Registered Users</h2><p class="text-[9px] text-slate-500 mt-1">Investors who have created an account.</p></div>
+          <div class="table-wrap">
+                        <table class="w-full text-left">
+              <thead>
+                <tr class="text-[9px] uppercase tracking-wide text-slate-400 border-b border-slate-100">
+                  <th class="py-3">Name</th>
+                  <th class="py-3">Email</th>
+                  <th class="py-3">Verification</th>
+                  <th class="py-3">Holdings</th>
+                  <th class="py-3">Balance</th>
+                  <th class="py-3">Joined</th>
+                </tr>
+              </thead>
+              <tbody class="text-[10px]">
+                <template x-for="u in users" :key="u.id">
+                <tr class="border-b border-slate-50">
+                  <td class="py-3 font-semibold text-slate-900" x-text="u.name"></td>
+                  <td x-text="u.email"></td>
+                  <td>
+                      <span class="px-2 py-1 rounded-full" :class="u.verified ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-100 text-slate-500'" x-text="u.verified ? 'Verified' : 'Pending'"></span>
+                    </td>
+                  <td x-text="u.holdings + ' shares'"></td>
+                  <td x-text="'$' + u.balance.toFixed(2)"></td>
+                  <td x-text="u.joined"></td>
+                </tr>
+                </template>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- DEPOSITS TAB -->
+        <section x-show="tab==='overview' || tab==='deposits'" class="mb-6">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+            <div class="soft-card bg-white rounded-xl p-5"><p class="text-[10px] text-slate-500">Pending Deposits</p><p class="text-2xl font-bold text-slate-900 mt-2" x-text="deposits.pending.length"></p></div>
+            <div class="soft-card bg-white rounded-xl p-5"><p class="text-[10px] text-slate-500">Pending Amount</p><p class="text-2xl font-bold text-slate-900 mt-2" x-text="'$' + deposits.pending.reduce((s,d)=>s+d.amount,0).toLocaleString(undefined,{minimumFractionDigits:2})"></p></div>
+            <div class="soft-card bg-white rounded-xl p-5"><p class="text-[10px] text-slate-500">Registered Investors</p><p class="text-2xl font-bold text-slate-900 mt-2" x-text="registeredInvestors.toLocaleString()"></p></div>
+          </div>
+
+          <div class="soft-card bg-white rounded-xl p-5 mb-4">
+            <div class="mb-4"><h2 class="text-[13px] font-bold text-slate-900">Pending Review</h2><p class="text-[9px] text-slate-500 mt-1">Confirm or reject investor deposit requests.</p></div>
+            <div class="table-wrap">
+                            <table class="w-full text-left">
+                <thead>
+                  <tr class="text-[9px] uppercase tracking-wide text-slate-400 border-b border-slate-100">
+                    <th class="py-3">Requested</th>
+                    <th class="py-3">Investor</th>
+                    <th class="py-3">Amount</th>
+                    <th class="py-3">Network</th>
+                    <th class="py-3 text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody class="text-[10px]">
+                  <template x-for="d in deposits.pending" :key="d.id">
+                  <tr class="border-b border-slate-50">
+                    <td class="py-3" x-text="d.date"></td>
+                    <td class="py-3 font-semibold text-slate-900" x-text="d.investor"></td>
+                    <td x-text="'$' + d.amount.toLocaleString(undefined,{minimumFractionDigits:2})"></td>
+                    <td x-text="d.method"></td>
+                    <td class="py-3 text-right whitespace-nowrap">
+                        <button @click="confirmDeposit(d)" class="btn-primary px-3 py-1.5 rounded-md text-[9px] font-semibold mr-2">Confirm</button>
+                        <button @click="rejectDeposit(d)" class="btn-outline px-3 py-1.5 rounded-md text-[9px] font-semibold">Reject</button>
+                      </td>
+                  </tr>
+                  </template>
+                  <tr x-show="deposits.pending.length===0">
+                    <td colspan="5" class="py-8 text-center text-slate-400 text-[10px]">No pending deposit requests.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="soft-card bg-white rounded-xl p-5">
+            <div class="mb-4"><h2 class="text-[13px] font-bold text-slate-900">Recently Resolved</h2></div>
+            <div class="table-wrap">
+                            <table class="w-full text-left">
+                <thead>
+                  <tr class="text-[9px] uppercase tracking-wide text-slate-400 border-b border-slate-100">
+                    <th class="py-3">Resolved</th>
+                    <th class="py-3">Investor</th>
+                    <th class="py-3">Amount</th>
+                    <th class="py-3">Status</th>
+                    <th class="py-3">Reviewed By</th>
+                  </tr>
+                </thead>
+                <tbody class="text-[10px]">
+                  <template x-for="d in deposits.resolved" :key="d.id">
+                  <tr class="border-b border-slate-50">
+                    <td class="py-3" x-text="d.date"></td>
+                    <td x-text="d.investor"></td>
+                    <td x-text="'$' + d.amount.toLocaleString(undefined,{minimumFractionDigits:2})"></td>
+                    <td><span class="px-2 py-1 rounded-full" :class="d.status==='Confirmed' ? 'bg-emerald-50 text-emerald-600' : 'bg-red-50 text-red-500'" x-text="d.status"></span></td>
+                    <td x-text="d.reviewedBy"></td>
+                  </tr>
+                  </template>
+                  <tr x-show="deposits.resolved.length===0">
+                    <td colspan="5" class="py-8 text-center text-slate-400 text-[10px]">No resolved requests yet.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="text-[8px] text-slate-400 mt-3">Static demo data  wire this to real deposit records once backend logic is built.</p>
+          </div>
+        </section>
+
+        <!-- PAYMENT SETTINGS TAB -->
+        <section x-show="tab==='overview' || tab==='payments'" class="soft-card bg-white rounded-xl p-5 mb-6">
+          <div class="mb-4"><h2 class="text-[13px] font-bold text-slate-900">Crypto Deposit Addresses</h2><p class="text-[9px] text-slate-500 mt-1">These are the wallet addresses shown to investors when they deposit funds. Update them if a wallet changes.</p></div>
+          <div class="space-y-4 max-w-xl">
+            <template x-for="network in Object.keys(cryptoAddresses)" :key="network">
+              <div class="field">
+                <label class="field-label text-[9px]" x-text="network"></label>
+                <input type="text" x-model="cryptoAddresses[network]" class="input font-mono text-[11px]">
+              </div>
+            </template>
+          </div>
+          <div class="flex items-center gap-3 mt-5">
+            <button @click="saveAddresses()" class="btn-primary px-4 py-2 rounded-md text-[10px] font-semibold">Save Changes</button>
+            <span class="text-[9px] text-emerald-600 font-semibold" x-show="addressesSaved" x-transition>Saved</span>
+          </div>
+          <p class="text-[8px] text-slate-400 mt-4">Changes apply only to this browser session  connect this form to your backend so updates persist and sync to the investor-facing deposit page.</p>
+        </section>
+
+        <!-- TRANSACTIONS TAB (placeholder, static) -->
+        <section x-show="tab==='overview' || tab==='transactions'" class="soft-card bg-white rounded-xl p-5">
+          <div class="mb-4"><h2 class="text-[13px] font-bold text-slate-900">Platform Transactions</h2><p class="text-[9px] text-slate-500 mt-1">Latest deposits, purchases, and royalty payouts across all users.</p></div>
+          <div class="table-wrap">
+                        <table class="w-full text-left">
+              <thead>
+                <tr class="text-[9px] uppercase tracking-wide text-slate-400 border-b border-slate-100">
+                  <th class="py-3">Date</th>
+                  <th class="py-3">User</th>
+                  <th class="py-3">Description</th>
+                  <th class="py-3">Amount</th>
+                  <th class="py-3">Status</th>
+                </tr>
+              </thead>
+              <tbody class="text-[10px]">
+                <tr class="border-b border-slate-50">
+                  <td class="py-3">Aug 12, 2026</td>
+                  <td>James Whitfield</td>
+                  <td class="font-semibold">Royalty Distribution</td>
+                  <td class="text-emerald-600">+$184.20</td>
+                  <td>Completed</td>
+                </tr>
+                <tr class="border-b border-slate-50">
+                  <td class="py-3">Aug 08, 2026</td>
+                  <td>James Whitfield</td>
+                  <td class="font-semibold">Stand Strong SongShares</td>
+                  <td>-$640.00</td>
+                  <td>Completed</td>
+                </tr>
+                <tr>
+                  <td class="py-3">Aug 02, 2026</td>
+                  <td>Alicia Moreno</td>
+                  <td class="font-semibold">Account Deposit</td>
+                  <td class="text-emerald-600">+$1,000.00</td>
+                  <td>Completed</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="text-[8px] text-slate-400 mt-3">Static placeholder data  wire this to real transaction records once purchase/deposit logic is built.</p>
+        </section>
+
+      </div>
+    </main>
+
+<footer class="bg-white pt-12 pb-8 border-t border-slate-100 text-xs text-slate-500">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-slate-100">
+    <nav aria-label="Footer" class="md:col-span-6 space-y-2">
+      <p class="font-bold text-slate-900 mb-3">Menu</p>
+      <p><a href="offerings.html" class="hover:text-slate-900">Explore Offerings</a></p>
+      <p><a href="how-it-works.html" class="hover:text-slate-900">How It Works</a></p>
+      <p><a href="index.html#selling" class="hover:text-slate-900">Selling Royalties</a></p>
+      <p><a href="about.html" class="hover:text-slate-900">About</a></p>
+      <p><a href="how-it-works.html#faq" class="hover:text-slate-900">FAQ</a></p>
+    </nav>
+  </div>
+</footer>
+
+  </div>
+</div>
+
+<!-- ADD / EDIT OFFERING MODAL -->
+<div x-show="modalOpen" x-transition.opacity class="fixed inset-0 bg-black/50 z-[60] flex items-center justify-center p-4" style="display:none" @keydown.escape.window="modalOpen=false">
+  <div @click.outside="modalOpen=false" x-transition class="bg-white rounded-xl w-full max-w-lg p-6 max-h-[90vh] overflow-y-auto">
+    <div class="flex items-center justify-between mb-5">
+      <h3 class="text-[15px] font-bold text-slate-900" x-text="editingId ? 'Edit Offering' : 'Add New Offering'"></h3>
+      <button @click="modalOpen=false" class="text-slate-400 hover:text-slate-600 leading-none">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <form @submit.prevent="saveOffering()" class="space-y-4">
+      <div>
+        <label class="block text-[10px] font-semibold text-slate-600 mb-1.5">Song Title</label>
+        <input x-model="newOffering.title" type="text" required placeholder="e.g. Stand Strong" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-[11px] focus:outline-none focus:border-[#3974bd] focus:ring-1 focus:ring-[#3974bd]">
+      </div>
+      <div>
+        <label class="block text-[10px] font-semibold text-slate-600 mb-1.5">Artist</label>
+        <input x-model="newOffering.artist" type="text" required placeholder="e.g. Grace Aldridge" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-[11px] focus:outline-none focus:border-[#3974bd] focus:ring-1 focus:ring-[#3974bd]">
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-[10px] font-semibold text-slate-600 mb-1.5">Price / Share ($)</label>
+          <input x-model="newOffering.price" type="number" min="1" required placeholder="520" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-[11px] focus:outline-none focus:border-[#3974bd] focus:ring-1 focus:ring-[#3974bd]">
+        </div>
+        <div>
+          <label class="block text-[10px] font-semibold text-slate-600 mb-1.5">Total Shares</label>
+          <input x-model="newOffering.totalShares" type="number" min="1" required placeholder="100" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-[11px] focus:outline-none focus:border-[#3974bd] focus:ring-1 focus:ring-[#3974bd]">
+        </div>
+      </div>
+      <div>
+        <label class="block text-[10px] font-semibold text-slate-600 mb-1.5">Royalty Rate / Description</label>
+        <input x-model="newOffering.royaltyRate" type="text" placeholder="e.g. 12% APR (illustrative)" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-[11px] focus:outline-none focus:border-[#3974bd] focus:ring-1 focus:ring-[#3974bd]">
+      </div>
+      <div>
+        <label class="block text-[10px] font-semibold text-slate-600 mb-1.5">Description</label>
+        <textarea x-model="newOffering.description" rows="3" placeholder="What's the story behind this song? Why should investors care?" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-[11px] focus:outline-none focus:border-[#3974bd] focus:ring-1 focus:ring-[#3974bd]"></textarea>
+        <p class="text-[9px] text-slate-400 mt-1">Shown on the offering's product page for investors.</p>
+      </div>
+      <div>
+        <label class="block text-[10px] font-semibold text-slate-600 mb-1.5">Investment Duration (days)</label>
+        <input x-model="newOffering.durationDays" type="number" min="1" placeholder="e.g. 365" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-[11px] focus:outline-none focus:border-[#3974bd] focus:ring-1 focus:ring-[#3974bd]">
+        <p class="text-[9px] text-slate-400 mt-1">How long this offering's investment term lasts.</p>
+      </div>
+      <div>
+        <div class="flex items-center justify-between mb-1.5">
+          <label class="block text-[10px] font-semibold text-slate-600">Growth Milestones</label>
+          <button type="button" @click="addMilestone()" class="text-[9px] font-semibold text-[#2d60c3] hover:underline">+ Add Milestone</button>
+        </div>
+        <p class="text-[9px] text-slate-400 mb-2">Set the value increase (%) an investor sees after a given number of days.</p>
+        <div class="space-y-2">
+          <template x-for="(m, idx) in newOffering.growthSchedule" :key="idx">
+            <div class="flex items-center gap-2">
+              <input x-model="m.days" type="number" min="1" placeholder="Days" class="w-1/2 px-3 py-2 rounded-lg border border-slate-300 text-[11px] focus:outline-none focus:border-[#3974bd] focus:ring-1 focus:ring-[#3974bd]">
+              <input x-model="m.pct" type="number" min="0" step="0.1" placeholder="% increase" class="w-1/2 px-3 py-2 rounded-lg border border-slate-300 text-[11px] focus:outline-none focus:border-[#3974bd] focus:ring-1 focus:ring-[#3974bd]">
+              <button type="button" @click="removeMilestone(idx)" class="text-slate-400 hover:text-red-500 shrink-0" aria-label="Remove milestone">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="18" y1="6" x2="6" y2="18"/>
+                  <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+              </button>
+            </div>
+          </template>
+        </div>
+      </div>
+      <div>
+        <label class="block text-[10px] font-semibold text-slate-600 mb-1.5">Status</label>
+        <select x-model="newOffering.status" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-[11px] bg-white focus:outline-none focus:border-[#3974bd] focus:ring-1 focus:ring-[#3974bd]">
+          <option>Draft</option>
+          <option>Active</option>
+          <option>Sold Out</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-[10px] font-semibold text-slate-600 mb-1.5">Cover Art</label>
+        <div class="flex items-center gap-3">
+          <img x-show="newOffering.coverImage" :src="newOffering.coverImage" class="w-14 h-14 rounded-lg object-cover border border-slate-200" alt="Cover art preview">
+          <span x-show="!newOffering.coverImage" class="w-14 h-14 rounded-lg bg-slate-100 flex items-center justify-center text-xl shrink-0" aria-hidden="true">🎵</span>
+          <div class="flex-1">
+            <input type="file" accept="image/*" @change="onCoverSelected($event)" id="cover-upload" class="block w-full text-[10px] text-slate-600 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-[10px] file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200">
+            <button type="button" x-show="newOffering.coverImage" @click="removeCover()" class="text-[9px] text-red-500 font-semibold mt-1">Remove image</button>
+          </div>
+        </div>
+        <p class="text-[9px] text-red-500 mt-1" x-show="coverError" x-text="coverError"></p>
+        <p class="text-[9px] text-slate-400 mt-1" x-show="!newOffering.coverImage">JPG or PNG, up to 5MB. Falls back to a placeholder icon if none is uploaded.</p>
+      </div>
+      <div class="flex gap-3 pt-2">
+        <button type="submit" class="btn-primary flex-1 py-2.5 rounded-lg text-[11px] font-semibold" x-text="editingId ? 'Save Changes' : 'Publish Offering'"></button>
+        <button type="button" @click="modalOpen=false" class="btn-outline px-5 py-2.5 rounded-lg text-[11px] font-semibold">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- DELETE CONFIRM MODAL -->
+<div x-show="confirmOpen" x-transition.opacity class="fixed inset-0 bg-black/50 z-[60] flex items-center justify-center p-4" style="display:none" @keydown.escape.window="confirmOpen=false">
+  <div @click.outside="confirmOpen=false" x-transition class="bg-white rounded-xl w-full max-w-sm p-6">
+    <h3 class="text-[14px] font-bold text-slate-900 mb-2">Remove this offering?</h3>
+    <p class="text-[11px] text-slate-500 mb-5">"<span x-text="pendingDeleteTitle"></span>" will be removed from the platform. This can't be undone in this demo.</p>
+    <div class="flex gap-3">
+      <button @click="confirmDelete()" class="flex-1 py-2.5 rounded-lg text-[11px] font-semibold bg-red-500 text-white hover:bg-red-600">Remove</button>
+      <button @click="confirmOpen=false" class="btn-outline px-5 py-2.5 rounded-lg text-[11px] font-semibold">Cancel</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
